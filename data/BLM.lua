@@ -46,7 +46,7 @@
 -- Initialization function for this job.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -1061,6 +1061,21 @@ attack staggers the fiend!
 	end
 end)
 
+function user_job_target_change(target)  
+	local target = windower.ffxi.get_mob_by_target('t')
+    local sub = windower.ffxi.get_mob_by_target('st')
+	if target and target.name then
+		if target.name == "Leshonn" or target.name == "Gartell" then --test Ironshell Ghast
+			windower.send_command('gs c set ElementalMode Ice')
+			windower.send_command('input /echo ['..target.name..']  Wind hand: 70% Ice, Thunder hand: 70% EarthWind and Thunder hands:  only Ice damage will be effective.')  -- code add by (Aragan)
+		elseif target.name == "Ghatjot" or target.name == "Dhartok" then
+			windower.send_command('gs c set ElementalMode Earth')
+		elseif target.name == "Skomora" or target.name == "Triboulex" then
+			windower.send_command('gs c set ElementalMode Fire')
+		end
+	end
+
+end
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat
 		{Name='Reraise',		Buff='Reraise',			SpellID=113,	When='Always'},
