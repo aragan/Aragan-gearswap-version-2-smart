@@ -7,7 +7,8 @@
                                      +last update
 
                         -★ 💀 A R A G A N  G E A R S W A P 💀 ★
-
+                                       Transformer
+                                         Version
                                   -🩸 Holy BLOOD MODE 🩸 
 ```
 
