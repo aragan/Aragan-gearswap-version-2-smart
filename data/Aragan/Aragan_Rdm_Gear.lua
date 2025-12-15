@@ -110,7 +110,7 @@ function init_gear_sets()
 	sets.weapons.Sanguine = {main="Crocea Mors", }
 	sets.weapons.Club = {main="Maxentius", }
 	sets.weapons.Staff = {main="Xoanon",sub="Niobid Strap"}
-	sets.weapons.DAGGER = {main="Tauret", }
+	sets.weapons.DAGGERS = {main="Tauret", }
 	sets.weapons.DualSWORDS = {main="Naegling", sub="Demers. Degen +1"}
 	sets.weapons.DualSWORDS2 = {main="Naegling", sub="Thibron"}
 	sets.weapons.DualCrocea = {main="Crocea Mors", sub="Daybreak"}
@@ -488,7 +488,7 @@ sets.precast.WS["Shell Crusher"] = set_combine(sets.precast.WS, {
 		sets.midcast.Cure = {
 			ammo="Staunch Tathlum +1",
 			head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
-			body={ name="Chironic Doublet", augments={'"Mag.Atk.Bns."+5','"Cure" potency +10%','MND+4','Mag. Acc.+1',}},
+			body={ name="Bunzi's Robe", augments={'Path: A',}},
 			hands={ name="Kaykaus Cuffs +1", augments={'MP+80','MND+12','Mag. Acc.+20',}},
 			legs={ name="Vanya Slops", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
 			feet={ name="Vanya Clogs", augments={'"Cure" potency +5%','"Cure" spellcasting time -15%','"Conserve MP"+6',}},
@@ -621,7 +621,7 @@ sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'].Duration, {})
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'].Duration, {})
 
     -- set_combine(sets.EnhancingSkill, {
-	-- 	back={ name="Ghostfyre Cape", augments={'Enfb.mag. skill +9','Enha.mag. skill +2','Mag. Acc.+7',}},
+	-- 	back="Ghostfyre Cape",
 	-- })
 	sets.midcast.Aquaveil = {hands="Regal Cuffs",}
 	sets.midcast.BarElement = {}
@@ -879,7 +879,7 @@ sets.midcast['Enfeebling Magic'].Potency = {
 	sets.idle = {	ammo="Homiliary",
 	head="Null Masque",
 	body="Lethargy Sayon +3",
-	hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+	hands="Volte Gloves",
 	legs={ name="Nyame Flanchard", augments={'Path: B',}},
 	feet={ name="Nyame Sollerets", augments={'Path: B',}},
 	neck="Rep. Plat. Medal",
@@ -1066,7 +1066,7 @@ sets.idle.Sphere = set_combine(sets.idle, {
 		hands="Aya. Manopolas +2",
 		legs={ name="Viti. Tights +3", augments={'Enspell Damage','Accuracy',}},
 		waist="Orpheus's Sash",
-		back={ name="Ghostfyre Cape", augments={'Enfb.mag. skill +9','Enha.mag. skill +2','Mag. Acc.+7',}},
+		back="Ghostfyre Cape",
 	}
 	sets.passive.EnspellFULLDT = {
 		head="Umuthi Hat",
@@ -1080,7 +1080,7 @@ sets.idle.Sphere = set_combine(sets.idle, {
 		right_ear="Suppanomimi",
 		left_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		right_ring="Defending Ring",
-		back={ name="Ghostfyre Cape", augments={'Enfb.mag. skill +9','Enha.mag. skill +2','Mag. Acc.+7',}},
+		back="Ghostfyre Cape",
 	}
 	sets.passive.Shiniryu1 = {
 		ammo="Aurgelmir Orb +1",
