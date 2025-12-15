@@ -8,7 +8,7 @@ console_displayactivity 1
 console_fadedelay 3500
 console_chatopen 1
 console_screendir screenshots
-console_load Guildwork
+//console_load Guildwork
 
 //Set game variables
 game_forceambientlight 1
@@ -38,7 +38,9 @@ bind ^v paste
 
 //Sets ConsoleBG Background Position
 consolebg position 15 50
-consolebg size 1300 310
+consolebg size 1000 310
+
+// run C:\Program Files (x86)\Windower4\addons\xivcrossbar/FFXI_Input.sh
 
 // *** ALLIANCE TARGET KEYS ***
 // This lets you push Alt+F1-6 and Ctrl+F1-6 to  to target Alliance members.
@@ -94,8 +96,6 @@ bind %h input /lockon;
 //lua load Roller
 
 //Other addons I found that are quite good
-//lua load Gaze_check
-gzc auto_gaze
 //lua load SellNPC
 //lua load QuietSparks
 //lua load DistanceTParty
@@ -104,7 +104,7 @@ gzc auto_gaze
 //lua load NagMeNot
 //lua load PorterPacker
 //lua load HTMB
-lua l XiPivot
+//lua l XiPivot
 
 //Other binds!
 //@ = Windows Key
@@ -126,8 +126,8 @@ bind ^@!o lua load dressup
 bind @o lua unload dressup
 
 //Zonetimer plugin controls.
-bind @t lua unload zonetimer
-bind ^@!t lua reload zonetimer
+//bind @t lua unload zonetimer
+//bind ^@!t lua reload zonetimer
 
 //Gametime plugin controls.
 bind @i lua unload gametime
@@ -298,9 +298,9 @@ lua load schskillchain
 // lua load TargetPlus
 // lua load targeter
 // lua load allseeingeye
-lua load QuestLog
---lua load OhNoYouDont
-lua load finalAlert
+//lua load QuestLog
+//lua load OhNoYouDont
+//lua load finalAlert
 lua load finalAlert 250 330
 lua load Equipviewer 380 530 -- scale windower 1.6
 // ev pos 380 470 --for screen res 1916 995
@@ -308,45 +308,41 @@ lua load Equipviewer 380 530 -- scale windower 1.6
 // lua load Equipviewer 380 500 --for screen res 1920-1080
 // lua load Equipviewer 380 530 --for screen res 1600-1024
 // lua load Equipviewer 380 575
-lua load Quetz
+//lua load Quetz
 lua load parse 
 // parse show defense
 lua load sparks
---lua load Furrow
-//lua load AutoJoin
+//lua load Furrow
 lua load tradenpc
 lua load sellnpc
 lua load anchor
-// lua load gearinfo
 lua load Skillchains
 lua load Repeater
 lua load React
 lua load sheolhelper
 lua load trade
 lua load ShoutAlert
---lua load Sublimator
+//lua load Sublimator
 // lua load Cancel
 
-lua load Facing
+//lua load Facing
 lua load partyhints
---lua load PartyPets
+//lua load PartyPets
 lua load PartyBuffs
---lua load shortcuts
---lua load shoutml
---lua load SortieHUD
-lua load spellSpammer
---lua load fuckoff
+//lua load shoutml
+//lua load SortieHUD
+// lua load spellSpammer
 lua load enemybar2
-lua load EasySpells
+// lua load EasySpells
 // lua load EasyNuke
---lua load closetCleaner
+//lua load closetCleaner
 lua load chatfilter
 //lua load azureSets
 //lua load AutoRA
 //lua load WS
 //lua load KU
---lua load sc
---lua load mob
+//lua load sc
+//lua load mob
 lua load DParty
 lua load SirPopaLot
 lua load smarttarget
@@ -361,10 +357,12 @@ lua load leave
 lua load blupldsets
 lua load AutoBuffBard
 lua load Gaze_check
+//gzc auto_gaze
+//gzc auto_perm_gaze
 lua load callouts
 //co chatmode party
 lua load DropStop
-lua load GPS
+// lua load GPS
 lua load runewidget
 lua load autoitem
 //lua load staggertrack
@@ -372,42 +370,49 @@ lua load autoitem
 lua load help
 
 lua load roller
-lua load VanaFacts
+lua load rolltracker
+//lua load VanaFacts
 lua load PorterPacker
 lua load Cards
 lua load SortieJobs
 lua load collector
-lua load  GaolPlan
-lua load  BST-HUD
+lua load DoorHelper
+//lua load BST-HUD
 lua load TargetBar
 lua load invtracker
 lua load invspace
 lua load metronome
-lua load fuckoff
-lua load autosc
-lua load skillchainer
-skillchainer paused
+lua load Valkyrie
+lua load superwarp
+//lua load AutoDNC
+lua load Synergy
+//lua load AutoInvite
+AutoInvite freeinv
+//lua load fuckoff
+//lua load autosc
 //lua load PacketStun
 //lua load tonic
-lua load ambuloot
-lua load infohud
-lua load Silmaril
+//lua load ambuloot
+//lua load infohud
+//lua load Silmaril
 //lua load nameless
 //lua load rtfm
 //lua load Commandcuts
-// lua load diagnostics
-
+//lua load diagnostics
+//lua load Trove-HUD --//trove next --trove reset
 -- addon work it for nm farm trial ph scan placeholder nm just 
 
 //lua load VoidWalker
-//lua load targetinfo --mob IDs for NM placeholders
+lua load targetinfo --mob IDs for NM placeholders
 //lua load allseeingeye
-//lua load scanner -- useage://autoscan //scanner autotrack --//scanner scan
+//lua load scanner -- useage://scanner autoscan 
+//scanner autotrack --//scanner scan
 //lua load scanzone -- useage: //scanzone find name
-//lua load widescantool -- useage:wst rga <name or pattern>: Remove Global Alert
+//scanzone scan 0x00
+//lua load widescantool -- useage:wst aga <name or pattern>: --Add Global Alert --wst aaa <name or pattern>: Add area Alert --wst rga <name or pattern>: Remove Global Alert
 
 ept hide
-// aws use Savage Blade -- //aws set Savage Blade -- to add ws to addon autows
+// aws use Savage Blade -- //aws set Savage Blade -- to --add ws to addon autows
 
 wait 60
 lua load GearInfo
@@ -415,7 +420,8 @@ lua load ShoutAlert
 // lua load autoNukes
 lua load autows
 lua load autosc
-
+lua load skillchainer
+// skillchainer paused
 // lua l XIPivot
 // gi show logo
 // (Aragan)
