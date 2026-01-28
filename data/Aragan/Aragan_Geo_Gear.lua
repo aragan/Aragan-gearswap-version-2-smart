@@ -583,7 +583,9 @@ function init_gear_sets()
 	left_ring="Stikini Ring +1",
 	back={ name="Fi Follet Cape +1", augments={'Path: A',}}
 }
-
+sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
+    head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+})
 	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
 		head="Telchine Cap",
 		hands="Telchine Gloves",
@@ -604,7 +606,9 @@ function init_gear_sets()
 	sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",ear2="Malignance Earring"})
 	sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",ear2="Malignance Earring"})
 	sets.midcast.Shellra = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring",ear2="Malignance Earring"})
-    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
 
     sets.rangeammo = {ammo=empty,range="Trollbane"}
 
@@ -645,7 +649,7 @@ function init_gear_sets()
         range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head="Null Masque",
         body="Shamash Robe",
-        hands={ name="Chironic Gloves", augments={'VIT+4','"Waltz" potency +2%','"Refresh"+2','Mag. Acc.+18 "Mag.Atk.Bns."+18',}},
+        hands="Volte Gloves",
         legs="Assid. Pants +1",
         feet="Nyame Sollerets",
         neck={ name="Loricate Torque +1", augments={'Path: A',}},
@@ -661,7 +665,7 @@ function init_gear_sets()
         range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head="Azimuth Hood +2",
         body="Shamash Robe",
-        hands={ name="Chironic Gloves", augments={'VIT+4','"Waltz" potency +2%','"Refresh"+2','Mag. Acc.+18 "Mag.Atk.Bns."+18',}},
+        hands="Volte Gloves",
         legs="Assid. Pants +1",
         feet="Nyame Sollerets",
         neck={ name="Loricate Torque +1", augments={'Path: A',}},
@@ -685,7 +689,7 @@ function init_gear_sets()
         range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
         head="Null Masque",
         body="Shamash Robe",
-        hands={ name="Chironic Gloves", augments={'VIT+4','"Waltz" potency +2%','"Refresh"+2','Mag. Acc.+18 "Mag.Atk.Bns."+18',}},
+        hands="Volte Gloves",
         legs="Assid. Pants +1",
         feet="Geo. Sandals +3",
         neck={ name="Loricate Torque +1", augments={'Path: A',}},

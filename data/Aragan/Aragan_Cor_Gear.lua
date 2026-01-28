@@ -107,9 +107,12 @@ function user_job_setup()
 	send_command('bind ^@!\\\\ gs c toggle LuzafRing')
     send_command('bind ^2 gs c toggle LuzafRing')
 	send_command('bind @f7 gs c toggle RngHelper')
-	send_command('bind @2 gs c toggle RngHelper;wait 0.2;gs c toggle RngHelperQuickDraw')
-    -- send_command('bind !a gs c toggle phalanxset') 
+	send_command('bind @2 gs c toggle RngHelper;')--wait 0.2;gs c toggle RngHelper QuickDraw
+    send_command('bind !d gs c autora')
+    send_command('bind !f gs c haltontp')
 
+    
+    -- send_command('bind !a gs c toggle phalanxset') 
 	--send_command('bind !r gs c weapons DualSavageWeapons;gs c update')
 	--send_command('bind ^q gs c weapons DualAeolian;gs c update')
 	--send_command('bind !q gs c weapons DualLeadenRanged;gs c update')
@@ -130,11 +133,10 @@ function user_job_setup()
     send_command('bind ^f3 gs c cycleback Roller2;gs c Roller2')
     -- send_command('bind ^z gs c Rollset')--;gs c Rollset
     -- send_command('bind !6 gs c cycle Rollset;awit;gs c Rollset')
-    send_command('bind f1 gs c cycle Rollset;awit;gs c Rollset')
-    send_command('bind ` gs c cycle Rollset;awit;gs c Rollset')
-    send_command('bind @` gs c cycleback Rollset;awit;gs c Rollset')
-
-    send_command('bind !f1 gs c cycleback Rollset;awit;gs c Rollset')
+    send_command('bind f1 gs c cycle Rollset;gs c Rollset')
+    send_command('bind ` gs c cycle Rollset;gs c Rollset')
+    send_command('bind @` gs c cycleback Rollset;gs c Rollset')
+    send_command('bind !f1 gs c cycleback Rollset;gs c Rollset')
     send_command('bind ^4 gs c toggle AutoAbsorttpaspirSpam')  
 
 
@@ -225,7 +227,7 @@ function init_gear_sets()
         main={ name="Rostam", augments={'Path: C',}},
         -- sub={ name="Rostam", augments={'Path: A',}},
         range="Compensator", 
-        head={ name="Lanun Tricorne +3", augments={'Enhances "Winning Streak" effect',}},
+        head={ name="Lanun Tricorne +4", augments={'Enhances "Winning Streak" effect',}},
         body="Adamantite Armor",
         hands="Chasseur's Gants +3",
         legs="Desultor Tassets",
@@ -248,7 +250,7 @@ function init_gear_sets()
     sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, {body="Chasseur's Frac +2",})
     sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {hands="Chasseur's Gants +3",})
     
-    sets.precast.CorsairShot =  {ammo="Hauksbok Bullet",
+    sets.precast.CorsairShot =  {ammo="Living Bullet",
     head="Nyame Helm",
     body="Lanun Frac +4",
     hands="Nyame Gauntlets",
@@ -462,7 +464,7 @@ sets.precast.JA['Super Jump'] = sets.precast.JA.Jump
 
     sets.precast.WS['Last Stand'] = {
     -- ammo=gear.WSbullet,
-    head={ name="Lanun Tricorne +3", augments={'Enhances "Winning Streak" effect',}},
+    head={ name="Lanun Tricorne +4", augments={'Enhances "Winning Streak" effect',}},
     body="Ikenga's Vest",
     hands="Chasseur's Gants +3",
     legs={ name="Nyame Flanchard", augments={'Path: B',}},
@@ -609,7 +611,7 @@ sets.precast.WS["Energy Drain"] = set_combine(sets.precast.WS["Sanguine Blade"],
 sets.precast.WS.Cataclysm = sets.precast.WS["Sanguine Blade"]
 
 sets.precast.WS["Burning Blade"] = set_combine(sets.precast.WS, {
-    ammo="Hauksbok Bullet",
+    ammo="Living Bullet",
     head="Nyame Helm",
     body="Lanun Frac +4",
     hands="Nyame Gauntlets",
@@ -811,7 +813,7 @@ sets.midcast.RA.SubtleBlow40 = set_combine(sets.midcast.RA, {
     right_ear="Digni. Earring",   
 })
 sets.midcast.CorsairShot = {
-    ammo="Hauksbok Bullet",    
+    ammo="Living Bullet",    
     head="Nyame Helm",
     body="Lanun Frac +4",
     hands="Nyame Gauntlets",
@@ -874,7 +876,7 @@ sets.midcast.CorsairShot['Light Shot'] = {
 sets.midcast.CorsairShot['Dark Shot'] = sets.midcast.CorsairShot['Light Shot']
 sets.midcast.CorsairShot.Enhance = {feet="Chasseur's Bottes +2"}
 
-
+sets.TrueShot = {}
 	sets.buff['Triple Shot'] = {body="Chasseur's Frac +2"}
     
     -- Sets to return to when not performing an action.

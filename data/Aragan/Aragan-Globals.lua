@@ -226,7 +226,7 @@ state.AutoReraiseMode = M(true, 'Auto Reraise Mode')--It is from the highest sec
 state.AutoCureMode = M(true, 'Auto Cure Mode')--It is from the highest secrets.
 state.NeverDieMode = M(true, 'Never Die Mode')--It is from the highest secrets.
 state.AutoTomahawkMode = M(false, 'AutoTomahawkMode')
-state.AutoJumpMode 		  = M(false, 'Auto Jump Mode')
+state.AutoJumpMode 	  = M(false, 'Auto Jump Mode')
 state.AutoAPMode = M(true, 'AutoAPMode')
 state.AutoinfoNMMode = M(true, 'Auto info NM Mode') --It is from the highest secrets.
 state.AutoShadowMode 	  = M(false, 'Auto Shadow Mode')
@@ -247,19 +247,19 @@ state.AutoPDLwstmode = M(true, 'AutoPDLwstmode')
 state.Autodebugemode = M{['description'] = 'Debug Mode', 'Off', 'On'}
 state.AutoHasteMode = M(false, 'Auto Haste Mode')
 state.AutostepssubjobMode = M(false, 'AutostepssubjobMode')
-state.AutoFarmMode = M(true, 'AutoFarm Mode')
+state.AutoFarmMode = M(false, 'AutoFarm Mode')
 --It is from the highest secrets.
 state.OdyAutowsMode = M(true, 'OdyAutowsMode')
 --It is from the highest secrets.
-state.DarknessMode = M(true, 'DarknessMode')
+state.DarknessMode = M(false, 'DarknessMode')
 --It is from the highest secrets.
-state.BloodMode = M(true, 'BloodMode')
+state.BloodMode = M(false, 'BloodMode')
 --It is from the highest secrets.
-state.SmartMode = M(true, 'SmartMode')
+state.SmartMode = M(false, 'SmartMode')
 --It is from the highest secrets.
 state.AutoShoutMode = M(false, 'AutoShoutMode')
 --It is from the highest secrets.
-state.SmartAutoShoutMode = M(true, 'SmartAutoShoutMode')
+-- state.SmartAutoShoutMode = M(true, 'SmartAutoShoutMode')
 state.Autostylemode	 	  = M(true, 'Autostylemode') --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
 -- Auto Invite Mode
 --It is from the highest secrets.
@@ -267,10 +267,13 @@ state.AutoInviteMode = M(true, 'AutoInviteMode')
 --It is from the highest secrets.
 --see all msg other between players in area tell pt ls with out u 
 --It is from the highest secrets.
-state.AllseenmsgMode = M(true, 'AllseenmsgMode') 
+state.AllseenmsgMode = M(false, 'AllseenmsgMode') 
 --It is from the highest secrets.
 state.DefenseDownMode = M{['description']='Defense Down Mode'}
 state.DefenseDownMode:options('None','Tag')
+state.NakedMode = M(false, 'NakedMode') 
+state.SalvageMode = M(true, 'SalvageMode') 
+
 already_announced_by_name = already_announced_by_name or {}
 --state.RuneElement = M{['description']='Rune Element','Ignis','Gelus','Flabra','Tellus','Sulpor','Unda','Lux','Tenebrae'}
 --state.ShieldMode:options('Normal','Genmei','Ammurapi')
@@ -358,6 +361,7 @@ use <call21>
 -- //gs export copy compact
 -- //gs export copy
 gs c set AutoWSRestore true
+gs c set AutoWSMode True
 gs c autows tp 1750
 gs c set autows Entropy
 gs c set SkipProcWeapons false
@@ -394,7 +398,7 @@ So, for example //gs c useitem head Reraise Hairpin +1
 -- Function to bind GearSwap binds when loading a GS script.
 function global_on_load()
 	
-	send_command('gzc auto_point')
+	-- send_command('gzc auto_point')
 	send_command('bind f9 gs c cycle OffenseMode')
 	send_command('bind ^f9 gs c cycle HybridMode')
 	send_command('bind !f9 gs c cycle RangedMode')
@@ -463,7 +467,7 @@ function global_on_load()
 
 	send_command('bind ^f1 gs c toggle AutoStunMode')
 	--send_command('bind !6 gs c toggle SubJobEnmity')
-	send_command('bind ^f3 gs c cycle SkillchainMode')
+	-- send_command('bind ^f3 gs c cycle SkillchainMode')
 	send_command('bind @1 gs c toggle AutoCleanupMode') --Uses certain items and tries to clean up inventory.
 	send_command('bind @2 gs c buffup;gs c input /p buffup")') --Buffup macro because buffs are love.
 	send_command('bind @3 gs c cycle RecoverMode')
@@ -521,10 +525,17 @@ send_command('bind ~f5 gs c cycleback ascws;gs c ascws') --wait 1;
 send_command('bind ~f6 asc r') --wait 1;
 send_command('bind ~f7 asc pr') --wait 1;
 
-send_command('bind ~1 asc c 1') --Turns addon clos sc 1 .
-send_command('bind ~2 asc c 2') --Turns addon clos sc 2.
-send_command('bind ~3 asc c 3') --
-send_command('bind ~4 asc c 4') --
+
+-- البايند يشتغل فقط لما الشات مقفول (مافي سطر كتابة)
+send_command('bind %~1 asc c 1')
+send_command('bind %~2 asc c 2')
+send_command('bind %~3 asc c 3')
+send_command('bind %~4 asc c 4')
+
+-- send_command('bind ~1 asc c 1') --Turns addon clos sc 1 .
+-- send_command('bind ~2 asc c 2') --Turns addon clos sc 2.
+-- send_command('bind ~3 asc c 3') --
+-- send_command('bind ~4 asc c 4') --
 --send_command('bind ~z gs c ascws') --wait 1;
 
 send_command('bind ~q !') --Turns addon clos sc 1 .
@@ -550,6 +561,7 @@ send_command('bind home lua l autobuff') --Turns addon  on.
 send_command('bind end lua u autobuff') --Turns addon off.
 
 send_command('bind ^@!f12 gs reload;gzc auto_point') -- lua r Gaze_check /--Reloads gearswap.and addon Gaze_check
+send_command('bind ^@!f10 gzc auto_point') -- lua r Gaze_check /--Reloads gearswap.and addon Gaze_check
 
 -- send_command('bind pageup ata on;lua load Gaze_check;input /p ((Attack is ON.)) >> killer machine ready <<')--Turns addon  auto attack target on. to be killer machine in Odyssey or Dynamis.
 -- send_command('bind pagedown ata off;lua unload Gaze_check')--Turns addon  auto attack target off.
@@ -592,6 +604,93 @@ send_command('bind ^o fillmode') --Lets you see through walls.
 send_command('bind @m gs c mount Omega')
 
 
+------------------------------------------------------------
+-- نظام حماية البايندات من الكتابة في الشات باستخدام prerender
+-- خفيف وآمن وما يسوي شيء كل فريم، فقط كل 0.2 ثانية
+------------------------------------------------------------
+
+-- local was_chat_open = nil        -- يتذكر آخر حالة للشات
+-- local next_check   = 0           -- التوقيت القادم للفحص
+-- local check_delay  = 3         -- الفاصل بين كل فحص (ثانيتين = 2.0 ، نصف ثانية = 0.5)
+
+-- windower.register_event('prerender', function()
+--     -- تايمر للفحص كل فترة فقط، مو كل فريم
+--     local now = os.clock()
+--     if now < next_check then
+--         return
+--     end
+--     next_check = now + check_delay
+
+--     -- نجيب معلومات اللعبة
+--     local info = windower.ffxi.get_info()
+--     if not info then
+--         return
+--     end
+
+--     local chat_open = info.chat_open
+
+--     -- لو ما تغيرت حالة الشات من آخر مرة → ما نسوي ولا شي
+--     if was_chat_open ~= nil and chat_open == was_chat_open then
+--         return
+--     end
+
+--     -- حدّث الحالة
+--     was_chat_open = chat_open
+
+--     if chat_open then
+--         ------------------------------------------------------------
+--         -- الشات انفتح → نفك البايندات اللي ما نبيها تشتغل في الشات
+--         ------------------------------------------------------------
+--         send_command('unbind ~1')
+--         send_command('unbind ~2')
+--         send_command('unbind ~3')
+--         send_command('unbind ~4')
+--     else
+--         ------------------------------------------------------------
+--         -- الشات تقفل → نرجع البايندات زي ما كانت
+--         ------------------------------------------------------------
+--         send_command('bind ~1 asc c 1')
+--         send_command('bind ~2 asc c 2')
+--         send_command('bind ~3 asc c 3')
+--         send_command('bind ~4 asc c 4')
+--     end
+-- end)
+
+
+-- -- كود DIK لزر Enter (من DirectInput)
+-- local DIK_RETURN = 0x1C
+
+-- -- حالة افتراضية: نعتمد على حالة الشات الحالية عند بداية التشغيل
+-- local chat_mode = windower.ffxi.get_info().chat_open or false
+
+-- windower.register_event('keyboard', function(dik, down, flags, blocked)
+--     -- لو زر متحكم ثاني حاجز الزر، لا نشتغل
+--     if blocked then
+--         return
+--     end
+
+--     -- ما نتابع إلا لما ينضغط زر Enter نزولاً (down)
+--     if dik == DIK_RETURN and down then
+--         ----------------------------------------------------------------
+--         -- هنا نفترض أن Enter يفتح أو يقفل الشات، فنقلب الحالة
+--         ----------------------------------------------------------------
+--         chat_mode = not chat_mode
+
+--         if chat_mode then
+--             -- الشات انفتح → فك البايندات
+--             send_command('unbind ~1')
+--             send_command('unbind ~2')
+--             send_command('unbind ~3')
+--             send_command('unbind ~4')
+--         else
+--             -- الشات تقفل → رجّع البايندات
+--             send_command('bind ~1 asc c 1')
+--             send_command('bind ~2 asc c 2')
+--             send_command('bind ~3 asc c 3')
+--             send_command('bind ~4 asc c 4')
+--         end
+--     end
+-- end)
 
 
 -- local next_check = 0
@@ -629,7 +728,7 @@ send_command('bind @m gs c mount Omega')
 -- 		-- 	if target and target.is_npc and target.hpp <= 1 and not low_hp_nm_triggered then
 -- 		-- 		low_hp_nm_triggered = true
 -- 		-- 		state.TreasureMode:set('Fulltime')
--- 		-- 		add_to_chat(123, 'NM HP ≤ 1% - Equipped low HP set.')
+-- 		-- 		add_to_chat(207, 'NM HP ≤ 1% - Equipped low HP set.')
 -- 		-- 	end
 -- 		-- end
     
@@ -703,7 +802,7 @@ function global_unload()
 	send_command('parse reset')-- reset parse addon every change job
 
 end
--- 🔰 Safe Loader Function (Smart Mode: No errors, No spam)
+--  Safe Loader Function (Smart Mode: No errors, No spam)
 function safe_load_addon(addon_name)
     local base_path = windower.addon_path .. '../' .. addon_name
     local file = io.open(base_path .. '/init.lua', 'r')
@@ -711,13 +810,104 @@ function safe_load_addon(addon_name)
         file:close()
         windower.send_command('lua load ' .. addon_name)
     else
-        -- ⚙️ إذا الإضافة غير موجودة → تجاهل بصمت بدون طباعة أي خطأ
+        --  إذا الإضافة غير موجودة → تجاهل بصمت بدون طباعة أي خطأ
         return
     end
 end
 
 --auto reload addon repeater with reload addon gearswap and makw it off
 send_command('lua r repeater;repeater off')
+
+
+--Alias codes autocommands
+send_command('alias nyzul repeater command input /yell Nyzul Isle token farm LFM 1/3 ;repeater repeat; repeater delay 60')
+send_command('alias nyzul1 repeater command input /yell Nyzul Isle token farm LFM 1/3 ;repeater repeat; repeater delay 60')
+send_command('alias nyzul2 repeater command input /yell Nyzul Isle token farm LFM 2/3 ;repeater repeat; repeater delay 60')
+-- send_command('alias nyzul repeater command input /yell group Nyzul Isle Token farming daily 3xrun 30k point Long time LFM aoe job 2/3 going now farming ;repeater repeat; repeater delay 60')
+
+--remove trust
+send_command('alias refa input /refa all')
+send_command('alias retr input /retr all')
+
+--mars orb autoshout
+send_command('alias mars repeater command input /yell mars orb Can I have it? Buy? 2.5 mill  ;repeater repeat; repeater delay 60')
+--mars orb auto target chest
+-- send_command('alias trove input //lua l Trove-HUD;wait 1;trove next')
+--mars orb auto target chest
+-- send_command('alias aman input //lua l Trove-HUD;wait 1;trove next;') --input /echo After opening, use the command: //trove next to choose your next chest.;input /echo Then use: //trove reset to start over again.
+--take radials ki from npc in eschas npc
+send_command('alias rad input /targetnpc;wait 2;setkey enter down; wait 0.1; setkey enter up;wait 5;setkey down down; wait 0.1; setkey down up;wait 2;setkey down down;wait 0.1; setkey down up;wait 2;setkey enter down; wait 0.1; setkey enter up;wait 2;setkey down down; wait 0.1; setkey down up;setkey enter down; wait 0.1; setkey enter up;wait 2;setkey up down; wait 0.1; setkey up up;wait 2;setkey enter down; wait 0.1; setkey enter up;')
+-- setkey enter down; wait 0.1; setkey enter up;wait 3;setkey down down;wait 0.1; setkey 
+send_command('alias aeonicki col geas fete zitah pops;col geas fete ruaun pops;col geas fete reisenja pops;')
+send_command('alias zitahpop col geas fete zitah pops;')
+send_command('alias ruaunpop col geas fete ruaun pops;col nazars')
+send_command('alias reispop col geas fete reisenja pops;')
+send_command('alias helmpop col albumen;col erinys;col onychophora;col schah;col teles;col vinipata;col zerde;')
+
+send_command('alias odya col sheol a pop items;')
+send_command('alias odyb col sheol b pop items;')
+send_command('alias odyc col sheol c pop items;')
+
+send_command('alias vagarypop col vagary key items;col vagary leader')
+send_command('alias omenpop col omen boss beads;')
+send_command('alias mythic col mythic weapons;')
+send_command('alias relic col relic weapons;')
+send_command('alias empyrean col empyrean weapons;')
+send_command('alias aeonic col aeonic weapons;')
+send_command('alias dynamisweapons col divergence weapons;')
+send_command('alias dynamisnecks col divergence necks;')
+
+send_command('alias ambuscadeweapons col ambuscade weapons;')
+send_command('alias ambuweapons col ambuscade weapons;')
+
+send_command('alias ambusell repeater command input /yell Ambuscade VDV1  Do you need it? Buy? 1 mill/run ;repeater repeat; repeater delay 60')
+send_command('alias ambusell3 repeater command input /yell Ambuscade VDV1  Do you need it? Buy? 1 mill/run 3/6 ;repeater repeat; repeater delay 60')
+send_command('alias ambusell4 repeater command input /yell Ambuscade VDV1  Do you need it? Buy? 1 mill/run 4/6 ;repeater repeat; repeater delay 60')
+send_command('alias ambusell5 repeater command input /yell Ambuscade VDV1  Do you need it? Buy? 1 mill/run 5/6 last spot ;repeater repeat; repeater delay 60')
+
+--ambuscade autoshout
+send_command('alias ambuscade repeater command input /yell Ambuscade VDV1 LFM dd COR COR PLD RDM WHM 2/6" ;repeater repeat; repeater delay 60')
+send_command('alias ambuscadefrog repeater command input /yell Ambuscade (VDV1 with SP up)-(D spam with SP down) LFM PUP x2 COR 2@;repeater repeat; repeater delay 60')
+send_command('alias ambufrog repeater command input /yell Ambuscade (VDV1 with SP up)-(D spam with SP down) LFM PUP x2 COR 2@;repeater repeat; repeater delay 60')
+send_command('alias ambufrog1 repeater command input /yell Ambuscade (VDV1 with SP up)-(D spam with SP down) LFM PUP x2 COR;repeater repeat; repeater delay 60')
+send_command('alias ambufrog2 repeater command input /yell Ambuscade (VDV1 with SP up)-(D spam with SP down) LFM PUP x2 COR 2@;repeater repeat; repeater delay 60')
+--ambuscade  Soulflayer demons  --method ranged
+send_command('alias ambudemon repeater command input /yell Ambuscade VDV1 Looking for members. tank cor rng brd/whm geo/whm ;repeater repeat; repeater delay 60')
+send_command('alias ambudemont repeater command input /yell Ambuscade VDV1 Looking for members. tank 5/6;repeater repeat; repeater delay 60')
+send_command('alias ambudemonb repeater command input /yell Ambuscade VDV1 Looking for members. brd/whm 5/6;repeater repeat; repeater delay 60')
+send_command('alias ambudemong repeater command input /yell Ambuscade VDV1 Looking for members. geo/whm 5/6;repeater repeat; repeater delay 60')
+send_command('alias ambudemonc repeater command input /yell Ambuscade VDV1 Looking for members. cor 5/6;repeater repeat; repeater delay 60')
+send_command('alias ambudemonbt repeater command input /yell Ambuscade VDV1 Ranged method Looking for members. brd/whm tank 4/6;repeater repeat; repeater delay 60')
+
+send_command('alias ambupup repeater command input /yell Ambuscade (VDV1 with SP up)-(D spam with SP down) LFM PUP x2 COR 2@;repeater repeat; repeater delay 60')
+--ambuscade autobuy Alexandrite 
+send_command('alias ambualx repeater command ambu buy hallmarks 99 Alex;repeater repeat; repeater delay 5')
+send_command('alias ambualx2 repeater command ambu buy gallantry 99 Alex;repeater repeat; repeater delay 5')
+-- auto tradenpc Alexandrite 
+send_command('alias tradealx repeater command tradenpc 792 alexandrite;repeater repeat; repeater delay 5')
+-- auto tradenpc Beitetsu 
+send_command('alias tradeBeitetsu repeater command tradenpc 792 Beitetsu;repeater repeat; repeater delay 5')
+-- auto tradenpc Riftborn Boulder 
+send_command('alias tradeRiftborn repeater command tradenpc 792 Riftborn Boulder;repeater repeat; repeater delay 5')
+-- auto tradenpc Pluton
+send_command('alias tradeRiftborn repeater command tradenpc 792 Pluton;repeater repeat; repeater delay 5')
+-- auto tradenpc M. Astral Detritus
+send_command('alias trademAstral repeater command tradenpc 792 M. Astral Detritus;repeater repeat; repeater delay 5')
+-- auto tradenpc S. Astral Detritus
+send_command('alias tradesAstral repeater command tradenpc 792 S. Astral Detritus;repeater repeat; repeater delay 5')
+-- auto tradenpc Heroism Crystal
+send_command('alias tradeHeroism repeater command tradenpc 792 Heroism Crystal;repeater repeat; repeater delay 5')
+-- auto tradenpc Heroism Aggregate
+send_command('alias tradeAggregate repeater command tradenpc 792 Aggregate;repeater repeat; repeater delay 5')
+-- auto tradenpc Heavy Metal  
+send_command('alias tradeHeavyMetal repeater command tradenpc 792 Heavy Metal;repeater repeat; repeater delay 5')
+-- auto tradenpc H-P Bayld 
+send_command('alias tradeHeavyMetal repeater command tradenpc 792 H-P Bayld;repeater repeat; repeater delay 5')
+
+-- auto buy all Acheron Shield from sparks npc
+send_command('alias Acheron sparks buyall Acheron Shield')
+-- auto sell all Acheron Shield
+send_command('alias sellAcheron sellnpc Acheron Shield')
 
 send_command('alias Temenos repeater command input /yell "Temenos super climb Looking for members. DD/dnc BRD/dnc COR/dnc RDM(HEALER) or WHM or PLD healer 2@" ;repeater repeat; repeater delay 60')
 
@@ -730,7 +920,7 @@ send_command('alias Temenos5 repeater command input /yell "Temenos super climb L
 -- send_command('alias Temenos2 repeater command input /yell Temenos super climb Looking for members. DD/dnc BRD/dnc COR/dnc RDM(HEALER) or WHM or pld healer 2@;toggle_repeater;repeater delay 60;')
 
 ---------------------------------------------------------
--- 🌀 TEMENOS SUPER CLIMB SHOUTS
+--  TEMENOS SUPER CLIMB SHOUTS
 ---------------------------------------------------------
 
 --shout 2=2@ pt d=dd b=brd c=cor w=whm or rdm or pld healer
@@ -768,7 +958,7 @@ send_command('alias tem2dcbw repeater command input /yell "Temenos Super Climb L
 	
 	
 	---------------------------------------------------------
-	-- 🔥 APOLLYON SUPER CLIMB SHOUTS
+	--  APOLLYON SUPER CLIMB SHOUTS
 	---------------------------------------------------------
 	
 	--shout 2=2@ pt d=dd b=brd c=cor w=whm or rdm or pld healer
@@ -808,11 +998,12 @@ send_command('alias tem2dcbw repeater command input /yell "Temenos Super Climb L
 
 -- send_command('alias segcas repeater command input /yell odyssey Casual SEG C farm LFM dd brd cor whm tank 2/6;repeater repeat;repeater delay 60;')
 
-send_command('alias seg repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 2/6;repeater repeat;repeater delay 60;')
-send_command('alias seg2 repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 2/6;repeater repeat;repeater delay 60;')
-send_command('alias seg3 repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 3/6;repeater repeat;repeater delay 60;')
-send_command('alias seg4 repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 4/6;repeater repeat;repeater delay 60;')
-send_command('alias seg5 repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 5/6;repeater repeat;repeater delay 60;')
+send_command('alias seg repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 2/6;repeater repeat;repeater delay 60;')
+send_command('alias seg1 repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 1/6;repeater repeat;repeater delay 60;')
+send_command('alias seg2 repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 2/6;repeater repeat;repeater delay 60;')
+send_command('alias seg3 repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 3/6;repeater repeat;repeater delay 60;')
+send_command('alias seg4 repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 4/6;repeater repeat;repeater delay 60;')
+send_command('alias seg5 repeater command input /yell odyssey C Halo+NM farm LFM dd brd cor healer tank 5/6;repeater repeat;repeater delay 60;')
 
 --====================================================
 --  SEG C FARM - CURRENT PARTY 2/6 (FULL ROLE COMBOS)
@@ -847,7 +1038,7 @@ send_command('alias seg2dcbt repeater command input /yell odyssey SEG C farm LFM
 --shout 3=3@ pt b=brd t=tank w=whm
 send_command('alias seg3btw repeater command input /yell odyssey SEG C farm LFM  brd tank healer 3/6;repeater repeat;repeater delay 60;')
 --shout 3=3@ pt c=cor t=tank w=whm
-send_command('alias seg3ctw repeater command input /yell odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 2/6;repeater repeat;repeater delay 60;')
+send_command('alias seg3ctw repeater command input /yell odyssey SEG C farm LFM cor/r20+ healer tank 3/6;repeater repeat;repeater delay 60;')
 --shout 3=3@ pt d=dd t=tank w=whm
 send_command('alias seg3dtw repeater command input /yell odyssey SEG C farm LFM dd/r20+ tank healer 3/6;repeater repeat;repeater delay 60;')
 --shout 3=3@ pt d=dd b=brd w=whm
@@ -882,11 +1073,13 @@ send_command('alias seg4dw repeater command input /yell odyssey SEG C farm LFM d
 send_command('alias seg4ct repeater command input /yell odyssey SEG C farm LFM cor tank 4/6;repeater repeat;repeater delay 60;')
 --shout 4=4@ pt c=cor w=whm
 send_command('alias seg4cw repeater command input /yell odyssey SEG C farm LFM cor healer 4/6;repeater repeat;repeater delay 60;')
+--shout 4=4@ pt d=dd b-brd t=tank
+send_command('alias seg4dbt repeater command input /yell odyssey SEG C farm LFM dd brd tank 4/6;repeater repeat;repeater delay 60;')
 
 --shout 5=5@
 
 --shout 4=4@ pt t=tank
-send_command('alias seg5t repeater command input /yell odyssey SEG C farm LFM tank healer 5/6;repeater repeat;repeater delay 60;')
+send_command('alias seg5t repeater command input /yell odyssey SEG C farm LFM tank 5/6;repeater repeat;repeater delay 60;')
 --shout 4=4@ pt w=whm
 send_command('alias seg5w repeater command input /yell odyssey SEG C farm LFM healer 5/6;repeater repeat;repeater delay 60;')
 --shout 4=4@ pt b-brd
@@ -895,6 +1088,8 @@ send_command('alias seg5b repeater command input /yell odyssey SEG C farm LFM br
 send_command('alias seg5c repeater command input /yell odyssey SEG C farm LFM cor 5/6;repeater repeat;repeater delay 60;')
 --shout 4=4@ pt d=dd
 send_command('alias seg5d repeater command input /yell odyssey SEG C farm LFM dd 5/6;repeater repeat;repeater delay 60;')
+--shout 5=5@ pt d=dd t=tank
+send_command('alias seg5dt repeater command input /yell odyssey SEG C farm LFM dd tank 5/6;repeater repeat;repeater delay 60;')
 
 --sortie
 
@@ -916,7 +1111,7 @@ send_command('alias sortie5p6 repeater command input /yell sortie ABCECG melee m
 
 
 ---------------------------------------------------------
--- ⚡ SORTIE SHOUT SYSTEM (sor)
+--  SORTIE SHOUT SYSTEM (sor)
 -- Organized aliases with job abbreviations:
 -- d = DD, c = COR, b = BRD, w = WHM/Healer
 -- m = Magical method (MB team)
@@ -925,7 +1120,7 @@ send_command('alias sortie5p6 repeater command input /yell sortie ABCECG melee m
 ---------------------------------------------------------
 
 ---------------------------------------------------------
--- 🔮 MAGICAL METHOD (MB TEAM)
+-- MAGICAL METHOD (MB TEAM)
 ---------------------------------------------------------
 
 -- sor2gbsr = 2/6 party members (GEO + BLM + SCH + RUN + COR + Healer)
@@ -1020,6 +1215,15 @@ send_command('alias sor2gbsr repeater command input /yell "Sortie ABCECG MB Magi
 	send_command('alias sorp5d repeater command input /yell "Sortie ABCECG Melee method LFM DD/R20+ 5/6"; repeater repeat; repeater delay 60;')
 	
 	
+		send_command('alias sorwsall input /p WS ALL BOSSES: DRK=Judgment/Savage WAR=Ukko\'s/Metatron RDM=Black Halo BRD=Savage COR=Savage SAM=Shoha BLU=Savage/Black Halo DNC=Shark Bite DRG=Camlann\'s NIN=Metsu/Kamu/Savage/Judgment";')
+		send_command('alias sorwsf input /p WS F DRK=Cross Reaper/Origin WAR=Fimbulvetr/Impulse RDM=Black Halo BRD=Rudra/Mordant/Ruthless COR=Evisceration SAM=Fudo BLU=Expiacion DNC=Rudra/Ruthless/Pyrrhic')
+		send_command('alias sorwsaceg input /p WS ACEG: DRK=Torcleaver/Insurgency WAR=Upheaval/Ukko\'s/Metatron RDM=Black Halo BRD=Savage/Exenterator/Mordant COR=Savage/Last Stand SAM=Shoha/Kagero BLU=Savage/Black Halo DNC=Exenterator/Shark DRG=Camlann\'s/Drakesbane NIN=Shun/Metsu/Kamu/Kasha(AMBU GK)/Savage/Judgment')
+    -- DNC / Aminon
+		send_command('alias aminon_dnc input /p "AMINON(DNC): Keep 10 FM pre-pull. Presto→Step→Presto→Step to 10; Building pre-fight; WS→TP→Climatic→WS→Reverse→WS. High/Super Jump to drop hate."; repeater repeat; repeater delay 60;')
+
+    --  Nakuuals 
+
+    send_command('alias sornakweak input /p "NAKUUAL WEAKS: Bztavian=Ice Rockfin=Thunder Gabbrath=Water Yggdreant=Wind Waktza=Earth Cehuetzi=Fire"')
 
 --------
 
@@ -1027,69 +1231,31 @@ send_command('alias sor2gbsr repeater command input /yell "Sortie ABCECG MB Magi
 
 
 -- send_command('alias ambuseal input /item "Abdhaljs Seal" <me>')
--- send_command('alias rads temps buy Radialens')
+send_command('alias rads temps buy Radialens')
 -- send_command('alias molli temps buy Mollifier')
 -- send_command('alias temps temps buy')
 -- send_command('alias tonic tonic buffup')
 
-
---It is from the highest secrets.
-
-
 -----------------------------------------
--- Auto SEG Switcher (Dynamic alias mode)
+-- Auto SEG Switcher (Standalone / No Repeater)
+-- Completely stops after zone change
 -----------------------------------------
-local AUTO_SEG = true
+
+-- Configurable settings
+local AUTO_SEG        = false   -- Enable/Disable the system manually
+local YELL_INTERVAL   = 60      -- Seconds between automatic yells
+local POST_ZONE_DELAY = 5       -- Delay after zoning before allowing yells (not used after system stops)
+local COOLDOWN_SWITCH = 3       -- Delay to prevent rapid switching
+
+-- Operational variables
 local last_party_size = -1
-local last_switch_t = 0
-local zone_changed_t = 0
-local tick_accum = 0
-local TICK_EVERY = 0.5
-local COOLDOWN = 3
-local POST_ZONE_DELAY = 5
-local repeater_turned_off = false -- Variable to track repeater state
+local last_yell_t     = 0
+local last_switch_t   = 0
+local zone_changed_t  = 0
+local tick_accum      = 0
+local TICK_EVERY      = 0.5
 
--- تسجيل aliases
-send_command('alias seg repeater command input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 2/6";repeater repeat;repeater delay 60;')
-send_command('alias seg2 repeater command input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 2/6";repeater repeat;repeater delay 60;')
-send_command('alias seg3 repeater command input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 3/6";repeater repeat;repeater delay 60;')
-send_command('alias seg4 repeater command input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 4/6";repeater repeat;repeater delay 60;')
-send_command('alias seg5 repeater command input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank 5/6";repeater repeat;repeater delay 60;')
-
--- MODE CMDs (all systems included)
-local MODE_CMDS = {
-    Temenos = {
-        [2] = 'Temenos2', [3] = 'Temenos3', [4] = 'Temenos4', [5] = 'Temenos5',
-    },
-    sortiem = {
-        [2] = 'sortie2m6', [3] = 'sortie3m6', [4] = 'sortie4m6', [5] = 'sortie5m6',
-    },
-    sortiep = {
-        [2] = 'sortie2p6', [3] = 'sortie3p6', [4] = 'sortie4p6', [5] = 'sortie5p6',
-    },
-    segod = {
-        [2] = 'seg', [3] = 'seg3', [4] = 'seg4', [5] = 'seg5',
-    },
-}
-
--- وضع الإعلان يتم اكتشافه تلقائياً
-local CURRENT_MODE = nil
-
--- كشف نوع alias المستخدم آخر مرة
-windower.register_event('incoming text', function(_, original)
-    if not original then return end
-
-    if original:find("Temenos") then
-        CURRENT_MODE = 'Temenos'
-    elseif original:find("sortie") and original:find("mb") then
-        CURRENT_MODE = 'sortiem'
-    elseif original:find("sortie") and original:find("melee") then
-        CURRENT_MODE = 'sortiep'
-    -- elseif original:find("seg") or original:find("odyssey") then
-    --     CURRENT_MODE = 'segod'
-    end
-end)
-
+-- Safely count party size (includes Trusts)
 local function get_party_size_safe()
 	local party = windower.ffxi.get_party()
 	if not party then return 0 end
@@ -1099,89 +1265,95 @@ local function get_party_size_safe()
 	local n = 0
 	for i = 1, 6 do
 		local m = party['p'..i]
-		if m and m.name then n = n + 1 end
+		if m and m.name then
+			n = n + 1
+		end
 	end
 	return n
 end
 
-local function exec_safe(cmd)
-	if not cmd or cmd == '' then return end
+-- Builds the yell text based on party size
+local function build_seg_yell(size)
+	local label = tostring(size) .. "/6"
+	return ('input /yell "odyssey SEG C farm LFM dd/r20+ brd/r20+ cor/r20+ healer tank %s"'):format(label)
+end
 
-	-- Execute the alias command first
-	send_command(cmd)
+-- Sends the actual yell
+local function do_yell(size)
+	if size < 2 or size > 5 then return end
+	send_command(build_seg_yell(size))
+	last_yell_t = os.clock()
+end
 
-	-- Extract the number of members from alias if possible
-	local size = tonumber(cmd:match('%d'))
-	
-	-- Repeater ON only if party not full
-	if size and size < 6 then
-		send_command('repeater on')
+-- After zone change: completely stop the system
+windower.register_event('zone change', function()
+	zone_changed_t  = os.clock()
+	last_party_size = -1
+	last_yell_t     = 0
+	AUTO_SEG        = false      -- ← Complete stop after zoning
+	-- Optional: Silent message (commented out)
+	-- windower.add_to_chat(207, '[SEG] stopped after zone change.')
+end)
+
+-- Periodic watcher
+local function seg_watcher_tick(dt)
+	if not AUTO_SEG then return end
+
+	-- Check interval
+	tick_accum = tick_accum + (dt or 0)
+	if tick_accum < TICK_EVERY then return end
+	tick_accum = 0
+
+	-- Conditions that prevent operation
+	local info = windower.ffxi.get_info()
+	if not info or info.loading or info.mog_house then return end
+	if os.clock() - zone_changed_t < POST_ZONE_DELAY then return end
+
+	local size = get_party_size_safe()
+
+	-- Stop when solo or 6/6
+	if size <= 1 or size >= 6 then
+		if size >= 6 then last_yell_t = 0 end
+		last_party_size = size
+		return
+	end
+
+	local now = os.clock()
+	local size_changed = (size ~= last_party_size)
+
+	-- Immediate yell on size change with a short cooldown
+	if size_changed then
+		if now - last_switch_t >= COOLDOWN_SWITCH then
+			do_yell(size)
+			last_switch_t   = now
+			last_party_size = size
+			return
+		else
+			last_party_size = size
+			return
+		end
+	end
+
+	-- Periodic yell every YELL_INTERVAL
+	if now - last_yell_t >= YELL_INTERVAL then
+		do_yell(size)
+		last_switch_t   = now
+		last_party_size = size
+		return
 	end
 end
 
--- المراقب: يُستدعى على فواصل قصيرة خارج أي حدث
-local function seg_watcher_tick(dt)
-    if not AUTO_SEG then return end
-
-    -- تجميع الوقت حتى نصل لفاصل التحقق
-    tick_accum = tick_accum + (dt or 0)
-    if tick_accum < TICK_EVERY then return end
-    tick_accum = 0
-
-    -- لا ننفذ أثناء التحميل أو في الموغ هاوس أو مباشرة بعد الزون
-    local info = windower.ffxi.get_info()
-    if not info or info.loading then return end
-    if info.mog_house then return end
-    if os.clock() - zone_changed_t < POST_ZONE_DELAY then return end
-
-    local size = get_party_size_safe()
-    if size <= 1 then return end -- تجاهل إذا أنت وحدك
-
-    -- لا تكرر إذا لم يتغير العدد، واحترم الـ cooldown
-    if size == last_party_size then return end
-    if os.clock() - last_switch_t < COOLDOWN then return end
-
-	local SEG_CMDS = {
-		[2] = 'seg2',
-		[3] = 'seg3',
-		[4] = 'seg4',
-		[5] = 'seg5',
-	}
-	local cmd = SEG_CMDS[size]
-    if cmd then
-        exec_safe(cmd)
-        last_switch_t = os.clock()
-        last_party_size = size
-        -- اختياري: رسالة بسيطة بدون سبام
-        -- add_to_chat(207, ('[SEG] %s (%d/6)'):format(cmd, size))
-    else
-        -- لا شيء لو الحجم غير مدعوم
-        last_party_size = size
-    end
-end
+-- Bind the watcher to prerender
 do
-    local prev_clock = os.clock()
-    windower.register_event('prerender', function()
-        local now = os.clock()
-        local dt = now - prev_clock
-        prev_clock = now
-        seg_watcher_tick(dt)
-    end)
+	local prev_clock = os.clock()
+	windower.register_event('prerender', function()
+		local now = os.clock()
+		local dt  = now - prev_clock
+		prev_clock = now
+		seg_watcher_tick(dt)
+	end)
 end
 
-windower.register_event('zone change', function()
-    zone_changed_t = os.clock()
-    last_party_size = -1
-	AUTO_SEG = false
-	windower.send_command('repeater off')
-    windower.send_command('gs c set AutoShoutMode off')
-    windower.add_to_chat(207, '[AutoShout] Zone changed Repeater OFF.')
-end)
-
-coroutine.schedule(function()
-    last_party_size = -1
-    seg_watcher_tick(1.0)
-end, 1)
 
 
 
@@ -1518,7 +1690,7 @@ function user_precast(spell, action, spellMap, eventArgs)
     if spell.english == 'Warcry' then
         if buffactive['Warcry'] then
             cancel_spell()
-            add_to_chat(123, spell.name..' Canceled: Warcry its up [active]')
+            add_to_chat(207, spell.name..' Canceled: Warcry its up [active]')
         end
     end
 	--[[ 
@@ -1567,8 +1739,11 @@ function user_post_precast(spell)
     if spell.type == 'WeaponSkill' then
         if state.WeaponskillMode.value == 'SubtleBlow' then --and (attack > attack2 or attack < attack2)
             equip(sets.precast.WS.SubtleBlow)
-		elseif state.WeaponskillMode.value == 'Proc' and sets.precast.WS.Proc then
-			equip(sets.precast.WS[spell.name].Proc)
+		elseif state.WeaponskillMode.value == 'Proc'
+			and sets.precast.WS[spell.name]
+            and sets.precast.WS[spell.name].Proc
+        then
+            equip(sets.precast.WS[spell.name].Proc)
 		elseif state.AutoPDLwstmode.value and player.main_job == 'DNC' and buffactive["Climactic Flourish"] 
 		and sets.precast.WS[spell.name]
 		and sets.precast.WS[spell.name].PDL
@@ -1580,7 +1755,7 @@ function user_post_precast(spell)
 				equip(sets.precast.WS[spell.name].PDL)
 			end
 		end
-			 --windower.add_to_chat(123, 'Auto WS Mode: PDL')
+			 --windower.add_to_chat(207, 'Auto WS Mode: PDL')
         --[[else
             equip(sets.precast.WS[spell.name])
 			]]
@@ -1656,7 +1831,7 @@ function user_state_change(stateField, newValue, oldValue)
 	-- 	if buffactive['Endark'] then
 	-- 		state.HybridMode:set('DreadSP') 	
 	-- 	elseif buff == "Endark" and not gain then
-	-- 			add_to_chat(123, " off Amnesia")
+	-- 			add_to_chat(207, " off Amnesia")
 	-- 		state.HybridMode:set('Normal') 
 	-- 	end
 	-- 	-- send_command('@wait 0.5;gs c update')
@@ -1695,7 +1870,8 @@ function user_state_change(stateField, newValue, oldValue)
 		-- 	windower.chat.input('/ja Curing Waltz III <me>')
 		-- 	tickdelay = os.clock() + 1.1
 		-- end
-		if not state.Buff['SJ Restriction'] and player.sub_job == 'WAR' and  not buffactive.Defender and abil_recasts[3] < latency and (player.in_combat or being_attacked) and player.hpp < 25 then
+		local safe_latency = latency or 1
+		if player.sub_job == 'WAR' and not buffactive['SJ Restriction'] and not buffactive.Defender and abil_recasts[3] ~= nil and abil_recasts[3] < safe_latency and (player.in_combat or being_attacked) and player.hpp < 25 then
 			windower.chat.input('/ja "Defender" <me>')
 			tickdelay = os.clock() + 1.1
 		elseif not state.Buff['SJ Restriction'] and (player.sub_job == 'SCH' or player.sub_job == 'RDM' or player.sub_job == 'pld' or player.sub_job == 'WHM')
@@ -1778,7 +1954,11 @@ function user_customize_idle_set(idleSet)
 
 	local abil_recasts = windower.ffxi.get_ability_recasts()
 	local spell_recasts = windower.ffxi.get_spell_recasts()
+    local last_healing_waltz_t = last_healing_waltz_t or 0
 
+	if state.NakedMode and state.NakedMode.value then
+        return  
+    end
 	--It is from the highest secrets.
 	-- This code checks the current state of the "RP" variable and performs actions accordingly.
 	-- If the "RP" state is set to "on", it equips the "RP" gear set and disables changes to the "neck" slot.
@@ -1789,11 +1969,32 @@ function user_customize_idle_set(idleSet)
     else
         enable('neck')
     end
+	if state.SalvageMode.value and (world.area:contains('Zhayolm Remnants') or world.area:contains('Bhaflau Remnants') or world.area:contains('Arrapago Remnants') or world.area:contains('Silver Sea Remnants')) then
+		if player.main_job == 'THF' then
+			-- state.Weapons:set('Twashtar')
+			-- state.TreasureMode:set('Fulltime')
+			-- state.IdleMode:set('Refresh')
+			-- state.IdleMode:set('DT')
+			-- state.AutoWSMode:set(true)
+			-- send_command('gs c set weapons Naegling;gs c set AutoWSMode True') --Turns addon on hide show off some no need in city on screen.
+			-- send_command('gs c set Stylenotwingsemode off;gs c update') 
+			-- send_command('gs c update') 
+			style_lock = true
+		end
+		-- if not player.equipment.main or player.equipment.main == 'empty' then
+		-- 	equip({ main = "Twashtar" })
+		-- 	add_to_chat(207, '[AutoWeapon] Main was empty -> equipped Twashtar.')
+		-- 	tickdelay = os.clock() + 1.5
+		-- end
+	end
 	-- if data.areas.cities:contains(world.area) and state.DefenseMode.value ~= 'None' then
     --     if player.movement then
     --         idleSet = set_combine(idleSet, sets.Kiting)
     --     end
     -- end
+	if world.area:contains('Adoulin') then
+		idleSet = set_combine(idleSet, {body="Councilor's Garb"})
+	end
 	if state.CraftingMode.value ~= 'None' then
 		idleSet = set_combine(idleSet, sets.crafting[state.CraftingMode.value])
 
@@ -1814,10 +2015,10 @@ function user_customize_idle_set(idleSet)
 	-- 	tickdelay = os.clock() + 1.1
 	-- end
 
-	-- if not state.Buff['SJ Restriction'] and player.sub_job == 'DNC' and player.tp > 500 and player.hpp < 40 and abil_recasts[187] < latency then			
-	-- 	windower.chat.input('/ja "Curing Waltz II" <me>')
-	-- 	tickdelay = os.clock() + 3.1
-	-- end
+	if not state.Buff['SJ Restriction'] and player.sub_job == 'DNC' and player.tp > 500 and player.hpp < 40 and abil_recasts[187] < latency then			
+		windower.chat.input('/ja "Curing Waltz II" <me>')
+		tickdelay = os.clock() + 3.1
+	end
 
     return idleSet
 end
@@ -1825,6 +2026,12 @@ end
 function user_customize_defense_set(defenseSet)
 	if world.area:contains('Adoulin') then
 		defenseSet = set_combine(defenseSet, {body="Councilor's Garb"})
+	end
+	if state.CraftingMode.value ~= 'None' then
+		defenseSet = set_combine(defenseSet, sets.crafting[state.CraftingMode.value])
+
+    elseif state.CraftQuality.value ~= 'Normal' then
+		defenseSet = set_combine(defenseSet,sets.crafting[state.CraftQuality.value])
 	end
 	return defenseSet
 end
@@ -1857,6 +2064,40 @@ function user_customize_melee_set(meleeSet)
     else
         enable('neck')
     end
+	if state.SalvageMode.value and (world.area:contains('Zhayolm Remnants') or world.area:contains('Bhaflau Remnants') or world.area:contains('Arrapago Remnants') or world.area:contains('Silver Sea Remnants')) then
+		if player.main_job == 'THF' then -- or player.main_job == 'DNC'
+			-- Windower.send_command('lua r autows;wait 1;aws on')
+			state.Weapons:set('Swords')
+			state.TreasureMode:set('Fulltime')
+			state.IdleMode:set('Regain')
+			state.AutoWSMode:set(true)
+			-- send_command('gs c set weapons Naegling;gs c set AutoWSMode True') --Turns addon on hide show off some no need in city on screen.
+			-- send_command('gs c set Stylenotwingsemode off;gs c update') 
+			-- send_command('gs c update') 
+			style_lock = true
+		elseif player.main_job == 'BLU' then -- or player.main_job == 'DNC'
+            Windower.send_command('aset spellset salvage')
+			state.Weapons:set('Nuking')
+			state.TreasureMode:set('Fulltime')
+			state.IdleMode:set('Refresh')
+			-- state.AutoWSMode:set(true)
+			-- send_command('gs c set weapons Naegling;gs c set AutoWSMode True') --Turns addon on hide show off some no need in city on screen.
+			-- send_command('gs c set Stylenotwingsemode off;gs c update') 
+			-- send_command('gs c update') 
+			style_lock = true
+		else
+			state.IdleMode:reset()
+			state.TreasureMode:set('Fulltime')
+
+ 			style_lock = true
+
+		end
+		if player.main_job == 'THF' and (not player.equipment.main or player.equipment.main == 'empty') then
+			equip({ main = "Naegling" })
+			add_to_chat(207, '[AutoWeapon] Main was empty -> equipped Twashtar.')
+		end
+	end
+
     -- if state.TreasureMode.value == 'Fulltime' then
     --     meleeSet = set_combine(meleeSet, sets.TreasureHunter)
     -- end
@@ -1879,11 +2120,11 @@ function user_customize_melee_set(meleeSet)
 	-- 	tickdelay = os.clock() + 1.1
 	-- end
 
-	-- if not data.areas.cities:contains(world.area) and not state.Buff['SJ Restriction'] and player.sub_job == 'DNC' and player.tp > 500 and player.hpp < 40 and abil_recasts[187] < latency then			
-	-- 	windower.chat.input('/ja "Curing Waltz II" <me>')
-	-- 	tickdelay = os.clock() + 3.1
-	-- end
-	-- tickdelay = os.clock() + 0.5
+	if not data.areas.cities:contains(world.area) and not state.Buff['SJ Restriction'] and player.sub_job == 'DNC' and player.tp > 500 and player.hpp < 40 and abil_recasts[187] < latency then			
+		windower.chat.input('/ja "Curing Waltz II" <me>')
+		tickdelay = os.clock() + 3.1
+	end
+	tickdelay = os.clock() + 0.5
     return meleeSet
 end
 
@@ -1895,11 +2136,11 @@ function user_buff_change(buff, gain, eventArgs)
 
 
 
-    -- add_to_chat(123, 'job_buff_change: '..buff..'  Gain: '..tostring(gain))
+    -- add_to_chat(207, 'job_buff_change: '..buff..'  Gain: '..tostring(gain))
 
 	local abil_recasts = windower.ffxi.get_ability_recasts()
 	local spell_recasts = windower.ffxi.get_spell_recasts()
-
+	local last_healing_waltz_t = last_healing_waltz_t or 0
 	-- if state.AutogearbuffMode.value then
 	-- 	-- if buffactive['Endark'] then
 	-- 	if buff == "Endark" then
@@ -1913,17 +2154,23 @@ function user_buff_change(buff, gain, eventArgs)
         windower.add_to_chat(207, '[Debug] Buff change detected: ' .. buff .. ', Gain: ' .. tostring(gain))
     end
     --It is from the highest secrets.
-	-- if state.NeverDieMode.value or state.AutoCureMode.value then 
-	-- 	if player.sub_job == 'DNC' and not state.Buff['SJ Restriction'] and player.tp > 200 and abil_recasts[215] < latency and (buffactive['poison'] or buffactive['slow'] or buffactive['Rasp'] 
-	--     or buffactive['Dia'] or buffactive['Defense Down'] or buffactive['Magic Def. Down'] or buffactive['Max HP Down']
-	--     or buffactive['Evasion Down'] or buffactive['Magic Evasion Down'] or buffactive['Bio'] or buffactive['Bind']
-	--     or buffactive['weight'] or buffactive['Attack Down'] or buffactive['Accuracy Down'] or buffactive['VIT Down']
-	--     or buffactive['INT Down'] or buffactive['MND Down'] or buffactive['STR Down'] or buffactive['AGI Down']) then		
-	--         windower.chat.input('/ja Healing Waltz <me>')
-	--         tickdelay = os.clock() + 1.1
-	-- 		return
-	-- 	end
-	-- end
+	if state.NeverDieMode.value or state.AutoCureMode.value then 
+		if player.sub_job == 'DNC' and not state.Buff['SJ Restriction'] and player.tp > 200 and abil_recasts[215] < latency and (
+			buffactive['poison'] or buffactive['slow'] or buffactive['Rasp'] or
+			buffactive['Dia'] or buffactive['Defense Down'] or buffactive['Magic Def. Down'] or buffactive['Max HP Down'] or
+			buffactive['Evasion Down'] or buffactive['Magic Evasion Down'] or buffactive['Bio'] or buffactive['Bind'] or
+			buffactive['weight'] or buffactive['Attack Down'] or buffactive['Accuracy Down'] or buffactive['VIT Down'] or
+			buffactive['INT Down'] or buffactive['MND Down'] or buffactive['STR Down'] or buffactive['AGI Down']
+		) then		
+		    local now = os.clock()
+            if now - last_healing_waltz_t > 1 then
+                windower.chat.input('/ja Healing Waltz <me>')
+                tickdelay = now + 1.1
+                last_healing_waltz_t = now
+                return
+            end
+		end
+	end
 
 	-- -- Create a timer when we gain weakness.  Remove it when weakness is gone.
 	-- if buff:lower() == 'weakness' then
@@ -1958,7 +2205,7 @@ function user_buff_change(buff, gain, eventArgs)
 	-- end
 	
 	-- if buff == "Endark" and not gain then
-	-- 	add_to_chat(123, " off Amnesia")
+	-- 	add_to_chat(207, " off Amnesia")
 	--     state.HybridMode:set('Normal') 
 	-- end
     --It is from the highest secrets.
@@ -1973,9 +2220,8 @@ function user_buff_change(buff, gain, eventArgs)
 
 	-- if state.AutogearbuffMode.value and buff == "Slow" then
 	-- 	if gain then
-	-- 		-- إذا أخذت Slow، نغير القطع لتعويض السرعة
 	-- 		equip(sets.buff.Slow)
-	-- 		add_to_chat(123, "[GearSwap] Slow detected: Equipping haste gear!")
+	-- 		add_to_chat(207, "[GearSwap] Slow detected: Equipping haste gear!")
 	-- 	end
 	-- end
 
@@ -1988,14 +2234,14 @@ function user_buff_change(buff, gain, eventArgs)
 		if gain then
             if not previous_hybrid_mode then
 				previous_hybrid_mode = state.OffenseMode.value
-			    -- add_to_chat(123, '[GS] Amnesia AutogearbuffMode ON → OffenseMode set CRITICAL '..previous_hybrid_mode..'  ')
+			    -- add_to_chat(207, '[GS] Amnesia AutogearbuffMode ON → OffenseMode set CRITICAL '..previous_hybrid_mode..'  ')
 		    end
 			state.OffenseMode:set('CRIT')-- SWITCH TO CRITICAL SET
-			    add_to_chat(123, '[GS] Amnesia AutogearbuffMode ON → set  '..state.OffenseMode.value..'  ')
+			    add_to_chat(207, '[GS] Amnesia AutogearbuffMode ON  set  '..state.OffenseMode.value..'  ')
 			else
 			if previous_hybrid_mode then
                 state.OffenseMode:set(previous_hybrid_mode) -- back to previous mode value
-                add_to_chat(122, "OffenseMode restored → "..previous_hybrid_mode)
+                add_to_chat(122, "OffenseMode restored  "..previous_hybrid_mode)
                 previous_hybrid_mode = nil -- reset saved
             else
 				state.OffenseMode:reset() -- if all previous of this buff false , then reset
@@ -2010,18 +2256,18 @@ function user_buff_change(buff, gain, eventArgs)
 	previous_hybrid_mode = previous_hybrid_mode or nil
 
     --It is from the highest secrets. 
-	if state.AutogearbuffMode.value and buff == "Sentinel's Scherzo" then
+	if state.AutogearbuffMode.value and buff == "Scherzo" then
 		if gain then
 			if not previous_hybrid_mode then
 				previous_hybrid_mode = state.HybridMode.value
-				add_to_chat(123, '[GS] Scherzo ON → save '..previous_hybrid_mode..'  ')
+				add_to_chat(207, '[GS] Scherzo ON  save '..previous_hybrid_mode..'  ')
 			end
 			state.HybridMode:set('Normal') -- SWITCH TO Normal SET
-			add_to_chat(123, '[GS] Scherzo ON → save '..state.HybridMode.value..'  ')
+			add_to_chat(207, '[GS] Scherzo ON  save '..state.HybridMode.value..'  ')
 		else
 			if previous_hybrid_mode then
 				state.HybridMode:set(previous_hybrid_mode) -- back to previous hybrid mode value
-				add_to_chat(122, "HybridMode restored → "..previous_hybrid_mode)
+				add_to_chat(122, "HybridMode restored  "..previous_hybrid_mode)
 				previous_hybrid_mode = nil  -- reset saved
 			else
 				state.HybridMode:set('DT') -- if all previous of this buff false , then reset set HybridMode to DT for safety
@@ -2151,9 +2397,8 @@ end
 
 
 function user_zone_change(new_id,old_id)
-
-	--tickdelay = os.clock() + 10	
 	current_zone = windower.ffxi.get_info().zone
+	state.Stance:reset()
 	notified_hippo = false
 	if player.main_job == 'DRK' and data.areas.cities:contains(world.area)  then
 	    send_command('gs c set DefenseMode Physical;gs c set PhysicalDefenseMode SEboost') --Turns addon on hide show off some no need in city on screen.
@@ -2175,8 +2420,8 @@ function user_zone_change(new_id,old_id)
 		send_command('wait 2;gs c reset DefenseMode;gs c reset IdleMode;') --Turns addon off on show hide. stats=craftstats addon
 	end
 
-	if data.areas.assault or world.area:contains('Nashmau') or world.area:contains('Hazhalm Testing Grounds') or world.area:contains('Caedarva Mire') or world.area:contains('Alzadaal Undersea Ruins') then
-	    send_command('gs c reset DefenseMode;gs c reset IdleMode;gs c set Stylenotwingsemode on;gs c update') 
+	if (data.areas.assault:contains(world.area) or data.areas.old_Dynamis:contains(world.area)) or world.area:contains('Dynamis - Valkurm') or world.area:contains('Dynamis - Qufim') or world.area:contains('Nashmau') or world.area:contains('Hazhalm Testing Grounds') or world.area:contains('Caedarva Mire') or world.area:contains('Alzadaal Undersea Ruins') then
+		send_command('gs c reset DefenseMode;gs c reset IdleMode;gs c set Stylenotwingsemode on;gs c update') 
 		send_command('gs c update') 
         style_lock = true
 	else
@@ -2191,9 +2436,9 @@ function user_zone_change(new_id,old_id)
 	end
 
 	if world.area:contains('Nyzul Isle') then
-		send_command('NyzulHelper show;NyzulBuddy start;iSpy') --Turns addon on.
+		send_command('lua l NyzulHelper;NyzulHelper show;lua l NyzulBuddy;NyzulBuddy start;lua l iSpy;iSpy;lua l widescantool;gs c set AutoWSRestore true;gs c reset DefenseMode;gs c reset IdleMode;') --Turns addon on.
 	else
-		send_command('NyzulHelper hide;NyzulBuddy stop;') --Turns addon off. -- iSpy
+		send_command('NyzulHelper hide;NyzulBuddy stop;lua u NyzulBuddy;lua u widescantool') --Turns addon off. -- iSpy
 	end
 	-- if not world.area:contains('Abyssea - Empyreal Paradox') and world.area:contains('Abyssea') then
 	-- 	send_command('input /lockstyleset 1;ept show;gs c set SkipProcWeapons false;get *"Forbidden Key" all;') --Turns addon on.
@@ -2205,14 +2450,14 @@ function user_zone_change(new_id,old_id)
 	--Sortie -- ody
 
 	if (world.area:contains('Outer Ra\'Kaznar [U2]') or world.area:contains('Odyssey') or world.area:contains('Walk of Echoes [P2]')) then 		--Sortie -- ody c Walk of Echoes [P2]
-
+	    send_command('gs c reset DefenseMode;gs c reset IdleMode;gs c update') 
 		send_command('AutoItem on') --Turns addon on.
 		send_command('gs c set AutoStunMode on') --Turns addon on.
 
 	--Sortie
 	elseif world.area:contains('Outer Ra\'Kaznar [U2]') then
 		    if player.main_job == 'WHM' then
-		        add_to_chat(123,' Melee strat: whm Boost-STR  Auspice  Aurorastorm  Regen IV AOE. A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat')
+		        add_to_chat(207,' Melee strat: whm Boost-STR  Auspice  Aurorastorm  Regen IV AOE. A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat')
 		    -- elseif
 		    end
 	end
@@ -2222,87 +2467,88 @@ end
 
 
 --------------------------------------------------------------------------------
--- ✅ Auto Style Lock in Assault / Nyzul / Salvage / Hazhalm
+--  Auto Style Lock in Assault / Nyzul / Salvage / Hazhalm
 --------------------------------------------------------------------------------
 
--- نضيف مكتبة Sets إن لم يكن موجودة
+-- Add the Sets library if not already included
 if not S then
-    require('sets')
+	require('sets')
 end
 
--- مناطق خاصة لمنع تغير شكل السلاح
+-- Special zones to prevent weapon appearance changes
 local special_zones = S{
-    48,  -- Alzadaal Undersea Ruins      (Assault)
-    51,  -- Nashmau                      (city)
-    52,  -- Caedarva Mire                (Assault)
-    72,  -- Hazhalm Testing Grounds      (Assault Testing)
-    79,  -- Nyzul Isle                   (Nyzul Isle)
-    41,  -- Arrapago Remnants            (Salvage)
-    58,  -- Bhaflau Remnants             (Salvage)
-    72,  -- Zhayolm Remnants             (Salvage)
-    73,  -- Silver Sea Remnants          (Salvage)
+	48,  -- Alzadaal Undersea Ruins      (Assault)
+	51,  -- Nashmau                      (city)
+	52,  -- Caedarva Mire                (Assault)
+	72,  -- Hazhalm Testing Grounds      (Assault Testing)
+	79,  -- Nyzul Isle                   (Nyzul Isle)
+	41,  -- Arrapago Remnants            (Salvage)
+	58,  -- Bhaflau Remnants             (Salvage)
+	72,  -- Zhayolm Remnants             (Salvage)
+	73,  -- Silver Sea Remnants          (Salvage)
 	50,  -- Aht Urhgan Whitegate         (city)
 }
 --------------------------------------------------------------------------------
--- 🔒 Auto Style Lock للمناطق الخاصة (Assault / Nyzul / Salvage / Hazhalm)
--- ⚠️ يعتمد على نفس حالةك: state.Stylenotwingsemode (نفس الاسم الموجود بملفاتك)
+--  Auto Style Lock for special zones (Assault / Nyzul / Salvage / Hazhalm)
+--  Relies on your current state: state.Stylenotwingsemode (same name as in your files)
 --------------------------------------------------------------------------------
 
 if not S then require('sets') end
 local res = require('resources')
 
--- قائمة أسماء المناطق الرسمية كما هي في res.zones[zone_id].english
--- (مقارنة بأسماء دقيقة بدل contains لتفادي اختلافات الكتابة)
+-- List of official zone names as they appear in res.zones[zone_id].english
+-- (Exact comparison instead of contains to avoid writing differences)
 local stylelock_zones = S{
-    'Alzadaal Undersea Ruins',   -- Assault
-    'Nashmau',                   -- نقطة مرور للـ Assault
-    'Caedarva Mire',             -- Assault
-    'Hazhalm Testing Grounds',   -- ساحة اختبار
-    'Nyzul Isle',                -- Nyzul
-    'Arrapago Remnants',         -- Salvage
-    'Bhaflau Remnants',          -- Salvage
-    'Silver Sea Remnants',       -- Salvage
-    'Zhayolm Remnants',           -- Salvage
+	'Alzadaal Undersea Ruins',   -- Assault
+	'Nashmau',                   -- Transit point for Assault
+	'Caedarva Mire',             -- Assault
+	'Hazhalm Testing Grounds',   -- Testing Grounds
+	'Nyzul Isle',                -- Nyzul
+	'Arrapago Remnants',         -- Salvage
+	'Bhaflau Remnants',          -- Salvage
+	'Silver Sea Remnants',       -- Salvage
+	'Zhayolm Remnants',          -- Salvage
 	'Aht Urhgan Whitegate'
 }
 
--- دالة تفحص اسم المنطقة وتفعل/تعطل Stylenotwingsemode حسب الحاجة
+-- Function to check the zone name and enable/disable Stylenotwingsemode as needed
 local function update_style_lock_by_zone()
 
-    if not state.Autostylemode.value then return end
+	if not state.Autostylemode.value then return end
 
-    local info = windower.ffxi.get_info()
-    if not info or not info.zone then return end
+	local info = windower.ffxi.get_info()
+	if not info or not info.zone then return end
 
-    local z = res.zones[info.zone]
-    if not z or not z.english then return end
-    local zname = z.english
+	local z = res.zones[info.zone]
+	if not z or not z.english then return end
+	local zname = z.english
 
-    -- تفعيل/تعطيل حالة Stylenotwingsemode حسب القائمة
-    if stylelock_zones:contains(zname) then
-        -- تشغيل الستايل لوك للمناطق الخاصة
-        windower.send_command('gs c set Stylenotwingsemode on')
-        windower.send_command('gs c update')
-    else
-        -- إطفاء الستايل لوك خارج المناطق الخاصة
-        windower.send_command('gs c set Stylenotwingsemode off')
-        windower.send_command('gs c update')
-    end
+	-- Enable/disable Stylenotwingsemode based on the list
+	if stylelock_zones:contains(zname) then
+		-- Enable style lock for special zones
+		windower.send_command('gs c set Stylenotwingsemode on')
+		windower.send_command('gs c update')
+		style_lock = true
+	else
+		-- Disable style lock outside special zones
+		windower.send_command('gs c set Stylenotwingsemode off')
+		windower.send_command('gs c update')
+		style_lock = true
+	end
 end
 
--- تشغيل عند تسجيل الدخول (نعطي مهلة حتى تجهز البيئة)
+-- Trigger on login (add a delay to ensure the environment is ready)
 windower.register_event('login', function()
-    coroutine.schedule(update_style_lock_by_zone, 5) -- 5 ثواني أضمن
+	coroutine.schedule(update_style_lock_by_zone, 5) -- 5 seconds for safety
 end)
 
--- تشغيل عند تغيير المنطقة (برضو نعطي مهلة صغيرة)
+-- Trigger on zone change (add a small delay as well)
 windower.register_event('zone change', function(new_id, old_id)
-    coroutine.schedule(update_style_lock_by_zone, 3)
+	coroutine.schedule(update_style_lock_by_zone, 3)
 end)
 
--- تشغيل مرة أولى عند تحميل الملف (لو كنت محمل داخل منطقة)
+-- Trigger initially when the file is loaded (if already inside a zone)
 coroutine.schedule(update_style_lock_by_zone, 3)
-
 
 
 
@@ -2407,48 +2653,88 @@ end
 function user_target_change(target)  
 	local already_announced_by_name = already_announced_by_name or {}
 	local target = windower.ffxi.get_mob_by_target('t')
-	local sub = windower.ffxi.get_mob_by_target('st')
+	local sub = windower.ffxi.get_mob_by_target('st')    --It is from the highest secrets.
     --It is from the highest secrets.
-    if state.AutoinfoNMMode.value and target ~= nil and sub == nil then
 
-        if target.name == "Dhartok" and not already_announced_by_name[target.name] then
-			already_announced_by_name[target.name] = true
-
-			windower.send_command('input /echo ['..target.name..'] HP ~1,620,000 MP:have EVA 1,581 M.DEF 100 INT: 363 MND: 338 /posion dangeros remove it fast /move nm from pos if black cloud up .')
+	if (state.SmartMode.value or state.AutoinfoNMMode.value) and target ~= nil and sub == nil then
+		-- Add new NM data to the already_announced_by_name logic
+		local nm_data = {
+		--sortie bosses
+			--Boss A
+			["Ghatjot"] = "Weakness:Earth HP ~1,224 MP EVA 1,581 .DEF 100/ Fire: 70% Ice: 50% Wind: 70% Earth: 70% Lightning: 70% Water: Absorb Dark: Absorb Light: 55%",
+			["Leshonn"] = "Weakness:Ice/Earth HP ~870,000 MP EVA 1,229 .DEF 100 / Fire: 55% Ice: 70% Wind: Absorb Earth: 55% Lightning: Absorb Water: 70% Dark: 70% Light: 70%",
+			["Skomora"] = "Weakness:Fire HP ~810,000 MP EVA 1,224 .DEF 100/ Fire: 60% Ice: 70% Wind: 60% Earth: 70% Lightning: 70% Water: 70% Dark: Absorb Light: 55%",
+			["Degeei"] = "HP ~1,249 MP EVA 1,249 .DEF 100/ Fire: 70% Ice: 70% Wind: 70% Earth: 70% Lightning: 70% Water: 70% Dark: 70% Light: 55%",
+			--Boss E
+			["Dhartok"] = "Weakness:Earth HP ~1,560,000 MP EVA 1,581 .DEF 100 INT: 363 MND: 338 / Fire: 70% Ice: 50% Wind: 70% Earth: 70% Lightning: 70% Water: Absorb Dark: Absorb Light: 70%",
+			["Gartell"] = "Weakness:Ice/Earth HP ~1,560,000 MP EVA 1,581 .DEF 100 INT: 350 MND: 394 / Fire: 70% Ice: 70% Wind: 70% Earth: 70% Lightning: 70% Water: 70% Dark: 70% Light: 55%",
+			["Triboulex"] = "Weakness:Fire HP ~1,500,000 MP EVA 1,581 .DEF 100 INT: 504 MND: 367 / Fire: 60% Ice: 30% Wind: Absorb Earth: 70% Lightning: Absorb Water: 70% Dark: Absorb Light: 55%",
+			["Aita"] = "HP ~1,600,000 MP EVA 1,581 .DEF 122 INT: 494 MND: 427 / Fire: 70% Ice: 70% Wind: 70% Earth: 70% Lightning: 70% Water: 70% Dark: 70% Light: 55%",
+			--NAKUULAS
+			["Bztavian"] = "Weakness:Ice, Weakness: Piercing, Level: Lv140, HP: 1,390,000, Evasion: 1,525,  100, INT: 381, MND: 315",
+			["Waktza"] = "Weakness:Earth, Weakness: Slashing, Level: Lv140, HP: 1,380,000, Evasion: 1,510,  100, INT: 391, MND: 351",
+			["Cehuetzi"] = "Weakness:Fire, Weakness: Piercing, Level: Lv140, HP: 1,380,000, Evasion: 1,514, 100, INT: 344, MND: 379",
+			["Yggdreant"] = "Weakness:Wind, Weakness: Slashing, Level: Lv140, HP: 1,340,000, Evasion: 1,530,  100, INT: 318, MND: 376",
+			["Gabbrath"] = "Weakness:Water, Weakness: Slashing, Level: Lv140, HP: 1,380,000, Evasion: 1,523,  100, INT: 414, MND: 350",
+			["Rockfin"] = "Weakness:Thunder, Weakness: Blunt, Level: Lv140, HP: 1,380,000, Evasion: 1,523,  100, INT: 362, MND: 392",		
+		}
+	
+		if nm_data[target.name] and not already_announced_by_name[target.name] then
+				already_announced_by_name[target.name] = true
+				windower.send_command('input /echo ['..target.name..'] '..nm_data[target.name])
+			
 		end
-		if target.name == "Esurient Botulus" or target.name == "Gyvewrapped Naraka" or target.name == "Haughty Tulittia" or target.name == "Ghatjot" or target.name == "Leshonn" or target.name == "Skomora" and not already_announced_by_name[target.name] then
+		if (target.name == "Ghatjot" or target.name == "Dhartok") and not already_announced_by_name[target.name] then
+			windower.send_command('input /echo ['..target.name..'] Dhartok HP ~1,620,000 MP EVA 1,581  .DEF 100 INT: 363 MND: 338 /posion dangeros remove it fast /move nm from pos if black cloud up .')
+			if player.main_job == 'SCH' then
+				windower.send_command('@wait 0.2;input /echo A E BOSS SCH Klimaform , STONE Storm SCH: SC Scission spam. STONE MB')					
+			end
+
 			already_announced_by_name[target.name] = true
 
-			send_command('gs c set AutoStunMode on') --Turns addon on.
-		end
-		if target.name == "Dhartok" or target.name == "Triboulex" or target.name == "Gartell" or target.name == "Ghatjot" or target.name == "Leshonn" or target.name == "Skomora" and not already_announced_by_name[target.name] then
+		elseif (target.name == "Skomora" or target.name == "Triboulex") and not already_announced_by_name[target.name] then
 			already_announced_by_name[target.name] = true
-            --It is from the highest secrets.
+	
+			if player.main_job == 'SCH' then
+				windower.send_command('@input /echo C G BOSS SCH IF G BOSS USE Tabula RASA ,Embrava Klimaform , Fire Storm ')					
+				windower.send_command('@wait 0.2;input /echo SCH: SC Fusion spam. FIRE MB SC liquefaction and fusion two step SC MB Immanence >Stone.>IMM.>Fire>IMM.>Ionohelix')
+			end
+		elseif (target.name == "Leshonn"  or target.name == "Gartell") and not already_announced_by_name[target.name] then
+			already_announced_by_name[target.name] = true
+			if player.main_job == 'SCH' then
+				windower.send_command('@input /echo B F BOSS  Everyone must remove Shell V  SCH  Tabul a Rasa , Embrava IF F BOSS Klimaform IF Thunder hand SANDSTORM 2  IF Wind hand Hail storm II ')					
+				windower.send_command('@wait 0.2;input  /echo  SCH DO SCH Induration or Scission Wind hand: SC Induration  MB BLIZZARD, Thunder hand: SC Scission MB STONE')
+			end
+		end
+		if (target.name == "Dhartok" or target.name == "Triboulex" or target.name == "Gartell" or target.name == "Ghatjot" or target.name == "Leshonn" or target.name == "Skomora") and not already_announced_by_name[target.name] then
+			already_announced_by_name[target.name] = true
+			--It is from the highest secrets.
 			-- windower.send_command('input /echo ['..target.name..'] HP ~1,620,000 MP:have EVA 1,581 M.DEF 100 INT: 363 MND: 338 /posion dangeros remove it fast /move nm from pos if black cloud up .')
 			if player.main_job == 'WHM' then
 				windower.send_command('input /echo Melee strat: WHM: Boost-STR  Auspice  Aurorastorm  Regen IV AOE. A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra')
 				windower.send_command('@wait 0.2;input /echo F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat ')
 					-- add_to_chat(122,'"Boost-STR  Auspice  Aurorastorm  Regen IV AOE.A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat"')
-
 			end
 		end
+	
+	
         -- if (target.name == "Ironshell" or target.name == "Ghast") and not already_announced_by_name[target.name] then
 		-- 	already_announced_by_name[target.name] = true
-
+	    
 		-- 	windower.chat.input('/p >>> '..auto_translate('Rayke')..''..auto_translate(target.name)..' ['..target.name..'] Wind hand: 70% Ice, Thunder hand: 70% Earth. Only Ice damage effective.')
 		-- 	windower.send_command('input /echo ['..target.name..'] RUN Thunder hand USE Tellus / Wind hand USE Gelus .. Wind hand: 70% Ice, Thunder hand: 70% Earth. Only Ice damage effective.')
 		-- end
-		if target.name == "Dhartok" or target.name == "Triboulex" or target.name == "Gartell" or target.name == "Ghatjot" or target.name == "Leshonn" or target.name == "Skomora" and not already_announced_by_name[target.name] then
-			already_announced_by_name[target.name] = true
-            --It is from the highest secrets.
-			-- windower.send_command('input /echo ['..target.name..'] HP ~1,620,000 MP:have EVA 1,581 M.DEF 100 INT: 363 MND: 338 /posion dangeros remove it fast /move nm from pos if black cloud up .')
-			if player.main_job == 'WHM' then
-				windower.send_command('input /echo Melee strat: WHM: Boost-STR  Auspice  Aurorastorm  Regen IV AOE. A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra')
-				windower.send_command('@wait 0.2;input /echo F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat ')
-					-- add_to_chat(122,'"Boost-STR  Auspice  Aurorastorm  Regen IV AOE.A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat"')
+		-- if target.name == "Dhartok" or target.name == "Triboulex" or target.name == "Gartell" or target.name == "Ghatjot" or target.name == "Leshonn" or target.name == "Skomora" and not already_announced_by_name[target.name] then
+		-- 	already_announced_by_name[target.name] = true
+        --     --It is from the highest secrets.
+		-- 	-- windower.send_command('input /echo ['..target.name..'] HP ~1,620,000 MP:have EVA 1,581 M.DEF 100 INT: 363 MND: 338 /posion dangeros remove it fast /move nm from pos if black cloud up .')
+		-- 	if player.main_job == 'WHM' then
+		-- 		windower.send_command('input /echo Melee strat: WHM: Boost-STR  Auspice  Aurorastorm  Regen IV AOE. A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra')
+		-- 		windower.send_command('@wait 0.2;input /echo F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat ')
+		-- 			-- add_to_chat(122,'"Boost-STR  Auspice  Aurorastorm  Regen IV AOE.A E BOSS DO Barpoison Barwatera C G BOSS DO Baramnesra Barparalyzra F BOSS Wind Hands: Use Asylum it start fight then cor wc and whm repeat"')
 
-			end
-		end
+		-- 	end
+		-- end
 
 	end
 
@@ -2474,7 +2760,7 @@ function user_target_change(target)
 
 	-- 		state.Weapons:set('Shining')
 	-- 		state.AutoWSMode:set(true)
-	-- 	-- أي هدف آخر يرجع السلاح السابق
+
 	-- 	elseif target.name:lower():find("Skeleton") or target.name:lower():find("Ghost") then
 	-- 		-- previous_state.weapons = type(player.equipment.main) == "string" and player.equipment.main or "Masamune"
 
@@ -2489,40 +2775,102 @@ function user_target_change(target)
 	-- 	-- previous_state.weapons = nil
 
 	-- 	end
-	-- end
+	--  end
+
+	    --It is from the highest secrets.
+        local previous_weapon = nil
+        local previous_ws = nil
+
+		-- local target = windower.ffxi.get_mob_by_target('t')
+		-- local sub = windower.ffxi.get_mob_by_target('st')
+		if not target or not target.is_npc then return end
+		if target.name == player.name then return end
+
+		local name = target.name:lower()
+		local zone = world.area --windower.ffxi.get_info().zone --
+		local job = player.main_job 
+		local ws = nil
+		local weapon = nil
+		------------------------------------------------------------
+		--  Works only inside Odyssey  Walk of Echoes [P1]
+		-- code version 2.1. create  by Author:Aragan
+		------------------------------------------------------------
+		if not zone:contains('Walk of Echoes [P1]')  then return end  -- or zone:contains('Sea Serpent Grotto') test
+		if not state.BloodMode.value or not state.OdyAutowsMode.value then return end 
+
+		------------------------------------------------------------
+		--  Determine the enemy's weakness type
+		------------------------------------------------------------
+		local weakness = 'none'
+
+		--It is from the highest secrets.
+		previous_weapon = state.Weapons.value
+		previous_ws = state.AutoWSMode.value or nil
+
+		-- elseif target.name == "Royal Leech" or (name:find('ghast') or name:find('royal leech') or name:find('iron')
+
+		-- if target and target.name and target.name:find('flux') then
+		-- 	return
+		-- end
+			------------------------------------------------------------
+			--  Determine the appropriate weapon and WS based on the job
+			------------------------------------------------------------
+
+
+	if name:find('skeleton') or name:find('ghost') or name:find('crab') or 
+		name:find('bugard') or name:find('imp') or name:find('Corse') or
+		name:find('draugar') or name:find('ghoul') or name:find('ghast') then
+			weakness = 'blunt'
+		
+		--  Piercing Weakness + Lamia
+	elseif name:find('bat') or name:find('fly') or name:find('wyrm') or 
+		name:find('wyvern') or name:find('rarab') or name:find('Gandji') or
+		name:find('Langmeidong') or name:find('Roc') or name:find('Zacatzontli') or
+		name:find('jagil') 
+		-- Lamia leader
+		or name:find('agon monarch') or name:find('agon dignitary') 
+		--lamia
+		or name:find('agon adjudicator') or name:find('agon rabblerouser')
+		or name:find('agon scallywag')
+		or name:find('agon yojimbo') or name:find('agon vizier')
+		or name:find('agon marksman') or name:find('bigbird')
+		then
+			weakness = 'piercing'
+		
+		--  Slashing Weakness + Trolls + Mamool Ja + Agon Leaders
+	elseif name:find('evil weapon') or name:find('beetle') or
+		 name:find('footsoldier') or name:find('spider')
+		or name:find('mantis') or name:find('worm') or name:find('mandragora') or
+		 name:find('tiger')
+		or name:find('Flytrap')
+		-- Mamool Ja
+		-- Trolls
+		or name:find('agon defender') or name:find('agon clearmind')
+		or name:find('agon infidel') or name:find('agon ritualist')
+		or name:find('agon sharpshooter') or name:find('agon shieldsaint')
+		or name:find('agon phalanx')
+		or name:find('agon initiate') or name:find('agon instigator')
+		or name:find('agon viscount')
+		or name:find('agon marquess') or name:find('agon praetor')
+		or name:find('agon footsoldier')
+		--unm
+		or name:find('asena') 
+		or name:find('chaos steward') or name:find('dabbat al-ard')
+		or name:find('lotanu')
+		then
+			weakness = 'slashing'
+		
+		--  Magic Weakness 
+	elseif name:find('cluster') or name:find('slime') or name:find('colibri') 
+		or name:find('amemet') or name:find('kurma') or name:find('jagil')
+		then
+			weakness = 'magic'
+		
+		-- else
+		-- 	weakness = 'none'
+	end
 	
-	--It is from the highest secrets.
-    local previous_weapon = nil
-    local previous_ws = nil
-
-	local target = windower.ffxi.get_mob_by_target('t')
-    if not target or not target.is_npc then return end
-    if target.name == player.name then return end
-
-    local name = target.name:lower()
-    local zone = world.area --windower.ffxi.get_info().zone --
-    local job = player.main_job 
-    local ws = nil
-    local weapon = nil
-	local target = windower.ffxi.get_mob_by_target('t')
-	local sub = windower.ffxi.get_mob_by_target('st')
-    ------------------------------------------------------------
-    -- 🧭 يعمل فقط داخل Odyssey أو Walk of Echoes [P2]  Walk of Echoes [P1]
-    ------------------------------------------------------------
-	if not zone:contains('Walk of Echoes [P1]') then return end  -- or zone:contains('Sea Serpent Grotto')
-	if not state.OdyAutowsMode.value then return end  
-
-    ------------------------------------------------------------
-    -- 💀 تحديد نوع ضعف العدو
-    ------------------------------------------------------------
-    local weakness = 'none'
-
-    --It is from the highest secrets.
-	previous_weapon = state.Weapons.value
-	previous_ws = state.AutoWSMode.value or nil
-
-    -- elseif target.name == "Royal Leech" or (name:find('ghast') or name:find('royal leech') or name:find('iron')
-
+	
 	
     if job == 'COR' then
 		-- weapon = "Naegling"
@@ -2531,7 +2879,7 @@ function user_target_change(target)
 			send_command('gs c set Weapongun Anarchy')
 		end
         ------------------------------------
-        -- 🩸 Blunt Weakness (Bone / Crab / Imp / Bugard)
+        --  Blunt Weakness (Bone / Crab / Imp / Bugard)
         ------------------------------------
         if 
         name:find('bugard') or name:find('imp') then
@@ -2542,7 +2890,7 @@ function user_target_change(target)
 			send_command('gs c set Weapongun Anarchy')
 		    end
         ------------------------------------
-        -- 💀 Piercing Weakness (Bat / Wyrm / Rarab / Leech / Lamia)
+        --  Piercing Weakness (Bat / Wyrm / Rarab / Leech / Lamia)
         ------------------------------------
         elseif name:find('bat') or name:find('fly') or name:find('wyvern') or
            name:find('wyrm') then
@@ -2552,7 +2900,7 @@ function user_target_change(target)
 			send_command('gs c set Weapongun Fomalhaut')
 		    end
         ------------------------------------
-        -- 🔥 Magic Weakness (Cluster / Slime / Iron Shell)
+        --  Magic Weakness (Cluster / Slime / Iron Shell)
         ------------------------------------
         elseif name:find('cluster') or name:find('slime') or name:find('evil weapon') or 
 	    name:find('qutrub') or name:find('slime') or name:find('ghoul') or
@@ -2578,7 +2926,7 @@ function user_target_change(target)
 			send_command('gs c set Weapongun DeathPenalty')
 		    end
         ------------------------------------
-        -- 🟣 UNM Weakness
+        --  UNM Weakness
         ------------------------------------
         elseif name:find('asena') then
         weapon = "Naegling"
@@ -2645,7 +2993,7 @@ function user_target_change(target)
 				if player.main_job == 'COR' then
 					send_command('gs c set Weapongun DeathPenalty')
 				end
-			elseif weakness == 'piercing' or weakness == 'blunt' then
+			elseif (weakness == 'piercing' or weakness == 'blunt') then
 				weapon = "DualKustawi"
 				ws = "Last Stand"
 				if player.main_job == 'COR' then
@@ -2657,85 +3005,93 @@ function user_target_change(target)
     elseif job == 'NIN' then
         -- weapon = "Heishi Shorinken"
 	    -- ws = "Blade: Chi"  -- Blunt WS
-		    weapon = "Naegling"
-            ws = "Savage Blade"
+		    -- weapon = "Naegling"
+            -- ws = "Savage Blade"
         ------------------------------------
-        -- 🩸 Nostos وحوش سهلين (Blunt)
+        --  Nostos وحوش سهلين (Blunt)
         ------------------------------------
         if name:find('bugard') or name:find('mantico') or name:find('mantis') or 
             name:find('blug') or name:find('souff') then
-			weapon = "Heishi Shorinken"
+			weapon = "Heishi"
 			ws = "Blade: Chi"  -- Hybrid WS EARTH
         ------------------------------------
-        -- 🪱 Piercing Weakness (Bats / Wyrm / Rarab / Leech / Flans)
+        --  Piercing Weakness (Bats / Wyrm / Rarab / Leech / Flans)
         ------------------------------------
         elseif name:find('bat') or name:find('bats') or name:find('fly') or
 		name:find('wyrm') or name:find('rarab') or 
 		name:find('ziz') or  name:find('leech') then
-		weapon = "Heishi Shorinken"
-		ws = "Blade: To" -- Hybrid WS ICE
+			weapon = "Heishi"
+			ws = "Blade: To" -- Hybrid WS ICE
 
 
         ------------------------------------
-        -- 🔥 Magic Weak / Absorb (Cluster / Slime / Iron Shell)
+        --  Magic Weak / Absorb (Cluster / Slime / Iron Shell)
         ------------------------------------
-        elseif name:find('cluster') or name:find('slime') or 
-		    name:find('dahak') or name:find('karakul') or name:find('tiger') or 
-	        name:find('slime')
+        elseif  name:find('slime') or name:find('dahak') or
+		 name:find('karakul') or name:find('tiger')
 	    then
-		weapon = "Heishi Shorinken"
-        ws = "Blade: Teki"
+			weapon = "Heishi"
+			ws = "Blade: Teki"
 
 
         ------------------------------------
-        -- 🧟‍♂ Skeleton / Ghost / Ghast
+        --  Skeleton / Ghost / Ghast
         ------------------------------------
         elseif name:find('skeleton') or name:find('ghost') or name:find('bhoot') or 
 		name:find('crab') or name:find('draugar') or name:find('imp') or 
-		name:find('jagil') or name:find('leopard') or name:find('qutrub') or 
+        name:find('leopard') or name:find('qutrub') or 
 		name:find('wyvern') or name:find('ram') or name:find('raptor') or  
 		name:find('rarab') 
-	
 		then
-			weapon = "Heishi Shorinken"
+			weapon = "Heishi"
 			ws = "Blade: Chi"
 	
         ------------------------------------
-        -- 🧜‍♀️ Lamia + Agon Mobs (حسب الصورة Piercing)
+        -- Lamia + Agon Mobs (حسب الصورة Piercing)
         ------------------------------------
+	    --lamia
+		elseif name:find('agon adjudicator') or name:find('agon rabblerouser') or 
+	    name:find('agon scallywag') or name:find('agon yojimbo') or
+		name:find('agon vizier')
+	    or name:find('agon marksman') or name:find('bigbird') 
+		-- Lamia leader
+	    or name:find('agon monarch') or name:find('agon dignitary') 
+		then
+			weapon = "CLUB"
+			ws = "Judgment"
         elseif name:find('bigbird') or name:find('bugard') or
 	    name:find('manticore') or name:find('marid') or
 	    name:find('puk') then
-		weapon = "Heishi Shorinken"
-        ws = "Blade: To" -- Piercing
+			weapon = "Heishi"
+			ws = "Blade: To" -- Piercing
 
         ------------------------------------
-        -- 🟣 UNM
+        --  UNM
         ------------------------------------
         elseif name:find('asena') then 
-		weapon = "Heishi Shorinken"
-		ws = "Blade: To"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('bygul') then 
-		weapon = "Heishi Shorinken"
-		ws = "Blade: To"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('chaos steward') then 
-		weapon = "Heishi Shorinken"
-		ws = "Blade: Chi"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('dabbat al-ard') then 
-		weapon = "Heishi Shorinken"
-		ws = "Blade: To"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('kurma') then
-		weapon = "Heishi Shorinken"
-		ws = "Blade: Chi"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('lotanu') then
-		weapon = "Heishi Shorinken"
-		ws = "Blade: Chi"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
         elseif name:find('wayra tata') then 
-		weapon = "Heishi Shorinken"
-		ws = "Blade: Chi"
+		    weapon = "Naegling"
+            ws = "Savage Blade"
 
         ------------------------------------
-        -- 🟩 Default
+        --  Default
         ------------------------------------
         else
             -- ws = "Blade: Chi" -- fallback
@@ -2744,12 +3100,12 @@ function user_target_change(target)
 	        -- 	ws = "Blade: Chi"
 
             if weakness == 'blunt' then
-				weapon = "Naegling"
-				ws = "Savage Blade"
+				weapon = "CLUB"
+				ws = "Judgment"
 			elseif weakness == 'magic' then
-				weapon = "Heishi Shorinken"
+				weapon = "Heishi"
 				ws = "Blade: Teki"
-			elseif weakness == 'slashing' or weakness == 'piercing' then
+			elseif (weakness == 'slashing' or weakness == 'piercing') then
 				weapon = "Naegling"
 				ws = "Savage Blade"
 			end
@@ -2759,7 +3115,12 @@ function user_target_change(target)
     elseif job == 'WAR' then
 		    weapon = "Naegling"
             ws = "Savage Blade"
-        if weakness == 'blunt' then
+	-- 	if name:find('skeleton') or name:find('ghost') or name:find('crab') or 
+	-- name:find('bugard') or name:find('imp') or name:find('Corse') or
+	-- name:find('draugar') or name:find('ghoul') or name:find('ghast')then
+	-- 	weakness = 'blunt'
+	--     end
+        if weakness == 'blunt' or weakness == 'magic' then --or weakness == 'magic' 
             weapon = "Loxotic"
             ws = "Judgment"
         elseif weakness == 'slashing' then
@@ -2768,15 +3129,18 @@ function user_target_change(target)
 		elseif weakness == 'piercing' then
 			weapon = "Shining"
             ws = "Impulse Drive"
+		-- else
+		--     weapon = "Naegling"
+        --     ws = "Savage Blade"
         end
-	
+
 
 	elseif job == 'DRK' then
 		weapon = "Caladbolg" -- default
 		ws = "Torcleaver"-- default
 
 		------------------------------------
-		-- 🩸 Blunt Weakness
+		--  Blunt Weakness
 		------------------------------------
 		if name:find('skeleton') or name:find('ghost') or
 		   name:find('crab') or name:find('bugard') or name:find('imp') then
@@ -2784,7 +3148,7 @@ function user_target_change(target)
 			ws = "Judgment"
 	
 		------------------------------------
-		-- 🪱 Piercing Weakness
+		--  Piercing Weakness
 		------------------------------------
 		elseif name:find('bat') or name:find('fly') or name:find('wyvern') or
 			   name:find('wyrm') or name:find('rarab') or name:find('leech') then
@@ -2792,7 +3156,7 @@ function user_target_change(target)
 			ws = "Torcleaver"
 	
 		------------------------------------
-		-- ⚔️ Slashing Weakness
+		--  Slashing Weakness
 		------------------------------------
 		elseif name:find('evil weapon') or name:find('beetle') or
 			   name:find('footsoldier') or name:find('spider') or
@@ -2802,7 +3166,7 @@ function user_target_change(target)
 			ws = "Torcleaver"
 	
 		------------------------------------
-		-- 🔥 Magic Weakness
+		-- Magic Weakness
 		------------------------------------
 		elseif name:find('cluster') or name:find('slime') 
 		 then
@@ -2810,7 +3174,7 @@ function user_target_change(target)
 			ws = "Torcleaver"
 	
 		------------------------------------
-		-- 🟣 Odyssey UNM
+		--  Odyssey UNM
 		------------------------------------
 		elseif name:find('asen') then
 			weapon = "Caladbolg"
@@ -2827,9 +3191,6 @@ function user_target_change(target)
 		elseif name:find('kurma') then
 			weapon = "Caladbolg"
 			ws = "Torcleaver"
-		-- elseif name:find('Ironshell') then
-		-- 	weapon = "Liberator"
-		-- 	ws = "Entropy"
 		elseif name:find('wayra tata') then
 			weapon = "Caladbolg"
 			ws = "Torcleaver"
@@ -2848,21 +3209,22 @@ function user_target_change(target)
 			elseif weakness == 'piercing' then
 				weapon = "Shining"
 				ws = "Impulse Drive"
-			-- elseif weakness == 'magic' then
-			-- 	weapon = "AgwuClaymore"
-			-- 	ws = "Impulse Drive"
+			elseif weakness == 'magic' then
+				weapon = "Caladbolg"
+				ws = "Torcleaver"
 			end
 			
 		end
 	
 
     elseif job == 'DRG' then
-		weapon = "DualNaegling"
-        ws = "Savage Blade"
-        if weakness == 'piercing' then
+
+        if weakness == 'piercing' or weakness == 'blunt' then
 			weapon = "Trishula"
             ws = "Stardiver"
-        -- else
+        else
+			weapon = "DualNaegling"
+            ws = "Savage Blade"
         --     ws = "Camlann's Torment"
         end
 	elseif job == 'BRD' then
@@ -2880,6 +3242,9 @@ function user_target_change(target)
         elseif weakness == 'slashing' then
         weapon = "DualNaeglingCrepuscular"
         ws = "Savage Blade"
+		else
+        weapon = "DualNaeglingCrepuscular"
+        ws = "Savage Blade"        
         end
 	elseif job == 'THF' then
 		weapon = "Naegling"  -- Default
@@ -2896,7 +3261,10 @@ function user_target_change(target)
 		elseif weakness == 'slashing' then
 		weapon = "Naegling"
 		ws = "Savage Blade"
-		end
+	    else
+		weapon = "Naegling"
+        ws = "Savage Blade"        
+        end
 	-- elseif job == 'DNC' then
     --     weapon = "Twashtar"
     --     ws = "Rudra's Storm"
@@ -2935,7 +3303,7 @@ function user_target_change(target)
 		ws = "Tachi: Fudo"
 	
 		------------------------------------
-		-- 🩸 -- 🔥 Magic Weakness Blunt Weakness (Bone / Crab / Imp...)
+		--   Magic Weakness Blunt Weakness (Bone / Crab / Imp...)
 		------------------------------------
 		if name:find('skeleton') or name:find('ghost') or name:find('bat') or 
 		   name:find('bugard') or name:find('imp') or
@@ -2946,7 +3314,7 @@ function user_target_change(target)
 			weapon = "Dojikiri"
 			ws = "Tachi: Jinpu"
 		------------------------------------
-		-- 🪱 Piercing Weakness (Bat / Wyrm / Rarab / Leech)
+		--  Piercing Weakness (Bat / Wyrm / Rarab / Leech)
 		------------------------------------
 		elseif name:find('vulture') or name:find('fly') or name:find('wyvern') or
 			   name:find('wyrm')  then
@@ -2954,7 +3322,7 @@ function user_target_change(target)
 			ws = "Impulse Drive"
 	
 		------------------------------------
-		-- 🔥 Fire Magic Weakness 
+		--  Fire Magic Weakness 
 		------------------------------------
 		elseif  name:find('skeleton') or name:find('ghost') or name:find('crab') or 
 		name:find('qutrub') or name:find('karakul') or name:find('draugar') or
@@ -2965,7 +3333,7 @@ function user_target_change(target)
 			ws = "Tachi: Kagero"
 	
 		------------------------------------
-		-- 🟣 UNM Weaknesses
+		--  UNM Weaknesses
 		------------------------------------
 		elseif name:find('asena') then 
 		    weapon = "Masamune"
@@ -2998,77 +3366,19 @@ function user_target_change(target)
 			elseif weakness == 'magic' then
 				weapon = "Dojikiri"
 				ws = "Tachi: Jinpu"
-			elseif weakness == 'piercing' then
+			elseif weakness == 'piercing' or weakness == 'blunt' then
 				weapon = "Polearm"
 				ws = "Impulse Drive"
 			end
 		end
 	end
 
-	------------------------------------------------------------
-    -- ⚔️ تحديد السلاح والـWS المناسب حسب الجوب
-    ------------------------------------------------------------
 
-	if name:find('skeleton') or name:find('ghost') or name:find('crab') or 
-	name:find('bugard') or name:find('imp') or name:find('Corse') or
-	name:find('draugar') or name:find('ghoul') then
-		weakness = 'blunt'
-	
-	-- ✅ Piercing Weakness + Lamia
-	elseif name:find('bat') or name:find('fly') or name:find('wyrm') or 
-	name:find('wyvern') or name:find('rarab') or name:find('Gandji') or
-	name:find('Langmeidong') or name:find('Roc') or name:find('Zacatzontli') or
-	
-	--lamia
-	name:find('agon adjudicator') or name:find('agon rabblerouser') or 
-	name:find('agon scallywag')
-	or name:find('agon yojimbo') or name:find('agon vizier')
-	or name:find('agon marksman') or name:find('bigbird')
-	then
-		weakness = 'piercing'
-	
-	-- ✅ Slashing Weakness + Trolls + Mamool Ja + Agon Leaders
-	elseif name:find('evil weapon') or name:find('beetle') or
-	 name:find('footsoldier') or name:find('spider')
-	or name:find('mantis') or name:find('worm') or name:find('mandragora') or
-	 name:find('tiger')
-    or name:find('Flytrap')
-	-- Lamia leader
-	or name:find('agon monarch') or name:find('agon dignitary') 
-	-- Mamool Ja
-	-- Trolls
-	or name:find('agon defender') or name:find('agon clearmind')
-	or name:find('agon infidel') or name:find('agon ritualist')
-	or name:find('agon sharpshooter') or name:find('agon shieldsaint')
-	or name:find('agon phalanx')
-	or name:find('agon initiate') or name:find('agon instigator')
-	or name:find('agon viscount')
-	or name:find('agon marquess') or name:find('agon praetor')
-	or name:find('agon footsoldier') or 
-	--unm
-	name:find('asena') 
-	or name:find('chaos steward') or name:find('dabbat al-ard')
-	or name:find('lotanu')
-	then
-		weakness = 'slashing'
-	
-	-- ✅ Magic Weakness (نفس ما كان عندك)
-	elseif name:find('cluster') or name:find('slime') or name:find('colibri') 
-	or name:find('amemet') or name:find('kurma') or name:find('jagil')
-	then
-		weakness = 'magic'
-	
-	-- else
-	-- 	weakness = 'none'
-	end
-
-
-
-    ------------------------------------------------------------
-    -- ⚙️ تنفيذ التبديل الفعلي
-    ------------------------------------------------------------
+		------------------------------------------------------------
+		-- Perform the actual switch
+		------------------------------------------------------------
     if weapon then
-        windower.add_to_chat(207, ('[Auto WeaponSet] %s → %s (%s weak)'):format(target.name, weapon, weakness))
+        windower.add_to_chat(207, ('[Auto WeaponSet] %s  %s (%s weak)'):format(target.name, weapon, weakness))
         send_command('@gs c Weapons ' .. weapon)
         state.Weapons:set(weapon)
     end
@@ -3080,7 +3390,7 @@ function user_target_change(target)
 		send_command('@gs c AutoWS ' .. ws)
 
     else
-        windower.add_to_chat(123, ('[Auto WS] No WS rule for %s'):format(target.name))
+        windower.add_to_chat(207, ('[Auto WS] No WS rule for %s'):format(target.name))
 		send_command('@gs c Weapons ' .. previous_weapon)
 		state.Weapons:set(previous_weapon)
 		state.AutoWS = previous_ws
@@ -3092,7 +3402,7 @@ function user_target_change(target)
 end
 
 
--- -- وظيفة poke للتفاعل مع الأهداف باستخدام الحزم
+-- -- Function poke to interact with targets using packets
 -- function poke(c)
 -- 	local packet = packets.new('outgoing', 0x01A, {
 -- 		["Target"] = c['Target'],
@@ -3104,60 +3414,59 @@ end
 -- 	packets.inject(packet)
 -- end
 
--- -- حساب المسافة بين اللاعب والهدف
+-- -- Calculate the distance between the player and the target
 -- local function get_distance(player, target)
 -- 	return math.sqrt((player.x - target.x)^2 + (player.y - target.y)^2)
 -- end
 
-
--- -- استدعاء الكود عند تغيير الهدف
+-- -- Trigger the code when the target changes
 -- windower.register_event('target change', function(target_id)
--- 	-- الحصول على الهدف الحالي
--- 	local target = windower.ffxi.get_mob_by_target('t') -- 't' تعني الهدف الحالي
--- 	local player = windower.ffxi.get_mob_by_target('me') -- الحصول على موقع اللاعب
+-- 	-- Get the current target
+-- 	local target = windower.ffxi.get_mob_by_target('t') -- 't' means the current target
+-- 	local player = windower.ffxi.get_mob_by_target('me') -- Get the player's position
 
 -- 	if target and target.name and target.name:lower():contains("door") then
 -- 		if target.is_npc then
--- 			-- التحقق من المسافة بين اللاعب والباب
+-- 			-- Check the distance between the player and the door
 -- 			local distance = get_distance(player, target)
 -- 			if distance and distance < 3 then
--- 				-- توجيه السهم تلقائيًا إلى الباب
+-- 				-- Automatically move the arrow to the door
 -- 				-- windower.ffxi.run(target.x, target.y, target.z)
--- 				-- coroutine.sleep(0.5) -- انتظار بسيط قبل التفاعل
--- 				-- windower.ffxi.run(false) -- إيقاف الحركة
+-- 				-- coroutine.sleep(0.5) -- Small wait before interacting
+-- 				-- windower.ffxi.run(false) -- Stop movement
 -- 			end
 
--- 			-- استخدام poke للتفاعل مع الباب
+-- 			-- Use poke to interact with the door
 -- 			poke({
 -- 				["Target"] = target.id,
 -- 				["Target Index"] = target.index
 -- 			})
 -- 			add_to_chat(217, "Automatically opening the door using poke.")
 
--- 			-- اختيار "نعم" من القائمة بعد فتح الباب باستخدام setkey
+-- 			-- Select "Yes" from the menu after opening the door using setkey
 -- 			coroutine.schedule(function()
--- 				windower.send_command('setkey up down') -- الضغط على السهم للأعلى
--- 				coroutine.sleep(0.1) -- انتظار بسيط
--- 				windower.send_command('setkey up up') -- تحرير السهم للأعلى
--- 				coroutine.sleep(0.1) -- انتظار بسيط
--- 				windower.send_command('setkey enter down') -- الضغط على "Enter"
--- 				coroutine.sleep(0.1) -- انتظار بسيط
--- 				windower.send_command('setkey enter up') -- تحرير "Enter"
+-- 				windower.send_command('setkey up down') -- Press the up arrow
+-- 				coroutine.sleep(0.1) -- Small wait
+-- 				windower.send_command('setkey up up') -- Release the up arrow
+-- 				coroutine.sleep(0.1) -- Small wait
+-- 				windower.send_command('setkey enter down') -- Press "Enter"
+-- 				coroutine.sleep(0.1) -- Small wait
+-- 				windower.send_command('setkey enter up') -- Release "Enter"
 -- 				add_to_chat(217, "Selected 'Yes' from the menu using setkey.")
--- 			end, 1) -- تأخير بسيط قبل اختيار "نعم"
+-- 			end, 1) -- Small delay before selecting "Yes"
 -- 		else
--- 			-- إذا لم يكن الهدف NPC، استخدم lockon و sendkey
+-- 			-- If the target is not an NPC, use lockon and sendkey
 -- 			windower.chat.input('/lockon')
 -- 			windower.send_command:schedule(1, '@sendkey enter')
 -- 		end
 -- 	end
 -- end)
 
--- -- وظيفة للبحث عن باب قريب من اللاعب
+-- -- Function to find the nearest door to the player
 -- local function find_nearest_door(player)
--- 	local nearest_ddoor = nil
--- 	local nearest_distance = math.huge -- تعيين مسافة كبيرة جدًا كبداية
--- 	local mobs = windower.ffxi.get_mob_array() -- الحصول على قائمة بجميع الكائنات
+-- 	local nearest_door = nil
+-- 	local nearest_distance = math.huge -- Set a very large distance as the initial value
+-- 	local mobs = windower.ffxi.get_mob_array() -- Get a list of all entities
 
 -- 	for _, mob in pairs(mobs) do
 -- 		if mob and mob.name and mob.name:lower():contains("door") and mob.is_npc then
@@ -3174,7 +3483,7 @@ end
 
 -- local function press(key, times, delay)
 -- 	times = times or 1
--- 	delay = delay or 0.2 -- تأخير افتراضي
+-- 	delay = delay or 0.2 -- Default delay
 -- 	for _ = 1, times do
 -- 		windower.send_command(('setkey %s down'):format(key))
 -- 		coroutine.sleep(0.05)
@@ -3184,13 +3493,13 @@ end
 -- end
 
 -- windower.register_event('prerender', function()
--- 	local player = windower.ffxi.get_mob_by_target('me') -- الحصول على موقع اللاعب
+-- 	local player = windower.ffxi.get_mob_by_target('me') -- Get the player's position
 -- 	if not player then return end
 
--- 	-- البحث عن الباب القريب
+-- 	-- Find the nearest door
 -- 	local door = find_nearest_door(player)
 -- 	if door then
--- 		-- استهداف الباب باستخدام id و index
+-- 		-- Target the door using id and index
 -- 		local packet = packets.new('outgoing', 0x01A, {
 -- 			["Target"] = door.id,
 -- 			["Target Index"] = door.index,
@@ -3198,23 +3507,23 @@ end
 -- 			["Param"] = 0,
 -- 			["_unknown1"] = 0
 -- 		})
--- 		packets.inject(packet) -- إرسال الحزمة لاستهداف الباب
+-- 		packets.inject(packet) -- Send the packet to target the door
 
--- 		-- تحريك السهم للأعلى ثم الضغط على "Enter"
+-- 		-- Move the arrow up and then press "Enter"
 -- 		coroutine.schedule(function()
--- 			windower.send_command('setkey up down') -- الضغط على السهم للأعلى
--- 			coroutine.sleep(0.2) -- انتظار بسيط
--- 			windower.send_command('setkey up up') -- تحرير السهم للأعلى
--- 			coroutine.sleep(0.2) -- انتظار إضافي
--- 			windower.send_command('setkey down down') -- الضغط على السهم للأسفل (للتأكد من تحديد الخيار الصحيح)
--- 			coroutine.sleep(0.2) -- انتظار بسيط
--- 			windower.send_command('setkey down up') -- تحرير السهم للأسفل
--- 			coroutine.sleep(0.2) -- انتظار إضافي
--- 			windower.send_command('setkey enter down') -- الضغط على "Enter"
--- 			coroutine.sleep(0.2) -- انتظار بسيط
--- 			windower.send_command('setkey enter up') -- تحرير "Enter"
+-- 			windower.send_command('setkey up down') -- Press the up arrow
+-- 			coroutine.sleep(0.2) -- Small wait
+-- 			windower.send_command('setkey up up') -- Release the up arrow
+-- 			coroutine.sleep(0.2) -- Additional wait
+-- 			windower.send_command('setkey down down') -- Press the down arrow (to ensure the correct option is selected)
+-- 			coroutine.sleep(0.2) -- Small wait
+-- 			windower.send_command('setkey down up') -- Release the down arrow
+-- 			coroutine.sleep(0.2) -- Additional wait
+-- 			windower.send_command('setkey enter down') -- Press "Enter"
+-- 			coroutine.sleep(0.2) -- Small wait
+-- 			windower.send_command('setkey enter up') -- Release "Enter"
 -- 			add_to_chat(217, "Selected 'Yes' from the menu using setkey.")
--- 		end, 1) -- تأخير بسيط قبل تنفيذ الأوامر
+-- 		end, 1) -- Small delay before executing the commands
 -- 	end
 -- end)
 
@@ -3249,14 +3558,10 @@ end
 --     local item_data = res.items[tonumber(item_id_string)]
 --     local quantity = tonumber(quantity_string) or 1
     
---     windower.add_to_chat(123, 'Detected that you dropped a "%s" x%d':format(item_data.en, quantity))
+--     windower.add_to_chat(207, 'Detected that you dropped a "%s" x%d':format(item_data.en, quantity))
     
 --     windower.send_command('treasury drop add '..item_data.en)
 -- end)
-
-
-
-
 
 
 -- local res = require('resources')
@@ -3266,16 +3571,14 @@ require('chat')
 
 windower.raw_register_event('incoming text',function(org, original, modified)
 	if string.find(org, "MyHome:") then
-		-- windower.send_command('input /p Stagger! <call14>!')  -- code add by (Aragan@Asura)
 		send_command('gs c useitem ring1 Warp Ring;')
 		tickdelay = os.clock() + 0.5
 	end
 	if string.find(org, "Valkyrie: No Lamp") then
-		-- windower.send_command('input /p Stagger! <call14>!')  -- code add by (Aragan@Asura)
 		send_command('@wait 5;lua r valkyrie')
 		tickdelay = os.clock() + 0.5
 	end
-    -- -- الكود الجديد لفحص إذا رميت شيء م
+	-- -- New code to check if you threw something away
 	-- if string.find(org, "AutoTargetAssist targeting: on")  then
 	-- 	windower.send_command('input /echo ((Attack is ON.)) >> killer machine ready <<')  -- code add by (Aragan@Asura)
     --     -- windower.send_command('input /t '..player.name..' '..player.name..' >> '..item_name..' << ITS DROP LOT IT ! <call14> ' )
@@ -3310,6 +3613,8 @@ windower.raw_register_event('incoming text',function(org, original, modified)
 		- Timing delays are implemented to ensure smooth execution and avoid conflicts.
 	]]
 	if state.Autojoinptmode.Value then
+	-- if not state.Autojoinptmode.value then return end
+
 		if string.find(org, "invites you to her party") or string.find(org, "invites you to his party") then
 			-- local sender = org:match("invites you to (.+) party")		
 				windower.send_command('wait 1.2;input /join')
@@ -3362,7 +3667,7 @@ windower.raw_register_event('incoming text',function(org, original, modified)
 		- The script assumes the presence of GearSwap's state management and command execution functions.
 	--]]
 	--It is from the highest secrets.
-	-- جدول لتخزين الأوامر السابقة
+	-- Table to store previous commands
 	local previous_state = {
 		autows = nil,
 		weapons = nil
@@ -3380,24 +3685,24 @@ windower.raw_register_event('incoming text',function(org, original, modified)
 		end
 		if string.find(org, "Armor Break") and string.find(org, player.name) then			-- حفظ الأوامر السابقة
 
-			-- عرض رسائل تصحيح
-			-- windower.add_to_chat(207, '[Debug] Previous AutoWS: ' .. previous_state.autows)
-			-- windower.add_to_chat(207, '[Debug] Previous Weapons: ' .. previous_state.weapons)
+					-- Display debug messages
+					-- windower.add_to_chat(207, '[Debug] Previous AutoWS: ' .. previous_state.autows)
+					-- windower.add_to_chat(207, '[Debug] Previous Weapons: ' .. previous_state.weapons)
 
-			-- تنفيذ الأوامر الجديدة
-			-- send_command('gs c Weapons default; gs c cycle DefenseDownMode;')
+					-- Execute new commands
+					-- send_command('gs c Weapons default; gs c cycle DefenseDownMode;')
 
-			-- الانتظار ثم العودة إلى الأوامر السابقة
-			send_command('@wait 1; gs c autows ' .. previous_state.autows .. '; gs c Weapons ' .. previous_state.weapons)
-			state.Weapons:set(previous_state.weapons)
+					-- Wait and then revert to previous commands
+					send_command('@wait 1; gs c autows ' .. previous_state.autows .. '; gs c Weapons ' .. previous_state.weapons)
+					state.Weapons:set(previous_state.weapons)
 
-			-- تعيين القيمة إلى nil
-			previous_state.weapons = nil
-			-- state.Weapons:set(nil)
-			tickdelay = os.clock() + 0.5
+					-- Set the value to nil
+					previous_state.weapons = nil
+					-- state.Weapons:set(nil)
+					tickdelay = os.clock() + 0.5
 
-		end
-	end
+				end
+			end
 
 	-- if string.find(org, "Okyupete") then
 	-- 	windower.send_command('timers c "Okyupete" 3600 down')
@@ -3465,61 +3770,61 @@ windower.raw_register_event('incoming text',function(org, original, modified)
 
 	
 
-	-- if not state.AutoDropItemsMode.value then return end
+		-- if not state.AutoDropItemsMode.value then return end
 
-	-- -- قائمة العناصر الممنوعة
-	-- local prohibited_items = {
-	-- 	"glowing lamp",
-	-- 	"warp cudgel",
-	-- 	"airmid's gorget",
-	-- 	"reraise earring"
-	-- }
+		-- -- List of prohibited items
+		-- local prohibited_items = {
+		-- 	"glowing lamp",
+		-- 	"warp cudgel",
+		-- 	"airmid's gorget",
+		-- 	"reraise earring"
+		-- }
 
-	-- -- استخراج اسم العنصر
-	-- local item_name = original:match('You throw away a (.+)%.') or original:match('You toss (.+)%.') or original:match('You throw away an (.+)%.')
+		-- -- Extract the item name
+		-- local item_name = original:match('You throw away a (.+)%.') or original:match('You toss (.+)%.') or original:match('You throw away an (.+)%.')
 
-	-- if item_name then
-	-- 	item_name = item_name:strip_format():lower()
-	-- 	-- التحقق إذا كان العنصر غير محظور
-	-- 	for _, prohibited_item in ipairs(prohibited_items) do
-	-- 		if item_name == prohibited_item then
-	-- 			windower.add_to_chat(207, '[Treasury] Prohibited item detected and not added: ' .. item_name)
-	-- 			return
-	-- 		end
-	-- 	end
+		-- if item_name then
+		-- 	item_name = item_name:strip_format():lower()
+		-- 	-- Check if the item is prohibited
+		-- 	for _, prohibited_item in ipairs(prohibited_items) do
+		-- 		if item_name == prohibited_item then
+		-- 			windower.add_to_chat(207, '[Treasury] Prohibited item detected and not added: ' .. item_name)
+		-- 			return
+		-- 		end
+		-- 	end
 
-	-- 	-- إضافة العنصر إذا لم يكن محظورًا
-	-- 	windower.send_command('treasury drop add '..item_name..'')
-	-- 	windower.add_to_chat(207, '[Treasury] Added dropped item: ' .. item_name)
-	-- end
+		-- 	-- Add the item if it is not prohibited
+		-- 	windower.send_command('treasury drop add '..item_name..'')
+		-- 	windower.add_to_chat(207, '[Treasury] Added dropped item: ' .. item_name)
+		-- end
 
-	----
+		----
 
-	-- --beetle shell --beetle jaw
-	-- if string.find(org, "You throw away a lizard egg") or string.find(org, "You find a volte tights") or string.find(org, "You find a volte tiara") 
-	-- or string.find(org, "You find a volte boots") or string.find(org, "You find a volte hose") 
-	-- or string.find(org, "You find a volte bracers") or string.find(org, "You find a crepuscular cloak") 
-	-- or string.find(org, "You find a volte moufles") or string.find(org, "You find a volte brayettes")
-	-- or string.find(org, "You find a fu's scale") or string.find(org, "You find a kin's scale")
-	-- or string.find(org, "You find a kyou's scale") or string.find(org, "You find a kei's scale")
-	-- or string.find(org, "You find a gin's scale") then
-	-- 	local item_name = org:match("You find a (.+)")
-	-- إرسال رسالة إلى الدردشة
-	-- windower.send_command('input /echo '..player.name..' >> '..item_name..' << ITS DROP LOT IT ! <call14>!')  -- code add by (Aragan@Asura)
-	-- windower.send_command('input /t '..player.name..' '..player.name..' >> '..item_name..' << ITS DROP LOT IT ! <call14> ')
-    -- end
+		-- --beetle shell --beetle jaw
+		-- if string.find(org, "You throw away a lizard egg") or string.find(org, "You find a volte tights") or string.find(org, "You find a volte tiara") 
+		-- or string.find(org, "You find a volte boots") or string.find(org, "You find a volte hose") 
+		-- or string.find(org, "You find a volte bracers") or string.find(org, "You find a crepuscular cloak") 
+		-- or string.find(org, "You find a volte moufles") or string.find(org, "You find a volte brayettes")
+		-- or string.find(org, "You find a fu's scale") or string.find(org, "You find a kin's scale")
+		-- or string.find(org, "You find a kyou's scale") or string.find(org, "You find a kei's scale")
+		-- or string.find(org, "You find a gin's scale") then
+		-- 	local item_name = org:match("You find a (.+)")
+		-- Send a message to the chat
+		-- windower.send_command('input /echo '..player.name..' >> '..item_name..' << ITS DROP LOT IT ! <call14>!')  -- code add by (Aragan@Asura)
+		-- windower.send_command('input /t '..player.name..' '..player.name..' >> '..item_name..' << ITS DROP LOT IT ! <call14> ')
+		-- end
 
-	--[[
-		This script is designed to monitor and identify specific items from a predefined list 
-		when they appear in the game log. If an item from the list is detected, it sends a 
-		notification to the player via an echo message and a tell command, prompting them to 
-		lot the item.
+		--[[
+			This script is designed to monitor and identify specific items from a predefined list 
+			when they appear in the game log. If an item from the list is detected, it sends a 
+			notification to the player via an echo message and a tell command, prompting them to 
+			lot the item.
 
-		Variables:
-		- items_to_find: A table containing the names of items to look for in the game log.
-		
-		Logic:
-		- Iterates through the `items_to_find` list.
+			Variables:
+			- items_to_find: A table containing the names of items to look for in the game log.
+			
+			Logic:
+			- Iterates through the `items_to_find` list.
 		- Checks if the current item exists in the `org` string (case-insensitive).
 		- If a match is found, extracts the item name from the log message using a pattern match.
 		- Sends two commands:
@@ -3593,6 +3898,12 @@ windower.raw_register_event('incoming text',function(org, original, modified)
         windower.send_command('treasury drop add '..item_name..'')
         windower.add_to_chat(207, '[Treasury] Added dropped item: ' .. item_name)
 		tickdelay = os.clock() + 1.1
+	end
+
+	if string.find(org, "Cuijatender") then
+		windower.send_command('timers c "Cuijatender Respawn" 1200 down')
+		-- windower.send_command('input /echo '..player.name..' >> '..item_name..' << Amun Respawn time start 10 min!')  -- code add by (Aragan@Asura)
+		already_announced_timers = true
 	end
 
 	-- if string.find(org, "Hazhdiha") then
@@ -3865,7 +4176,7 @@ local price_increment = 10000
 local res = require('resources').items
 local bag_ids = {"inventory","safe","safe2","locker","satchel","sack","case","wardrobe"}
 
--- تعريف المجموعات
+-- Define groups
 local ah_groups = {
    
         -- Escha AH Price List for AutoPurchase/Tracking
@@ -3961,7 +4272,7 @@ local ah_groups = {
 }
 
 --It is from the highest secrets.
--- معرفة عدد القطع الموجودة
+-- Determine the number of pieces available
 local function get_item_count(name)
     local count = 0
     local all_items = windower.ffxi.get_items()
@@ -3981,15 +4292,15 @@ local function get_item_count(name)
     return count
 end
 --It is from the highest secrets.
--- شراء خطوة واحدة
+-- Purchase step
 local function purchase_step(item, needed)
     if needed <= 0 then
-        windower.add_to_chat(123, "[AutoAH] Reached target for "..item.name..".")
+        windower.add_to_chat(207, "[AutoAH] Reached target for "..item.name..".")
         return
     end
 
     if item.max_price > item.max_increment then
-        windower.add_to_chat(123, "[AutoAH] Price reached max for "..item.name..", skipping.")
+        windower.add_to_chat(207, "[AutoAH] Price reached max for "..item.name..", skipping.")
         return
     end
 
@@ -3997,20 +4308,20 @@ local function purchase_step(item, needed)
     local buy_qty = math.min(item.quantity, needed)
 
     windower.send_command('input //ah buy "'..item.name..'" '..buy_qty..' '..item.max_price)
-    windower.add_to_chat(123, "[AutoAH] Attempting "..buy_qty.."x "..item.name.." at "..item.max_price)
+    windower.add_to_chat(207, "[AutoAH] Attempting "..buy_qty.."x "..item.name.." at "..item.max_price)
 
     coroutine.schedule(function()
         local now_count = get_item_count(item.name)
         local remaining = math.max((item.target_count or 1) - now_count, 0)
 
         if now_count >= (item.target_count or 1) then
-            windower.add_to_chat(123, "[AutoAH] Obtained required "..item.name.." (total: "..now_count..").")
+            windower.add_to_chat(207, "[AutoAH] Obtained required "..item.name.." (total: "..now_count..").")
             return
         else
-            windower.add_to_chat(123, "[AutoAH] Not enough "..item.name.." yet. Remaining: "..remaining..". Increasing price and retrying.")
+            windower.add_to_chat(207, "[AutoAH] Not enough "..item.name.." yet. Remaining: "..remaining..". Increasing price and retrying.")
             item.max_price = math.min(item.max_price + price_increment, item.max_increment)
             if item.max_price >= item.max_increment then
-                windower.add_to_chat(123, "[AutoAH] Reached max price for "..item.name..". Skipping to next.")
+                windower.add_to_chat(207, "[AutoAH] Reached max price for "..item.name..". Skipping to next.")
                 return
             end
             coroutine.schedule(function()
@@ -4027,24 +4338,24 @@ local function attempt_purchase_item(item)
     end
     local current = get_item_count(item.name)
     if current >= (item.target_count or 1) then
-        windower.add_to_chat(123, "[AutoAH] Already have "..current.." of "..item.name..", skipping.")
+        windower.add_to_chat(207, "[AutoAH] Already have "..current.." of "..item.name..", skipping.")
         return
     end
     local needed = (item.target_count or 1) - current
-    windower.add_to_chat(123, "[AutoAH] Need "..needed.." of "..item.name..", starting purchase.")
+    windower.add_to_chat(207, "[AutoAH] Need "..needed.." of "..item.name..", starting purchase.")
     purchase_step(item, needed)
 end
 
--- شراء مجموعة كاملة
+-- Purchase a complete group
 function purchase_group(group_name)
     if state.AutoBuyAuctionHouseMod.value ~= true then
-        windower.add_to_chat(123, "[AutoAH] AutoBuyAuctionHouseMod is OFF. Enable first.")
+        windower.add_to_chat(207, "[AutoAH] AutoBuyAuctionHouseMod is OFF. Enable first.")
         return
     end
 
     local group = ah_groups[group_name]
     if not group then
-        windower.add_to_chat(123, "[AutoAH] Group '"..group_name.."' not found.")
+        windower.add_to_chat(207, "[AutoAH] Group '"..group_name.."' not found.")
         return
     end
 
@@ -4074,6 +4385,8 @@ end)
 
 --v11
 
+--It is from the highest secrets.
+-- GearSwap AutoTrade with single NPC targeting
 --It is from the highest secrets.
 -- GearSwap AutoTrade with single NPC targeting
 res_items = require('resources').items
@@ -4120,12 +4433,12 @@ local trade_groups = {
             { nm = "Emputa", command = 'TradeNPC 2 "Steel Ingot"' },
             { nm = "Khon", command = 'TradeNPC 2 "Steel Ingot"' },
             { nm = "Khun", command = 'TradeNPC 2 "Steel Ingot"' },
-            { nm = "Ma", command = 'TradeNPC 2 "Steel Ingot' },
+            { nm = "Ma", command = 'TradeNPC 2 "Steel Ingot"' },
             { nm = "Met", command = 'TradeNPC 1 "Steel Ingot"' },
             { nm = "Peirithoos", command = 'TradeNPC 1 "Steel Ingot"' },
             { nm = "Ruea", command = 'TradeNPC 1 "Steel Ingot"' },
             { nm = "Sava Savanovic", command = 'TradeNPC 2 "Steel Ingot"' },
-            { nm = "Tenodera", command = 'TradeNPC 2 "ESteel Ingot"' },
+            { nm = "Tenodera", command = 'TradeNPC 2 "Steel Ingot"' },
             { nm = "Wasserspeier", command = 'TradeNPC 2 "Steel Ingot"' },
     
             -- Tier II NMs
@@ -4150,13 +4463,13 @@ local trade_groups = {
             -- Heavenly Beasts
             { nm = "Byakko", command = 'TradeNPC 3 "Byakko Scrap"' },
             { nm = "Genbu", command = 'TradeNPC 3 "Genbu Scrap"' },
-            { nm = "Kirin", command = 'TradeNPC 5 "Byakko Scrap" 5 "Genbu Scrap" 51 "Seiryu Scrap" 5 "Suzaku Scrap"' },
+            { nm = "Kirin", command = 'TradeNPC 5 "Byakko Scrap" 5 "Genbu Scrap" 5 "Seiryu Scrap" 5 "Suzaku Scrap"' },
             { nm = "Seiryu", command = 'TradeNPC 3 "Seiryu Scrap"' },
             { nm = "Suzaku", command = 'TradeNPC 3 "Suzaku Scrap"' },
         },
     },
 
-        --  Reisenjima (NPC: Shiftrix)
+    --  Reisenjima (NPC: Shiftrix)
     ["reisenjima"] = {
         npc = "Shiftrix",
         nms = {
@@ -4204,6 +4517,28 @@ local current_group = nil
 local current_index = 1
 local trade_delay = 10
 local trade_timer = 1
+
+------------------------------------------------------------
+-- دالة استخراج أسماء الأيتمات من أمر TradeNPC (من ملف AutoTrade)
+------------------------------------------------------------
+local function get_items_from_command(cmd)
+    local set  = {}
+    local list = {}
+
+    if not cmd or cmd == '' then
+        return list
+    end
+
+    for name in cmd:gmatch('"(.-)"') do
+        if name and name ~= '' and not set[name] then
+            set[name] = true
+            table.insert(list, name)
+        end
+    end
+
+    return list
+end
+
 --It is from the highest secrets.
 -- Start auto trade
 function start_autotrade(group_name)
@@ -4227,9 +4562,10 @@ function start_autotrade(group_name)
     trade_timer = os.clock() + 0.5
 
     -- Target NPC once
-	windower.send_command('input /targetnpc')
+    windower.send_command('input /targetnpc')
     windower.add_to_chat(8, "[AutoTrade] Targeting NPC: "..group.npc)
 end
+
 --It is from the highest secrets.
 -- Stop trading
 function stop_autotrade()
@@ -4240,44 +4576,34 @@ function stop_autotrade()
 end
 
 
+-- ------------------------------------------------------------------------------
+-- -- 🤖 --Auto Invite System within GearSwap only (without using packets)
+-- ------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------
--- 🤖 Auto Invite System داخل GearSwap فقط
---------------------------------------------------------------------------------
--- local packets = require('packets')
--- local coroutine = require('coroutine')
+-- windower.register_event('chat message', function(message, sender, mode, gm)
+-- 	if mode ~= 3 then return end  -- Only process tell messages
 
--- windower.register_event('incoming chunk', function(id, data)
---     if id ~= 0x017 then return end
---     local p = packets.parse('incoming', data)
---     if not p then return end
-
---     local msg = p.Message or p.Text or ''
---     local mode = p.Mode or p.Type
---     if mode ~= 3 then return end  -- tell فقط
-
---     local raw_name = data:sub(5, 20):gsub('%z', '')
---     local sender = windower.from_shift_jis(raw_name) or raw_name
---     if not sender or sender == '' then return end
-
---     local msg_l = msg:lower()
+-- 	local msg_l = message:lower()
 -- 	if msg_l:find('inv') or msg_l:find('invite') then
---         windower.add_to_chat(207, ('[AutoInvite] Inviting %s...'):format(sender))
---         coroutine.schedule(function()
---             windower.send_command('input /pcmd add ' .. sender)
---             windower.add_to_chat(207, ('[AutoInvite] Invited %s'):format(sender))
---         end, 0.5)  -- تأخير نصف ثانية
---     end
+-- 		windower.add_to_chat(207, ('[AutoInvite] Inviting %s...'):format(sender))
+-- 		coroutine.schedule(function()
+-- 			windower.send_command('input /pcmd add ' .. sender)
+-- 			windower.add_to_chat(207, ('[AutoInvite] Invited %s'):format(sender))
+-- 		end, 0.5)  -- Half-second delay
+-- 	end
 -- end)
 
+
 --------------------------------------------------------------------------------
--- 📩 التقاط رسائل Tell ودعوة المرسل إذا AllseenmsgMode = ON
------------------------ Auto AllseenmsgMode by Tell (Packet-level)
---It is from the highest secrets.
+-- Capture Tell messages and invite the sender if AllseenmsgMode = ON
+
+
+-- --------------------- Auto AllseenmsgMode by Tell (Packet-level)
+-- -- It is from the highest secrets.
 -- local packets = require('packets')
 -- --AllseenmsgMode
 -- windower.register_event('incoming chunk', function(id, data)
--- 	if not state.AllseenmsgMode.value then return end
+-- 	if not state.DarknessMode.value or not state.AllseenmsgMode.value then return end
 -- 	if id == 0x017 or id == 0x0C8 or id == 0x0C9 then -- Tell, Party, or Linkshell message
 -- 		local packet = packets.parse('incoming', data)
 -- 		if packet and packet['Sender Name'] and packet['Message'] then
@@ -4301,24 +4627,46 @@ end
 
 -- Allow jobs to override this code
 function user_self_command(commandArgs, eventArgs)
-	if commandArgs[1]:lower() == 'autoinv' then
+	local cmd = commandArgs[1] and commandArgs[1]:lower()
+
+    --------------------------------------------------------
+    -- مود العري الكامل: gs c naked
+    --------------------------------------------------------
+    if cmd == 'naked' then
+        state.NakedMode:toggle()
+
+        if state.NakedMode.value then
+            -- تفعيل المود: نخلع كل شيء ونقفل كل السلوتات
+            send_command('gs equip naked')
+            send_command('gs disable main sub range ammo head body hands legs feet neck waist ear1 ear2 ring1 ring2 back')
+            windower.add_to_chat(207, '[NakedMode] ON')
+        else
+            -- إطفاء المود: نفتح السلوتات ونحدث القير
+            send_command('gs enable main sub range ammo head body hands legs feet neck waist ear1 ear2 ring1 ring2 back')
+            send_command('gs c update')
+            windower.add_to_chat(207, '[NakedMode] OFF')
+        end
+
+        eventArgs.handled = true
+        return
+    end
+    if commandArgs[1]:lower() == 'autoinv' then
         state.AutoInviteMode:toggle()
         windower.add_to_chat(207, '[AutoInvite] = ' .. tostring(state.AutoInviteMode.value))
     end
-	if commandArgs[1]:lower() == 'abyssea' then
-		send_command('@ept track "'..state.Abyssea.value..'"')
-	end
-	if commandArgs[1]:lower() == 'ascws' then
-		send_command('@asc ws "'..state.Ascws.value..'"') --asc ws Decimation --explain
-	elseif commandArgs[1]:lower() == 'skillchainerws' then --Skillchainer mainws Decimation
-		send_command('@Skillchainer mainws "'..state.Skillchainerws.value..'"')
-	end
-
+    if commandArgs[1]:lower() == 'abyssea' then
+        send_command('@ept track "'..state.Abyssea.value..'"')
+    end
+    if commandArgs[1]:lower() == 'ascws' then
+        send_command('@asc ws "'..state.Ascws.value..'"') --asc ws Decimation --explain
+    elseif commandArgs[1]:lower() == 'skillchainerws' then --Skillchainer mainws Decimation
+        send_command('@Skillchainer mainws "'..state.Skillchainerws.value..'"')
+    end
 
     local input_command = table.concat(commandArgs, " ")
-	-- If the command starts with "buygroup", pass the group name to the existing code
+    -- If the command starts with "buygroup", pass the group name to the existing code
     if input_command:lower():sub(1, 8) == "buygroup" then
-		-- Remove the word "buygroup" and extract the group name only
+        -- Remove the word "buygroup" and extract the group name only
         local group_name = input_command:sub(10)
         purchase_group(group_name)
     end
@@ -4335,39 +4683,115 @@ function user_self_command(commandArgs, eventArgs)
         for k, v in pairs(trade_groups) do
             windower.add_to_chat(8, string.format(" - %s (NPC: %s)", k, v.npc))
         end
-    -- else
-    --     windower.add_to_chat(8, "Usage:")
-    --     windower.add_to_chat(8, "//gs c autotrade <zitah | ruaun | reisenjima>")
-    --     windower.add_to_chat(8, "//gs c stop")
-    --     windower.add_to_chat(8, "//gs c list")
     end
 end
 
 -- prerender event loop for executing trades
 windower.register_event('prerender', function()
-    if running and current_group then
-        if os.clock() >= trade_timer then
-            local group_data = trade_groups[current_group]
-            if current_index <= #group_data.nms then
-                local nm_data = group_data.nms[current_index]
-                local npc_name = group_data.npc
+    if not running or not current_group then
+        return
+    end
 
-				windower.send_command('input /targetnpc')
-                windower.send_command('@wait 1;'..nm_data.command)
-                windower.add_to_chat(8, string.format("[AutoTrade] Trading %s → NPC: %s", nm_data.nm, npc_name))
+    if os.clock() < trade_timer then
+        return
+    end
 
-                current_index = current_index + 1
-                trade_timer = os.clock() + trade_delay
-            else
-                windower.add_to_chat(8, string.format("[AutoTrade] Completed group '%s'.", current_group))
-                running = false
-                current_group = nil
-                current_index = 1
+    local group_data = trade_groups[current_group]
+    if not group_data then
+        running = false
+        current_group = nil
+        current_index = 1
+        return
+    end
+
+    if current_index <= #group_data.nms then
+        local nm_data  = group_data.nms[current_index]
+        local npc_name = group_data.npc
+
+        --------------------------------------------------
+        -- نفس منطق AutoTrade.lua:
+        --  1) يسحب الأيتمات من كل الحقائب (get *item all)
+        --  2) يقفل أي منيو مفتوحة (Escape)
+        --  3) يستهدف الـ NPC
+        --  4) يعمل TradeNPC
+        --  5) ينزل على أول وحش ويضغط Enter
+        --------------------------------------------------
+        local item_names = get_items_from_command(nm_data.command)
+        local cmd_str
+
+        if #item_names > 0 then
+            local first = true
+            for _, iname in ipairs(item_names) do
+                if first then
+                    cmd_str = string.format('get *%s all', iname)
+                    first = false
+                else
+                    cmd_str = cmd_str .. string.format(';@wait 1;get *%s all', iname)
+                end
             end
+
+            cmd_str =
+                'setkey escape down; wait 0.1; setkey escape up; @wait 0.5;' ..
+                cmd_str ..
+                ';@wait 1;input /targetnpc;@wait 2;' .. nm_data.command ..
+                ';@wait 3;setkey down down;wait 0.1;setkey down up; wait 0.1;setkey enter down; wait 0.1; setkey enter up'
+        else
+            cmd_str =
+                'setkey escape down; wait 0.1; setkey escape up; @wait 0.5;' ..
+                'input /targetnpc;@wait 1;' .. nm_data.command ..
+                ';@wait 3;setkey down down;wait 0.1;setkey down up; wait 0.1;setkey enter down; wait 0.1; setkey enter up'
         end
+
+        windower.send_command(cmd_str)
+        windower.add_to_chat(8, string.format("[AutoTrade] Trading %s → NPC: %s", nm_data.nm, npc_name))
+
+        current_index = current_index + 1
+        trade_timer   = os.clock() + trade_delay
+    else
+        windower.add_to_chat(8, string.format("[AutoTrade] Completed group '%s'.", current_group))
+        running       = false
+        current_group = nil
+        current_index = 1
     end
 end)
+-- Function to automatically obtain KI "Radialens" from Escha NPCs
+function get_radialens_ki()
+	local escha_npcs = {
+		["Escha - Zi'Tah"] = "Affi",
+		["Escha - Ru'Aun"] = "Dremi",
+		["Reisenjima"] = "Shiftrix"
+	}
 
+	local current_area = windower.ffxi.get_info().zone
+	local npc_name = escha_npcs[res.zones[current_area].english]
+
+	if not npc_name then
+		windower.add_to_chat(207, "[Radialens] You are not in an Escha zone.")
+		return
+	end
+
+	local target = windower.ffxi.get_mob_by_name(npc_name)
+	if not target or not target.valid_target or not target.is_npc or target.distance > 35 then
+		windower.add_to_chat(207, "[Radialens] NPC '" .. npc_name .. "' not found or too far.")
+		return
+	end
+
+	windower.send_command('setkey escape down; wait 0.1; setkey escape up; wait 0.5;')
+	windower.send_command('input /targetnpc; wait 1; input /lockon; wait 1; input /yes')
+	windower.add_to_chat(207, "[Radialens] Attempting to obtain KI 'Radialens' from " .. npc_name .. ".")
+end
+
+-- Add a command to trigger the function
+windower.register_event('addon command', function(command)
+	if command:lower() == 'radialens' then
+		get_radialens_ki()
+	end
+end)
+
+    --     windower.add_to_chat(8, "Usage:")
+    --     windower.add_to_chat(8, "//gs c autotrade <zitah | ruaun | reisenjima>")
+    --     windower.add_to_chat(8, "//gs c stop")
+    --     windower.add_to_chat(8, "//gs c list")
 
 -- Function to check the current day
 function check_darkday()
@@ -4396,81 +4820,175 @@ windower.register_event('day change', check_darkday)
 -----------------------------------------
 -- Moon Watcher: alert on ANY change
 -----------------------------------------
+local last_moon_pct = nil  -- Last known moon percentage (0..100)
 
-local last_moon_pct = nil  -- آخر نسبة قمر معروفة (0..100)
-
--- دالة مساعدة: تحويل النسبة إلى اسم الطور (تقريبي)
+-- Helper function: Convert percentage to approximate moon phase name
 local function moon_name_from_pct(pct)
-    -- نقسم الدائرة لثمانية أطوار تقريبية
+	-- Divide the circle into eight approximate phases
 	if pct >= 0 and pct <= 10 then return "New Moon" end
 	if pct > 10 and pct < 25 then return "Waxing Crescent" end
 	if pct == 25 then return "First Quarter" end
 	if pct > 25 and pct < 50 then return "Waxing Gibbous" end
-	if pct == 50 then return "Half Moon" end  -- إن أردتها "First Quarter/Half"
+	if pct == 50 then return "Half Moon" end  -- If you want it as "First Quarter/Half"
 	if pct > 50 and pct < 75 then return "Waning Gibbous" end
 	if pct == 75 then return "Last Quarter" end
 	if pct > 75 and pct < 90 then return "Waning Crescent" end
 	if pct >= 90 and pct <= 100 then return "Full Moon" end
 	tickdelay = os.clock() + 1
 
-    return "Moon"
+	return "Moon"
 end
 
--- التحقق عند تغيّر الوقت داخل اللعبة (كل دقيقة)
+-- Check for moon phase changes in-game (every minute)
 local function check_moon_change()
-    local info = windower.ffxi.get_info()
-    if not info then return end
+	local info = windower.ffxi.get_info()
+	if not info then return end
 
-    -- بعض الإصدارات ترجعها باسم moon_phase، وبعضها moon_phase كنسبة 0..100
-    local pct = info.moon_phase or info.moon or 0
-    -- تأكيد أنها رقم
-    pct = tonumber(pct) or 0
+	-- Some versions return it as moon_phase, others as moon (percentage 0..100)
+	local pct = info.moon_phase or info.moon or 0
+	-- Ensure it's a number
+	pct = tonumber(pct) or 0
 
-    if last_moon_pct == nil then
-        last_moon_pct = pct
-        return
-    end
+	if last_moon_pct == nil then
+		last_moon_pct = pct
+		return
+	end
 
-    if pct ~= last_moon_pct then
-        local name = moon_name_from_pct(pct)
-        windower.add_to_chat(207, ('[Moon] Phase changed → %s (%d%%)'):format(name, pct))
-        -- لو تبي نفس الصوت لكل تغيير، خلّه هنا:
-        -- windower.play_sound(windower.addon_path .. 'sounds/darkday_alert.wav')
+	if pct ~= last_moon_pct then
+		local name = moon_name_from_pct(pct)
+		windower.add_to_chat(207, ('[Moon] Phase changed to %s (%d%%)'):format(name, pct))
+		-- If you want the same sound for every change, place it here:
+		-- windower.play_sound(windower.addon_path .. 'sounds/darkday_alert.wav')
 
-        -- أمثلة أصوات مختلفة حسب حالات مميّزة (اختياري):
+		-- Examples of different sounds for specific cases (optional):
 		if pct >= 0 and pct <= 10 then
+				windower.add_to_chat(207, '[Moon] It is now a New Moon!')
 				windower.play_sound(windower.addon_path .. 'sounds/darkday_alert.wav') -- Play the sound
 		elseif pct >= 90 and pct <= 100 then
+				windower.add_to_chat(207, '[Moon] It is now a Full Moon!')
 				windower.play_sound(windower.addon_path .. 'sounds/darkday_alert.wav') -- Play the sound
-        elseif pct == 100 then
+		elseif pct == 100 then
 			windower.play_sound(windower.addon_path .. 'sounds/darkday_alert.wav') -- Play the sound
 
-        end
+		end
 
-        last_moon_pct = pct
-    end
+		last_moon_pct = pct
+	end
 end
 
--- نفّذ الفحص عند تحميل الإضافة أيضاً (يعني يلتقط الحالة الحالية)
+-- Execute the check when the addon is loaded (captures the current state)
 windower.register_event('load', function()
-    local info = windower.ffxi.get_info()
-    if info and info.moon_phase then
-        last_moon_pct = tonumber(info.moon_phase) or 0
-    end
+	local info = windower.ffxi.get_info()
+	if info and info.moon_phase then
+		last_moon_pct = tonumber(info.moon_phase) or 0
+	end
 end)
 
--- الحدث الصحيح: يتكرر كل دقيقة لعبة
+-- Correct event: triggers every in-game minute
 windower.register_event('time change', check_moon_change)
 
+---------
+
+------------------------------------------------------------
+-- Darkness Aragan Version Anti-Interrupt Movement (Aragan GearSwap Version 2 smart)
+------------------------------------------------------------
+------------------------------------------------------------
+-- Default Keybind: Ctrl+I to toggle the system ON/OFF
+-- It is recommended to place these commands inside user_setup() or job_setup()
+-- But if left here, they will also work
+------------------------------------------------------------
+send_command('bind ^i input //gs darkness')
+--It is from the highest secrets.
+--Darkness Aragan Version (Aragan GearSwap Version 2 smart)
+-- If you have a user_unload() or file_unload() function in your file,
+-- Add this line to unbind the keybind on exit:
+-- send_command('unbind ^i')
+
+-- General variables to save the last coordinates and time
+fixed_pos = fixed_pos or ''
+fixed_ts  = fixed_ts  or os.time()
+
+-- Flag to enable/disable the feature
+-- Start disabled by default
+no_interruptions = false -- no_interruptions = (no_interruptions ~= false)
+
+------------------------------------------------------------
+--Darkness Aragan Version (Aragan GearSwap Version 2 smart)
+--It is from the highest secrets.
+------------------------------------------------------------
+windower.raw_register_event('outgoing chunk', function(id, original, modified, injected, blocked)
+	-- If the feature is disabled or the packet is blocked by another addon, exit immediately
+	if not no_interruptions or blocked then
+		return
+	end
+
+	-- 0x15 = Position Update
+	if id == 0x15 then
+		local now = os.time()
+
+		-- Check:
+		-- 1) If there is an ongoing cast/action (gearswap.cued_packet or midaction())
+		-- 2) If there are saved coordinates
+		-- 3) If less than 5 seconds have passed since the last save
+		if (gearswap and gearswap.cued_packet or midaction())
+			and fixed_pos ~= ''
+			and (now - fixed_ts) < 5
+		then
+			------------------------------------------------
+			-- Modify the packet: --Darkness Aragan Version (Aragan GearSwap Version 2 smart)
+			-- The first 4 bytes remain unchanged
+			-- Replace bytes 5 → 16 with the saved coordinates (fixed_pos)
+			-- Keep the rest from byte 17 → end of the packet as is
+			------------------------------------------------
+			return original:sub(1, 4) .. fixed_pos .. original:sub(17)
+		else
+			------------------------------------------------
+			-- If there is no ongoing cast: 
+			-- Save the new coordinates and the current time
+			------------------------------------------------
+			fixed_pos = original:sub(5, 16)
+			fixed_ts  = now
+		end
+	end
+end)
+
+------------------------------------------------------------
+-- Undefined GearSwap command:
+--   //gs darkness --It is from the highest secrets. Darkness Aragan Version (Aragan GearSwap Version 2 smart)
+-- This command toggles the no_interruptions flag ON/OFF
+------------------------------------------------------------
+register_unhandled_command(function (...)
+	local commands = {...}
+	local first = commands[1] and commands[1]:lower() or nil
+
+	if first == 'darkness' then
+		if no_interruptions then
+			windower.add_to_chat(160, ('%s :darkness secret Off Disabling no_interruptions'):format(_addon.name or 'GearSwap'))
+			no_interruptions = false
+		else
+			windower.add_to_chat(160, ('%s :darkness secret ON Enabling no_interruptions'):format(_addon.name or 'GearSwap'))
+			no_interruptions = true
+		end
+		return true
+	end
+
+	return false
+end)
+
+
+
+
+
+--------
 
 -- windower.register_event('prerender', function()
 --     if state.AutoFarmMode.value then
 --         local player = windower.ffxi.get_player()
---         if not player or player.status == 1 then return end -- إذا كان اللاعب مشغولًا بالفعل (في قتال)
+--         if not player or player.status == 1 then return end -- If the player is already busy (in combat)
 
 --         local mobs = windower.ffxi.get_mob_array()
 --         local nearest_mob = nil
---         local min_distance = 50 -- المسافة القصوى للبحث عن الأهداف
+--         local min_distance = 50 -- Maximum distance to search for targets
 
 --         for _, mob in pairs(mobs) do
 --             if mob and mob.valid_target and mob.spawn_type == 16 and mob.distance:sqrt() < min_distance and mob.claim_id == 0 then
@@ -4497,12 +5015,12 @@ windower.register_event('time change', check_moon_change)
 -- end)
 
 
--- -- تسجيل حدث moon change
+-- -- Register moon change event
 -- windower.register_event('moon change', function(new_moon, old_moon)
---     -- عرض رسالة عند تغيير حالة القمر
+--     -- Display a message when the moon phase changes
 --     windower.add_to_chat(207, string.format('[Info] The moon has changed from %s to %s.', old_moon or 'None', new_moon))
-    
---     -- إذا كان القمر في حالة New Moon
+	
+--     -- If the moon is in the New Moon phase
 --     if new_moon == 'New Moon' then
 --         windower.add_to_chat(207, '[Info] The moon is now in New Moon phase!')
 --     elseif new_moon == 'Full Moon' then
@@ -4529,7 +5047,7 @@ function get_attack_power()
     return base_attack + attack_increase
 end
 function display_attack_power(attack_power)
-    add_to_chat(123, '"Attack Power: " '.. tostring(attack_power)'')
+    add_to_chat(207, '"Attack Power: " '.. tostring(attack_power)'')
 end
 
 function get_attack_power()
@@ -4539,7 +5057,7 @@ function get_attack_power()
     local attack_power = base_attack + attack_increase
     
     display_attack_power(attack_power)
-	add_to_chat(123, '"Attack Power: " '.. tostring(attack_power)'')
+	add_to_chat(207, '"Attack Power: " '.. tostring(attack_power)'')
 
     return attack_power
 end
@@ -4727,5 +5245,4 @@ disable_priority = T{
     "TreasureHunter",
 }:reverse()
 ]]
-
 

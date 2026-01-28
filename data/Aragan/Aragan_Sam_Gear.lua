@@ -179,7 +179,7 @@ function init_gear_sets()
             ammo="Crepuscular Pebble",
             head={ name="Nyame Helm", augments={'Path: B',}},
             body={ name="Nyame Mail", augments={'Path: B',}},
-            hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+            hands="Kasuga Kote +3",
             legs={ name="Nyame Flanchard", augments={'Path: B',}},
             feet="Kas. Sune-Ate +3",
             left_ring="Sroda Ring",
@@ -194,7 +194,7 @@ function init_gear_sets()
         sets.precast.WS.SC = set_combine(sets.precast.WS, {
         head={ name="Nyame Helm", augments={'Path: B',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
         neck={ name="Warder's Charm +1", augments={'Path: A',}},
@@ -204,7 +204,7 @@ function init_gear_sets()
         sets.precast.WS['Namas Arrow'] = {
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -226,7 +226,7 @@ function init_gear_sets()
         sets.precast.WS['Apex Arrow'] = set_combine(sets.precast.WS['Namas Arrow'], {
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -247,7 +247,7 @@ function init_gear_sets()
         sets.precast.WS['Empyreal Arrow'] = set_combine(sets.precast.WS['Namas Arrow'], {
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -269,7 +269,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -283,7 +283,7 @@ function init_gear_sets()
         sets.precast.WS['Tachi: Fudo'].PDL = set_combine(sets.precast.WS['Tachi: Fudo'], {
             ammo="Crepuscular Pebble",
             body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet="Kas. Sune-Ate +3",
         left_ring="Sroda Ring", 
@@ -295,7 +295,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             body={ name="Nyame Mail", augments={'Path: B',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -309,7 +309,7 @@ function init_gear_sets()
         sets.precast.WS['Tachi: Kaiten'].PDL = set_combine(sets.precast.WS['Tachi: Kaiten'], {
             ammo="Crepuscular Pebble",
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
             feet="Kas. Sune-Ate +3",
             ear1="Lugra Earring +1", 
@@ -324,7 +324,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -338,7 +338,7 @@ function init_gear_sets()
         sets.precast.WS['Impulse Drive'].PDL = set_combine(sets.precast.WS['Impulse Drive'], {
         ammo="Crepuscular Pebble",
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet="Kas. Sune-Ate +3",
         left_ring="Sroda Ring", 
@@ -354,7 +354,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -369,7 +369,7 @@ function init_gear_sets()
             ammo="Crepuscular Pebble",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
             body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet="Kas. Sune-Ate +3",
         left_ring="Sroda Ring", 
@@ -383,7 +383,7 @@ function init_gear_sets()
         sets.precast.WS['Stardiver'].PDL = set_combine(sets.precast.WS['Stardiver'], {
             ammo="Crepuscular Pebble",
                 body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet="Kas. Sune-Ate +3",
         left_ring="Sroda Ring", 
@@ -395,7 +395,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -409,7 +409,7 @@ function init_gear_sets()
         sets.precast.WS['Tachi: Rana'].PDL = set_combine(sets.precast.WS['Tachi: Rana'], {
             ammo="Crepuscular Pebble",
                 body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet="Kas. Sune-Ate +3",
             left_ring="Sroda Ring",
@@ -436,7 +436,7 @@ function init_gear_sets()
         sets.precast.WS['Tachi: Ageha'].PDL = set_combine(sets.precast.WS['Tachi: Ageha'], {
             ammo="Crepuscular Pebble",
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
             feet="Kas. Sune-Ate +3",
             left_ring="Sroda Ring",
@@ -447,7 +447,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -462,7 +462,7 @@ function init_gear_sets()
         sets.precast.WS['Tachi: Kasha'].PDL = set_combine(sets.precast.WS['Tachi: Kasha'], {
             ammo="Crepuscular Pebble",
             body={ name="Nyame Mail", augments={'Path: B',}},
-          hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+          hands="Kasuga Kote +3",
           legs={ name="Nyame Flanchard", augments={'Path: B',}},
           feet="Kas. Sune-Ate +3",
             left_ring="Sroda Ring",
@@ -475,7 +475,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -491,7 +491,7 @@ function init_gear_sets()
             ammo="Knobkierrie",
             head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
             neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
@@ -504,19 +504,19 @@ function init_gear_sets()
         })
         
         sets.precast.WS['Tachi: Jinpu'] = set_combine(sets.precast.WS, {
-            ammo="Knobkierrie",
+        ammo="Knobkierrie",
         head={ name="Nyame Helm", augments={'Path: B',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
         hands={ name="Nyame Gauntlets", augments={'Path: B',}},
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
-            neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
-            waist="Orpheus's Sash",
-            right_ear="Friomisi Earring",
-            left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}},
-            left_ring="Epaminondas's Ring",
-            right_ring="Cornelia's Ring",
-            back={ name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
+        neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
+        waist="Orpheus's Sash",
+        right_ear="Friomisi Earring",
+        left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}},
+        left_ring="Epaminondas's Ring",
+        right_ring="Cornelia's Ring",
+        back={ name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
         })      
         sets.precast.WS['Tachi: Jinpu'].PDL = set_combine(sets.precast.WS['Tachi: Jinpu'], {
             ammo="Crepuscular Pebble",
@@ -653,7 +653,7 @@ function init_gear_sets()
         ammo="Pemphredo Tathlum",
         head={ name="Mpaca's Cap", augments={'Path: A',}},
         body={ name="Nyame Mail", augments={'Path: B',}},
-        hands={ name="Nyame Gauntlets", augments={'Path: B',}},
+        hands="Kasuga Kote +3",
         legs={ name="Nyame Flanchard", augments={'Path: B',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
         neck="Null Loop",
@@ -861,7 +861,7 @@ sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
     	body="Crepuscular Mail"
     })
     
-    sets.defense.MDT = set_combine(sets.defense.PDT, {
+    sets.defense.MDT =  {
         ammo="Staunch Tathlum +1",
 	head={ name="Nyame Helm", augments={'Path: B',}},
 	body={ name="Nyame Mail", augments={'Path: B',}},
@@ -875,7 +875,7 @@ sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
         left_ring="Purity Ring",
         right_ring="Defending Ring",
         back="Moonlight Cape",
-    })
+    }
     sets.defense.Evasion = set_combine(sets.defense.PDT, {
         ammo="Amar Cluster",
         head={ name="Nyame Helm", augments={'Path: B',}},
@@ -984,7 +984,7 @@ sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
     sets.idle.Empy = set_combine(sets.idle, {
         head="Kasuga Kabuto +2",            
         body="Kasuga Domaru +2",
-        hands="Kasuga Kote +2",
+        hands="Kasuga Kote +3",
         legs="Kasuga Haidate +2",
         feet="Kas. Sune-Ate +3",
     })
@@ -1097,7 +1097,7 @@ sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
         legs="Kasuga Haidate +2",
         feet="Kas. Sune-Ate +3",
         neck={ name="Sam. Nodowa +2", augments={'Path: A',}},
-        waist="Gerdr Belt",
+        waist="Ioskeha Belt +1",
         left_ear="Dedition Earring",
         right_ear="Kasuga Earring +1",
         left_ring="Chirich Ring +1",
@@ -1240,7 +1240,7 @@ sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
 	sets.buff.Sleep = {neck="Vim Torque +1"}
 	sets.buff.Hasso = {hands="Wakido Kote +3"}
 	sets.buff['Third Eye'] = {head="Kasuga Kabuto +2", legs="Sakonji Haidate +3"}
-    sets.buff.Sekkanoki = {hands="Kasuga Kote +2"}
+    sets.buff.Sekkanoki = {hands="Kasuga Kote +3"}
     sets.buff.Sengikori = {feet="Kas. Sune-Ate +3",}
     sets.buff['Meikyo Shisui'] = {feet="Sakonji Sune-ate +3"}
 end

@@ -52,8 +52,8 @@ function user_job_setup()
 
 	--send_command('bind ^` gs c cycle ElementalMode') 
 	--send_command('bind ~^` gs c cycleback ElementalMode') --Robbiewobbie's idea
-	send_command('bind ^0 gs c weapons Khatvanga;gs c set CastingMode OccultAcumen')
-	send_command('bind !9 gs c weapons Default;gs c reset CastingMode;gs c reset DeathMode;gs c reset MagicBurstMode')
+	-- send_command('bind ^0 gs c weapons Khatvanga;gs c set CastingMode OccultAcumen')
+	-- send_command('bind !9 gs c weapons Default;gs c reset CastingMode;gs c reset DeathMode;gs c reset MagicBurstMode')
 	send_command('bind !\\\\ input /ja "Manawell" <me>')
 	-- send_command('bind !` input /ma "Aspir III" <t>')
 	send_command('bind @` gs c cycle MagicBurstMode')
@@ -462,8 +462,10 @@ function init_gear_sets()
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})--head="Amalric Coif +1"
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {feet="Inspirited Boots",waist="Gishdubar Sash",back="Grapevine Cape",})
 
-    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
-    sets.midcast.Phalanx.SIRD = set_combine(sets.midcast['Enhancing Magic'],sets.SIRD) 
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
+    sets.midcast.Phalanx.SIRD = set_combine(sets.midcast['Enhancing Magic'],sets.SIRD,sets.midcast.Phalanx) 
 
 	sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {hands="Regal Cuffs"})    
 	sets.midcast.Aquaveil.SIRD = set_combine(sets.midcast['Enhancing Magic'],sets.SIRD) 
@@ -737,7 +739,7 @@ sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {
 		
     -- Elemental Magic sets
     
-    sets.midcast['Elemental Magic'] = {
+    sets.midcast['Elemental Magic'] = { 
         ammo="Pemphredo Tathlum",
         head="Wicce Petasos +2",
         body="Wicce Coat +3",
@@ -808,7 +810,9 @@ sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {
 			left_ring={ name="Mephitas's Ring +1", augments={'Path: A',}},
 	})
 	
-    sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen, {head=empty,body="Twilight Cloak"})
+    sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen, {
+        head=empty,
+        body="Twilight Cloak"})
 	
 	-- Gear that converts elemental damage done to recover MP.	
 	sets.RecoverMP = {body="Spaekona's Coat +3"}
@@ -881,7 +885,7 @@ sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {
         ammo="Staunch Tathlum +1",
         head="Null Masque",
         body="Wicce Coat +3",
-        hands="Wicce Gloves +2",
+        hands="Volte Gloves",
         legs={ name="Assid. Pants +1", augments={'Path: A',}},
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
         neck="Rep. Plat. Medal",
@@ -1198,7 +1202,9 @@ sets.idle.HP = {
 	sets.Self_Healing = {waist="Gishdubar Sash"}
 	sets.Cure_Received = {waist="Gishdubar Sash"}
 	sets.Self_Refresh = {back="Grapevine Cape",waist="Gishdubar Sash",feet="Inspirited Boots"}
-    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
 end
 
 -- Select default macro book on initial load or subjob change.

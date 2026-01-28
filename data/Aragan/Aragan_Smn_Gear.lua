@@ -282,6 +282,12 @@ function init_gear_sets()
         right_ring="Stikini Ring +1",
         back={ name="Fi Follet Cape +1", augments={'Path: A',}},
     }
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
+           head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
+    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {
         main="Oranyan",
         sub="Enki Strap",

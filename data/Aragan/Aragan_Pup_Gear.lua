@@ -4,6 +4,16 @@
 --	  Aragan --------------- [Author Primary]                          -- 
 --                                                                             --
 ---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+--  __  __           _                     __   _____                        _
+-- |  \/  |         | |                   / _| |  __ \                      | |
+-- | \  / | __ _ ___| |_ ___ _ __    ___ | |_  | |__) |   _ _ __  _ __   ___| |_ ___
+-- | |\/| |/ _` / __| __/ _ \ '__|  / _ \|  _| |  ___/ | | | '_ \| '_ \ / _ \ __/ __|
+-- | |  | | (_| \__ \ ||  __/ |    | (_) | |   | |   | |_| | |_) | |_) |  __/ |_\__ \
+-- |_|  |_|\__,_|___/\__\___|_|     \___/|_|   |_|    \__,_| .__/| .__/ \___|\__|___/
+--                                                         | |   | |
+--                                                         |_|   |_|
+-----------------------------------------------------------------------------------------
 --[[ Note: optional : u can install macro all jobs from my web and addons plugin bot
 to can play smooth and easy and i play with main gameped controller logitech and 
 keyboard binds and chat 
@@ -42,15 +52,15 @@ function user_job_setup()
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
 	state.IdleMode:options('Normal','PDT','Empy','EnemyCritRate','Evasion','HP','MDT','Regain','Refresh','Sphere')
-    state.Passive:options('None', 'SubtleBlow','SubtleBlowPET', 'SubtleBlowII','SubtleBlowPETII','SubtleBlowPETONLY','MDT', 'Enspell')
+    state.Passive:options('None', 'petpdt10','HastePet6','SubtleBlowPETONLY','SubtleBlow','SubtleBlowPET', 'SubtleBlowII','SubtleBlowPETII','MDT', 'Enspell')
     state.Weapons:options('None','Godhands','Xiucoatl','Ohtas','Condemners','Midnights','Tauret','CLUB','Staff')
     state.Animators = M{['description']='Animators', 'AnimatorPI', 'None', 'AnimatorPII', 'NeoAnimator'}
 
-    state.PetMode = M{['description']='Pet Mode', 'None','Melee','MaxAcc','Ranged','MaxTP','Regen','Bruiser','Tank','LightTank','Magic','Heal','Nuke'}
+    state.PetMode = M{['description']='Pet Mode', 'None','Melee','Tank','Bruiser','MaxAcc','Ranged','MaxTP','Regen','LightTank','Magic','Heal','Nuke'}
 	state.AutoRepairMode = M(true, 'Auto Repair Mode')
 	state.AutoDeployMode = M(true, 'Auto Deploy Mode')
 	state.AutoPetMode 	 = M(false, 'Auto Pet Mode')
-	state.PetWSGear		 = M(false, 'Pet WS Gear')
+	state.PetWSGear		 = M(true, 'Pet WS Gear')
 	state.PetEnmityGear	 = M(false, 'Pet Enmity Gear')
     --state.Animators= M{['description']='Animators', 'None','AnimatorP1'}
 	--state.Animators:options('None','AnimatorP1')
@@ -119,26 +129,34 @@ function user_job_setup()
     send_command("bind !e gs c toggle AutoMan")
     send_command("bind ^end gs c toggle setftp")
     send_command("bind ^PAGEUP gs c toggle autodeploy")
-    send_command("bind ^PAGEDOWN gs c hide keybinds")
-	send_command('bind @` gs c cycle SkillchainMode')
+    send_command("bind @` gs c hide keybinds")
+	-- send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !f3 gs c toggle AutoPuppetMode')
     send_command('bind !f8 gs c toggle PetStyleCycleDD')
     send_command('bind !f7 gs c toggle PetModeCycle')
 	send_command('bind f2 gs c toggle AutoRepairMode')
-    send_command('bind !f4 gs c toggle AutoManeuvers')
+    -- send_command('bind !f4 gs c toggle AutoManeuvers')
     send_command('bind f3 gs c toggle PetMode')
+    send_command('bind ^f3 gs c cycleback PetMode')
+
     -- send_command('bind f7 gs c toggle Animators')
 	send_command('bind !f11 gs c cycle MagicalDefenseMode;gs c set DefenseMode Magical')
     send_command('bind f11 gs c cycle PhysicalDefenseMode;gs c set DefenseMode Physical') --Turns your physical defense set on.
     send_command('bind f10 gs c cycle HybridMode') --Changes defense settings for melee such as PDT.
 	send_command('bind f7 gs c cycle Animators')
-	send_command('bind !` gs c hub lite')
+	send_command('bind ^tab gs c hub lite')
+    send_command('bind !` gs c toggle LockWeapon')
 
+	send_command('bind !d gs c toggle LockPetDT')
+    send_command('bind ^` gs c toggle customgearlock')
+
+   
     send_command("bind f4 gs c toggle AutoMan")
     send_command('bind f1 gs c cycle HippoMode')
     send_command("bind @c gs c toggle CP") 
     send_command('bind @x gs c toggle RP')  
-	init_job_states({"Capacity","AutoPuppetMode","PetWSGear","AutoRepairMode","AutoRuneMode","AutoTrustMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","HippoMode"},{"AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","PetMode","Animators"})
+
+	init_job_states({"Capacity","AutoPuppetMode","PetWSGear","AutoRepairMode","AutoRuneMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoStunMode","AutoDefenseMode","HippoMode"},{"AutoTrustMode","AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode","PetMode","Animators"})
 
 end
 
@@ -628,7 +646,12 @@ range="Trollbane",  }
     -- Extra Melee sets.  Apply these on top of melee sets.
 
 	-- passive set
-
+    sets.passive.petpdt10 = {
+        head="Anwig Salade",
+	}
+    sets.passive.HastePet6 = {
+        hands="Foire Dastanas +3",
+	}
     sets.passive.SubtleBlow = {
         left_ring="Chirich Ring +1",
         right_ring="Chirich Ring +1",
@@ -1361,7 +1384,14 @@ ring2="Epona's Ring",
         hands="Heyoka Mittens",
         legs="Heyoka Subligar +1",
     }
+    sets.pet = sets.pet or {}  -- إنشاء الجدول لو مش موجود
 
+    -- ست الـ Enmity الخاص بالآلي (تستخدمه Strobe / Flashbulb)
+    sets.pet.Enmity = sets.Enmity.Pet
+
+    -- ست الطوارئ للـ DT لما تشغّل "Lock Pet DT" من الـ mode
+    -- اخترت له Tank idle لأن هذا أنسب شيء كـ طوارئ
+    sets.pet.EmergencyDT = sets.idle.Pet.Engaged.Tank
 end
 
 -- Select default macro book on initial load or subjob change.

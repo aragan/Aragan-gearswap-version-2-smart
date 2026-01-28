@@ -26,7 +26,7 @@ function user_job_setup()
     state.OffenseMode:options('Normal', 'Acc', 'STP', 'CRIT', 'SubtleBlow', 'Aminon', 'DT')
     state.HybridMode:options( 'DT','Normal')
     state.WeaponskillMode:options('Match', 'SubtleBlow', 'SC', 'PDL')
-	state.IdleMode:options('DT','Normal','PDT','Regen', 'HP', 'Evasion', 'Enmity', 'EnemyCritRate','Regain')
+	state.IdleMode:options('DT','Normal','PDT','Regen','Refresh', 'HP', 'Evasion', 'Enmity', 'EnemyCritRate','Regain')
     state.PhysicalDefenseMode:options('Evasion', 'PDT', 'DT', 'Enmity', 'HP', 'Aminon')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
@@ -291,7 +291,7 @@ function init_gear_sets()
     ammo="Crepuscular Pebble",
     body={ name="Gleti's Cuirass", augments={'Path: A',}},
     neck={ name="Etoile Gorget +2", augments={'Path: A',}},
-    right_ear="Maculele Earring",
+    right_ear="Macu. Earring +1",
     })
     sets.precast.WS.SubtleBlow =  {
         left_ring="Chirich Ring +1",
@@ -301,7 +301,7 @@ function init_gear_sets()
         ammo="Crepuscular Pebble",
         head="Maculele Tiara +2",
         body={ name="Gleti's Cuirass", augments={'Path: A',}},
-        right_ear="Maculele Earring",
+        right_ear="Macu. Earring +1",
         back="Sacro Mantle",
     }
     sets.precast.WS.Clim = {
@@ -338,7 +338,7 @@ function init_gear_sets()
             body={ name="Gleti's Cuirass", augments={'Path: A',}},
             legs="Maculele Tights +2",
             neck={ name="Etoile Gorget +2", augments={'Path: A',}},
-    right_ear="Maculele Earring",
+    right_ear="Macu. Earring +1",
         })
     
         sets.precast.WS['Pyrrhic Kleos'] = set_combine(sets.precast.WS, {
@@ -374,7 +374,7 @@ function init_gear_sets()
             neck={ name="Etoile Gorget +2", augments={'Path: A',}},
             waist="Fotia Belt",
             left_ear={ name="Moonshade Earring", augments={'Accuracy+4','TP Bonus +250',}},
-            right_ear="Maculele Earring",
+            right_ear="Macu. Earring +1",
             left_ring="Regal Ring",
             right_ring="Gere Ring",
             back={ name="Senuna's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
@@ -406,7 +406,7 @@ function init_gear_sets()
             ammo="Crepuscular Pebble",
             body={ name="Gleti's Cuirass", augments={'Path: A',}},
             neck={ name="Etoile Gorget +2", augments={'Path: A',}},
-            right_ear="Maculele Earring",    })
+            right_ear="Macu. Earring +1",    })
     
     
         sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {
@@ -435,7 +435,7 @@ function init_gear_sets()
         sets.precast.WS["Rudra's Storm"].PDL = set_combine(sets.precast.WS["Rudra's Storm"], {
             ammo="Crepuscular Pebble",
             body={ name="Gleti's Cuirass", augments={'Path: A',}},
-            right_ear="Maculele Earring",
+            right_ear="Macu. Earring +1",
             left_ring="Regal Ring",
             right_ring="Cornelia's Ring",
             back="Sacro Mantle",
@@ -445,7 +445,7 @@ function init_gear_sets()
             head="Maculele Tiara +2",
             hands="Maxixi Bangles +3",
             body={ name="Gleti's Cuirass", augments={'Path: A',}},
-            right_ear="Maculele Earring",
+            right_ear="Macu. Earring +1",
             back="Sacro Mantle",
         })
         sets.precast.WS["Rudra's Storm"].Clim = set_combine(sets.precast.WS["Rudra's Storm"], {
@@ -479,7 +479,7 @@ function init_gear_sets()
             ammo="Crepuscular Pebble",
             body={ name="Gleti's Cuirass", augments={'Path: A',}},
             legs="Maculele Tights +2",
-            right_ear="Maculele Earring",
+            right_ear="Macu. Earring +1",
             left_ring="Regal Ring",
             right_ring="Cornelia's Ring",
             back="Sacro Mantle",
@@ -489,7 +489,7 @@ function init_gear_sets()
         head="Maculele Tiara +2",
         hands="Maxixi Bangles +3",
         body={ name="Gleti's Cuirass", augments={'Path: A',}},
-        right_ear="Maculele Earring",
+        right_ear="Macu. Earring +1",
         back="Sacro Mantle",
     })
     sets.precast.WS["Shark Bite"].Clim = set_combine(sets.precast.WS["Shark Bite"], {
@@ -788,7 +788,14 @@ function init_gear_sets()
         right_ring="Defending Ring",
         back={ name="Senuna's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
     }
-        sets.idle.Weak = {    ammo="Staunch Tathlum +1",
+
+
+    sets.idle.Refresh = set_combine(sets.idle, {
+    ring1="Stikini Ring +1",
+    ring2="Stikini Ring +1",
+    })
+
+    sets.idle.Weak = {    ammo="Staunch Tathlum +1",
         head={ name="Gleti's Mask", augments={'Path: A',}},
         body="Adamantite Armor",
         body={ name="Gleti's Cuirass", augments={'Path: A',}},
@@ -1245,8 +1252,8 @@ sets.engaged.DW.CRIT = {
     ---------------------------------------- Hybrid Sets -------------------------------------------
     ------------------------------------------------------------------------------------------------
     sets.engaged.Hybrid = { 
-        head="Malignance Chapeau",--9
-        body="Malignance Tabard",--11
+        head="Malignance Chapeau",--6
+        body="Malignance Tabard",--9
         feet="Macu. Toe Sh. +2", --9
         ring1="Moonlight Ring", --5
         ring2="Defending Ring", --10
@@ -1377,41 +1384,41 @@ function user_job_lockstyle()
 end
 
 
-function check_trust()
-	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then
-		local party = windower.ffxi.get_party()
-		if party.p5 == nil then
-			local spell_recasts = windower.ffxi.get_spell_recasts()
+-- function check_trust()
+-- 	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then
+-- 		local party = windower.ffxi.get_party()
+-- 		if party.p5 == nil then
+-- 			local spell_recasts = windower.ffxi.get_spell_recasts()
 			
-			if spell_recasts[999] < spell_latency and not have_trust("Monberaux") then
-				windower.chat.input('/ma "Monberaux" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			elseif spell_recasts[981] < spell_latency and not have_trust("Sylvie (UC)") then
-				windower.chat.input('/ma "Sylvie (UC)" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			elseif spell_recasts[1018] < spell_latency and not have_trust("Koru-Moru") then
-				windower.chat.input('/ma "Koru-Moru" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			elseif spell_recasts[911] < spell_latency and not have_trust("Joachim") then
-				windower.chat.input('/ma "Joachim" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			elseif spell_recasts[967] < spell_latency and not have_trust("Qultada") then
-				windower.chat.input('/ma "Qultada" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			elseif spell_recasts[1013] < spell_latency and not have_trust("Lilisette II") then
-				windower.chat.input('/ma "Lilisette" <me>')
-				tickdelay = os.clock() + 4.5
-				return true
-			else
-				return false
-			end
-		end
+-- 			if spell_recasts[999] < spell_latency and not have_trust("Monberaux") then
+-- 				windower.chat.input('/ma "Monberaux" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			elseif spell_recasts[981] < spell_latency and not have_trust("Sylvie (UC)") then
+-- 				windower.chat.input('/ma "Sylvie (UC)" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			elseif spell_recasts[1018] < spell_latency and not have_trust("Koru-Moru") then
+-- 				windower.chat.input('/ma "Koru-Moru" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			elseif spell_recasts[911] < spell_latency and not have_trust("Joachim") then
+-- 				windower.chat.input('/ma "Joachim" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			elseif spell_recasts[967] < spell_latency and not have_trust("Qultada") then
+-- 				windower.chat.input('/ma "Qultada" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			elseif spell_recasts[1013] < spell_latency and not have_trust("Lilisette II") then
+-- 				windower.chat.input('/ma "Lilisette" <me>')
+-- 				tickdelay = os.clock() + 4.5
+-- 				return true
+-- 			else
+-- 				return false
+-- 			end
+-- 		end
 	
-	end
-	return false
-end
+-- 	end
+-- 	return false
+-- end

@@ -10,6 +10,16 @@ to can play smooth and easy and i play with main gameped controller logitech and
 keyboard binds and chat 
 ]]
 
+--[[
+//gs reload
+//gs rh start
+//gs rh enable
+//gs c autows Last Stand
+//gs c autows rangedautowstp Last Stand
+//gs rh status
+//gs rh print
+]] 
+
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_job_setup()
 	state.OffenseMode:options('Normal','Acc', 'DA', 'STP', 'Ranged')
@@ -76,18 +86,22 @@ function user_job_setup()
 	gear.snapshot_jse_back = {name="Belenus's Cape",augments={'"Snapshot"+10',}}
 	
 	    -- Additional local binds
+	send_command('bind f11 gs c cycle MagicalDefenseMode;gs c set DefenseMode Magical') --Changes your magical defense set.
+	send_command('bind !f11 gs c cycle CastingMode')
     send_command('bind !` input /ra <t>')
 	send_command('bind !backspace input /ja "Bounty Shot" <t>')
 	send_command('bind @f7 gs c toggle RngHelper')
 	send_command('bind @` gs c cycle SkillchainMode')
 	send_command('bind !0 gs c weapons MagicWeapons;gs c update')
 	send_command('bind ^0 gs c weapons SingleWeapon;gs c update')
-	send_command('bind f3 gs c toggle RngHelper')
+	send_command('bind f3 gs c toggle RngHelper;')--gs rh start;gs c autows Last Stand;gs c autows rangedautowstp Last Stand
 	send_command('bind f2 gs c toggle AutoBuffMode')
 
     send_command('bind f1 gs c cycle HippoMode')
     send_command('bind f7 gs c cycle Weapongun')
     send_command('bind !f7 gs c cycleback Weapongun')
+	send_command('bind !d gs c autora')
+    send_command('bind !f gs c haltontp')
 	select_default_macro_book()
 
 end
@@ -521,6 +535,7 @@ sets.precast.WS["Shell Crusher"] = set_combine(sets.precast.WS, {
 	sets.buff['Double Shot'].Acc = {body="Arc. Jerkin +3",}
 	sets.buff.Barrage = {}
 	sets.buff['Velocity Shot'] = set_combine(sets.midcast.RA, {body="Amini Caban +2",})
+	sets.TrueShot = {}
 	sets.DoubleShot = {
 		head="Arcadian Beret +3",
 		body="Arc. Jerkin +3",

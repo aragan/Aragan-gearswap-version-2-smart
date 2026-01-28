@@ -31,8 +31,8 @@ function user_job_setup()
     state.MagicalDefenseMode:options('MDT','MDT_HP','MDT_Reraise')
 	state.ResistDefenseMode:options('MEVA','MEVA_HP')
 	state.IdleMode:options('Tank','Kiting','DT','PDT','PDH', 'HP','Block','Evasion','MDT','MEVA','Regen','Regain','Normal')
-	state.Weapons:options('Burtgang','None','MalignanceSword','Naegling','Reikiko','SakpataSword','Malevolence','Club','Caladbolg','MalignancePole',
-	'Shining','DualNaegling','DualReikiko','DualReikikoThibron','DualNaeglingThibron')
+	state.Weapons:options('Burtgang','None','Excalibur','MalignanceSword','Naegling','Reikiko','SakpataSword','Malevolence','Club','Caladbolg','MalignancePole',
+	'Shining','DualExcalibur','DualNaegling','DualReikiko','DualReikikoThibron','DualNaeglingThibron')
 	state.ShieldMode = M{['description']='Shield Mode', 'Aegis','Srivatsa','Normal','Ochain','Duban', 'Priwen','Adamas','Blurred','Sacro'} -- , 'Priwen' }
 	state.AutoBuffMode:options('Off','Auto','Odyss','Defense','Reprisal','Aminon','TankFull','Melee') --,'Off','Off','Off','Off','Off',
 
@@ -98,6 +98,7 @@ function init_gear_sets()
 
 	sets.Normal = {}
     sets.weapons.Burtgang = {main="Burtgang"}
+	sets.weapons.Excalibur = {main="Excalibur"}
     sets.weapons.MalignanceSword = {main="Malignance Sword"}
     sets.weapons.Naegling = {main="Naegling"}
     sets.weapons.Reikiko = {main="Reikiko"}
@@ -111,7 +112,7 @@ function init_gear_sets()
 	
     sets.weapons.DualReikiko = {main="Reikiko", sub="Demers. Degen +1"}
     sets.weapons.DualNaegling = {main="Naegling", sub="Demers. Degen +1"}
-
+    sets.weapons.DualExcalibur = {main="Excalibur", sub="Thibron"}
 	sets.weapons.DualReikikoThibron = {main="Reikiko", sub="Thibron"}
     sets.weapons.DualNaeglingThibron = {main="Naegling", sub="Thibron"}
 
@@ -365,7 +366,33 @@ function init_gear_sets()
 
 	sets.precast.WS['Savage Blade'].None = {}
 	
-	  --Stat Modifier:  80%DEX  fTP:2.25
+
+	sets.precast.WS['Knights of Round'] = {	
+    ammo="Coiste Bodhar",
+    head="Nyame Helm",
+    body="Nyame Mail",
+    hands="Nyame Gauntlets",
+    legs="Nyame Flanchard",
+    feet="Nyame Sollerets",
+    neck="Rep. Plat. Medal",
+    ear1="Thrud Earring",
+    ear2="Lugra Earring +1",
+    ring1="Epaminondas's Ring",
+    ring2="Regal Ring",
+    waist="Sailfi Belt +1",
+	back="Null Shawl",
+}
+
+sets.precast.WS['Knights of Round'].PDL = set_combine(sets.precast.WS['Knights of Round'], {
+   ammo="Crepuscular Pebble",
+   hands={ name="Sakpata's Gauntlets", augments={'Path: A',}},
+   	neck="Fotia Gorget",
+   left_ring="Sroda Ring",
+})
+sets.precast.WS['Knights of Round'].Acc = set_combine(sets.precast.WS['Knights of Round'], {
+	ear1="Mache Earring +1",ear2="Telos Earring"
+})
+--Stat Modifier:  80%DEX  fTP:2.25
 	  sets.precast.WS['Chant du Cygne'] = {	
 	   ammo={ name="Coiste Bodhar", augments={'Path: A',}},
 	   head={ name="Blistering Sallet +1", augments={'Path: A',}},
@@ -389,7 +416,7 @@ function init_gear_sets()
 
 	sets.precast.WS['Chant du Cygne'].None = {}
 	
-	   --Stat Modifier: WS damage + 30/31%   2211DMG maxaggro
+	--Stat Modifier: WS damage + 30/31%   2211DMG maxaggro
 	   sets.precast.WS['Atonement'] = {
 	   ammo="Paeapua",
 	   head={ name="Loess Barbuta +1", augments={'Path: A',}},
@@ -1442,8 +1469,6 @@ sets.defense.Turtle ={
 
 }
  
-	
-
 ------------------------------------------------------------------------------------------------
     ---------------------------------------- DW ------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -1461,24 +1486,29 @@ sets.defense.Turtle ={
 
 
     sets.engaged.DW = set_combine(sets.engaged, {    
-		waist="Reiki Yotai", --7
+		-- waist="Reiki Yotai", --7
+		left_ear="Suppanomimi",  --5
 		right_ear="Eabani Earring", --4
 		})
 
     sets.engaged.DW.Acc = set_combine(sets.engaged.Acc, {   
-		waist="Reiki Yotai", --7
+		-- waist="Reiki Yotai", --7
+		left_ear="Suppanomimi",  --5
 		right_ear="Eabani Earring", --4
 		})
 	sets.engaged.DW.TP = set_combine(sets.engaged.TP, {   
-		waist="Reiki Yotai", --7
+		-- waist="Reiki Yotai", --7
+		left_ear="Suppanomimi",  --5
 		right_ear="Eabani Earring", --4
 		})
     sets.engaged.DW.STP = set_combine(sets.engaged.STP, {   
-		waist="Reiki Yotai", --7
+		-- waist="Reiki Yotai", --7
+		left_ear="Suppanomimi",  --5
 		right_ear="Eabani Earring", --4
 		})
-	sets.engaged.DW.CRIT = set_combine(sets.engaged.CRIT, {   
-		waist="Reiki Yotai", --7
+	sets.engaged.DW.CRIT = set_combine(sets.engaged.CRIT, {  
+		-- waist="Reiki Yotai", --7
+		left_ear="Suppanomimi",  --5
 		right_ear="Eabani Earring", --4
 		})
 
@@ -1494,28 +1524,28 @@ sets.engaged.DW.Acc.LowHaste = set_combine(sets.engaged.DW.Acc, {
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
 }) -- 22%
 sets.engaged.DW.TP.LowHaste = set_combine(sets.engaged.DW.TP, {
     legs="Carmine Cuisses +1", --6
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
 }) -- 22%
 sets.engaged.DW.STP.LowHaste = set_combine(sets.engaged.DW.STP, {
     legs="Carmine Cuisses +1", --6
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
 }) -- 22%
 sets.engaged.DW.CRIT.LowHaste = set_combine(sets.engaged.DW.CRIT, {
     legs="Carmine Cuisses +1", --6
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
 }) -- 22%
 
 
@@ -1525,28 +1555,28 @@ sets.engaged.DW.MidHaste = set_combine(sets.engaged.DW,{})
 sets.engaged.DW.Acc.MidHaste = set_combine(sets.engaged.DW.Acc,{ 
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
     --waist="Reiki Yotai", --7
 }) -- 15%
 sets.engaged.DW.TP.MidHaste = set_combine(sets.engaged.DW.TP,{ 
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
     --waist="Reiki Yotai", --7
 }) -- 15%
 sets.engaged.DW.STP.MidHaste = set_combine(sets.engaged.DW.STP,{ 
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
     --waist="Reiki Yotai", --7
 }) -- 15%
 sets.engaged.DW.CRIT.MidHaste = set_combine(sets.engaged.DW.CRIT,{ 
     left_ear="Suppanomimi",  --5
     right_ear="Eabani Earring", --4
-    waist="Reiki Yotai", --7
+   -- waist="Reiki Yotai", --7
     --waist={ name="Sailfi Belt +1", augments={'Path: A',}},
     --waist="Reiki Yotai", --7
 }) -- 15%
@@ -1610,7 +1640,7 @@ sets.engaged.DW.CRIT.MaxHaste = set_combine(sets.engaged.DW.CRIT)-- 12%
 	 right_ring="Moonlight Ring",
 	 back="Moonlight Cape",
 	 left_ear="Suppanomimi",
-	 waist="Reiki Yotai",
+	--  waist="Reiki Yotai",
  })
  sets.engaged.DW.TP.DT = set_combine(sets.engaged.DW.TP,{
 	 ammo="Staunch Tathlum +1",
@@ -1618,7 +1648,7 @@ sets.engaged.DW.CRIT.MaxHaste = set_combine(sets.engaged.DW.CRIT)-- 12%
 	 right_ring="Moonlight Ring",
 	 back="Moonlight Cape",
 	 left_ear="Suppanomimi",
-	 waist="Reiki Yotai",
+	--  waist="Reiki Yotai",
  })
  sets.engaged.DW.STP.DT = set_combine(sets.engaged.DW.STP,{
 	 ammo="Staunch Tathlum +1",
@@ -1626,7 +1656,7 @@ sets.engaged.DW.CRIT.MaxHaste = set_combine(sets.engaged.DW.CRIT)-- 12%
 	 right_ring="Moonlight Ring",
 	 back="Moonlight Cape",
 	 left_ear="Suppanomimi",
-	 waist="Reiki Yotai",
+	--  waist="Reiki Yotai",
  })
  sets.engaged.DW.CRIT.DT = set_combine(sets.engaged.DW.CRIT,{
 	 ammo="Staunch Tathlum +1",
@@ -1634,7 +1664,7 @@ sets.engaged.DW.CRIT.MaxHaste = set_combine(sets.engaged.DW.CRIT)-- 12%
 	 right_ring="Moonlight Ring",
 	 back="Moonlight Cape",
 	 left_ear="Suppanomimi",
-	 waist="Reiki Yotai",
+	--  waist="Reiki Yotai",
  })
  
 	 --sets.engaged.DW.DT.LowHaste = set_combine(sets.engaged.DW.LowHaste, sets.engaged.DT)
@@ -1710,7 +1740,7 @@ sets.engaged.DW.CRIT.MaxHaste = set_combine(sets.engaged.DW.CRIT)-- 12%
 
 	sets.engaged.Acc.DDTank = {
 		head="Sakpata's Helm",neck="Loricate Torque +1",ear1="Mache Earring +1",ear2="Telos Earring",
-		body="Tartarus Platemail",hands="Sakpata's Gauntlets",ring1="Defending Ring",ring2="Patricius Ring",
+		body="Tartarus Platemail",hands="Sakpata's Gauntlets",ring1="Defending Ring",ring2="Moonlight Ring",
 		back="Weard Mantle",waist="Sailfi Belt +1",legs="Sakpata's Cuisses",feet="Sakpata's Leggings"}
 		
 	sets.engaged.NoShellTank = {ammo="Staunch Tathlum +1",
@@ -1760,15 +1790,32 @@ function user_job_lockstyle()
         windower.chat.input:schedule(6,'/lockstyleset 1')
         return
     end
-	windower.chat.input('/lockstyleset 177')
+
+	local sub_is_shield = (sub_item and (sub_item.shield_size ~= nil or sub_item.skill == 0))
+    
+	if data.areas.Abyssea:contains(world.area) or state.Stylenotwingsemode.value or world.area:contains('Beaucedine') or world.area:contains('Dynamis - Xarcabard') then 
+		windower.chat.input('/lockstyleset 1')
+		send_command('gs c update') 
+		style_lock = true
+	elseif res.items[item_name_to_id(player.equipment.main)].skill == 3 then --Sword in main hand.
+		if res.items[item_name_to_id(player.equipment.sub)].skill == 3 then --Sword/Sword.
+			windower.chat.input('/lockstyleset 152')
+		end 
+	elseif sub_is_shield then
+		windower.chat.input('/lockstyleset 177') --shield style
+	end
 end
 
-autows_list = {['Naegling']='Savage Blade',['Burtgang']='Atonement',['MalignanceSword']='Sanguine Blade',
-['Reikiko']='Chant du Cygne',
-     ['Malevolence']='Aeolian Edge',['Club']='Judgment',['Caladbolg']='Torcleaver',
-	 ['MalignancePole']='Shell Crusher',['Shining']='Impulse Drive'}
+autows_list = {['Naegling']='Savage Blade',['Burtgang']='Atonement',
+['Excalibur']='Knights of Round',['MalignanceSword']='Sanguine Blade',
+['Reikiko']='Chant du Cygne',['Malevolence']='Aeolian Edge',['Club']='Judgment',
+['Caladbolg']='Torcleaver',['MalignancePole']='Shell Crusher',
+['Shining']='Impulse Drive',['DualExcalibur']='Knights of Round',
+['DualNaegling']='Savage Blade',['DualNaeglingThibron']='Savage Blade',
+['DualReikikoThibron']='Chant du Cygne',['DualNaeglingThibron']='Savage Blade',
+['DualReikiko']='Chant du Cygne',
+}
 
-	 
 
 -- function check_trust()
 -- 	if not moving and state.AutoTrustMode.value and not data.areas.cities:contains(world.area) and (buffactive['Reive Mark'] or buffactive['Elvorseal'] or not player.in_combat) then

@@ -1220,6 +1220,8 @@ sets.idle.Learning = set_combine(sets.idle, sets.Learning, {
     right_ring="Purity Ring",
     back="Moonlight Cape",}
 
+	-- sets.defense.HP = sets.idle.HP
+
 	sets.defense.NukeLock = sets.midcast['Blue Magic'].Magical
 
 	

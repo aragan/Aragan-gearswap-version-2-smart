@@ -79,6 +79,8 @@ function user_job_setup()
     send_command('bind f1 gs c cycle HippoMode')
     send_command('bind tab gs c cycle Singer;gs c singer')
     send_command('bind @tab gs c cycleback Singer;gs c singer;')
+    
+    send_command('bind !` gs c cycle autosongset;gs c autosongset')
 
     -- send_command('bind ^tab gs c cycle Etude')
     -- send_command('bind ^tab gs c cycleback Etude')
@@ -240,9 +242,9 @@ function init_gear_sets()
 	sets.precast.FC.BardSong.Barfawc = set_combine(sets.precast.FC.BardSong,{main="Barfawc"})
 
 	sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong,{range="Marsyas"})
-	sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong,{range="Daurdabla"})
+	sets.precast.FC.SongDebuff.AoE = set_combine(sets.precast.FC.BardSong,{range="Daurdabla"})
 	sets.precast.FC.Lullaby = {range="Marsyas"}
-	sets.precast.FC.Lullaby.Resistant = {range="Daurdabla"}
+	sets.precast.FC.Lullaby.AoE = {range="Daurdabla"}
 	sets.precast.FC['Horde Lullaby'] = {range="Marsyas"}
 	sets.precast.FC['Horde Lullaby'].Resistant = {range="Daurdabla"}
 	sets.precast.FC['Horde Lullaby'].AoE = {range="Daurdabla"}
@@ -610,7 +612,21 @@ sets.precast.WS['Shattersoul'] = {
 	sets.midcast.SongDebuff.DW = sets.midcast.SongDebuff --Only weapons in this set. This set is overlayed onto  SongDebuff
 
 	-- For song defbuffs (accuracy primary, duration secondary)
-	sets.midcast.SongDebuff.Resistant = sets.midcast.SongDebuff
+	sets.midcast.SongDebuff.AoE = {range="Daurdabla",
+    head="Fili Calot +2",
+    body="Fili Hongreline +2",
+    hands="Fili Manchettes +2",    
+    legs="Fili Rhingrave +2",
+    feet="Fili Cothurnes +2",
+    neck="Mnbw. Whistle +1",
+    waist="Null Belt",
+    left_ear="Digni. Earring",
+    right_ear="Fili Earring +1",
+    left_ring={ name="Metamor. Ring +1", augments={'Path: A',}},
+    right_ring="Stikini Ring +1",
+    back={ name="Aurist's Cape +1", augments={'Path: A',}},}
+    
+	sets.midcast.SongDebuff.DW.AoE = set_combine(sets.midcast.SongDebuff,{range="Daurdabla"})
 
 	-- Song-specific recast reduction
 	sets.midcast.SongRecast = sets.precast.FC.BardSong

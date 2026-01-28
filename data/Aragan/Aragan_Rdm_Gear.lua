@@ -616,7 +616,9 @@ sets.midcast.Protectra = sets.midcast.Protect
 sets.midcast.Shell = sets.midcast.Protect
 sets.midcast.Shellra = sets.midcast.Shell
 --sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'].Skill, {})
-sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'].Duration, {})
+sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'].Duration, {
+	--    head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+})
     sets.midcast['Enhancing Magic'].GainSpell = set_combine(sets.midcast['Enhancing Magic'].SelfDuration, {})
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'].Duration, {})
 
@@ -847,7 +849,7 @@ sets.midcast['Enfeebling Magic'].Potency = {
 	-- Sets for special buff conditions on spells.
 		
 	sets.buff.Saboteur = {hands="Leth. Ganth. +2"}
-	
+	sets.buff.Stymie = {}
 	sets.HPDown = {head="Pixie Hairpin +1",ear1="Mendicant's Earring",ear2="Evans Earring",
 		body="Jhakri Robe +2",hands="Jhakri Cuffs +2",ring1="Mephitas's Ring +1",ring2="Mephitas's Ring",
 		legs="Shedir Seraweels",feet="Jhakri Pigaches +2"}

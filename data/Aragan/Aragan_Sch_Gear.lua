@@ -466,7 +466,7 @@ right_ear="Telos Earring",
         main={ name="Musa", augments={'Path: C',}},
         ammo="Pemphredo Tathlum",
         head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
-        body={ name="Chironic Doublet", augments={'"Mag.Atk.Bns."+5','"Cure" potency +10%','MND+4','Mag. Acc.+1',}},
+        body="Pinga Tunic +1",
         hands={ name="Kaykaus Cuffs +1", augments={'MP+80','MND+12','Mag. Acc.+20',}},
         legs={ name="Vanya Slops", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
         feet={ name="Vanya Clogs", augments={'"Cure" potency +5%','"Cure" spellcasting time -15%','"Conserve MP"+6',}},
@@ -515,7 +515,7 @@ right_ear="Telos Earring",
         ammo="Staunch Tathlum +1",
         head="Agwu's Cap",
         body="Rosette Jaseran +1",
-        hands={ name="Chironic Gloves", augments={'Mag. Acc.+11','Spell interruption rate down -10%','MND+8',}},
+        hands="Volte Gloves",
         legs="Lengo Pants",
         feet={ name="Nyame Sollerets", augments={'Path: B',}},
         neck={ name="Loricate Torque +1", augments={'Path: A',}},
@@ -588,7 +588,12 @@ right_ear="Telos Earring",
         waist="Embla Sash",
         back={ name="Fi Follet Cape +1", augments={'Path: A',}},
         })
-
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'].Duration, {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
+    sets.Phalanx_Received = set_combine(sets.midcast['Enhancing Magic'], {
+        head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+13','DEX+12','Phalanx +4',}},
+    })
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], {
             legs="Shedir Seraweels",
         })
@@ -978,7 +983,7 @@ right_ear="Telos Earring",
         ammo="Homiliary",
         head="Null Masque",
         body="Arbatel Gown +3",
-        hands={ name="Chironic Gloves", augments={'VIT+4','"Waltz" potency +2%','"Refresh"+2','Mag. Acc.+18 "Mag.Atk.Bns."+18',}},
+        hands="Volte Gloves",
         legs="Assid. Pants +1",
         feet="Nyame Sollerets",
         neck="Rep. Plat. Medal",

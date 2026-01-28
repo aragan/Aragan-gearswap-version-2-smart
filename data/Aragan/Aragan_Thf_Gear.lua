@@ -5,11 +5,11 @@ function user_job_setup()
     state.HybridMode:options('DT','Normal')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Match', 'Proc','SubtleBlow', 'PDL', 'Mod')
-	state.IdleMode:options('DT','Normal','PDT', 'HP', 'Evasion', 'MDT', 'Regen','Regain', 'EnemyCritRate')
+	state.IdleMode:options('DT','Normal','PDT', 'HP', 'Evasion', 'MDT', 'Regen','Regain','Refresh', 'EnemyCritRate')
     state.PhysicalDefenseMode:options('PDT', 'Evasion', 'HP','Regain')
 	state.MagicalDefenseMode:options('MDT')
 	state.ResistDefenseMode:options('MEVA')
-	state.Weapons:options('None','Twashtar','Centovente', 'Tauret', 'Aeneas', 'Naegling', 'Proc')--'test',
+	state.Weapons:options('None','Twashtar','Centovente', 'Tauret', 'Aeneas', 'Naegling','Swords', 'Proc')--'test',
 	state.Passive:options('None', 'SubtleBlow','Parry','MDT', 'Enspell')
 	state.AutoBuffMode:options('Off','Auto','Defend') --,'Vagary','Off','Off','Off','Off',
 
@@ -58,6 +58,8 @@ function init_gear_sets()
     sets.weapons.Tauret = {main="Tauret", sub={ name="Gleti's Knife", augments={'Path: A',}},}
     sets.weapons.Aeneas = {main="Aeneas", sub="Malevolence"}
     sets.weapons.Naegling = {main="Naegling", sub="Centovente"}
+    sets.weapons.Naegling = {main="Naegling", sub="Centovente"}
+    sets.weapons.Swords = {main="Naegling", sub="Crepuscular Knife",}
     sets.weapons.Proc = {main="Fermion Sword",sub="Trainee Sword",}
     -- sets.weapons.test = {    main="Excalipoor II",sub="Caduceus",}
 
@@ -813,6 +815,10 @@ sets.precast.WS["Empyreal Arrow"] = {
         right_ring="Defending Ring",
         back={ name="Senuna's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}},
     }
+    sets.idle.Refresh = set_combine(sets.idle, {
+    ring1="Stikini Ring +1",
+    ring2="Stikini Ring +1",
+    })
 
     sets.idle.Sphere = set_combine(sets.idle, {})
     
@@ -1214,5 +1220,5 @@ function user_job_lockstyle()
 end
 
 autows_list = {['Twashtar']="Rudra's Storm",['Tauret']='Evisceration',['Naegling']='Savage Blade',
-['Aeneas']="Aeolian Edge",['SwordThrowing']='Savage Blade',['Evisceration']='Evisceration',
+['Swords']="Seraph Blade",['Aeneas']="Aeolian Edge",['SwordThrowing']='Savage Blade',['Evisceration']='Evisceration',
 ['ProcWeapons']='Wasp Sting',['Bow']='Empyreal Arrow'}
