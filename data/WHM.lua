@@ -124,7 +124,7 @@
 -- Initialization function for this job file.
 function get_sets()    
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------

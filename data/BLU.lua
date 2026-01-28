@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -303,7 +303,7 @@ function job_filtered_action(spell, eventArgs)
 		-- WS 160 is Shining Strike, meaning a club is equipped.
 		if available_ws:contains(160) then
             if spell.english == "Chant du Cygne" then
-                send_command('@input /ws "Realmrazer" '..spell.target.raw)
+                send_command('@input /ws "Seraph Strike" '..spell.target.raw)
                 cancel_spell()
 				eventArgs.cancel = true
             elseif spell.english == "Sanguine Blade" then
@@ -748,6 +748,10 @@ function job_customize_melee_set(meleeSet)
 	if state.LearningMode.value == true then 
 		meleeSet = set_combine(meleeSet, sets.Learning)
 	end
+	if state.TreasureMode.value == 'Fulltime' then
+        meleeSet = set_combine(meleeSet, sets.TreasureHunter)
+    end
+
     handle_equipping_gear(player.status)
 
     return meleeSet
@@ -794,20 +798,30 @@ function job_update(cmdParams, eventArgs)
 end
 
 function job_status_change(newStatus, oldStatus, eventArgs)
-	local abil_recasts = windower.ffxi.get_ability_recasts()
-	local spell_recasts = windower.ffxi.get_spell_recasts()
-	local player = windower.ffxi.get_player()
+    local abil_recasts  = windower.ffxi.get_ability_recasts()
+    local spell_recasts = windower.ffxi.get_spell_recasts()
+	local player_spells = windower.ffxi.get_player().spells
 
-	if (buffactive['slow'] or buffactive['Rasp'] 
-		or buffactive['Dia'] or buffactive['Defense Down'] or buffactive['Magic Def. Down'] or buffactive['Max HP Down']
-		or buffactive['Evasion Down'] == "Evasion Down" or buffactive['Magic Evasion Down'] or buffactive['Bio'] or buffactive['Bind']
-		or buffactive['weight'] or buffactive['Attack Down'] or buffactive['Accuracy Down'] or buffactive['VIT Down']
-		or buffactive['INT Down'] or buffactive['MND Down'] or buffactive['STR Down'] or buffactive['AGI Down']) 
-		and spell_recasts[681] < spell_latency and actual_cost(get_spell_table_by_name('Winds of Promy.')) < player.mp then		
-			windower.send_command('input /ma "Winds of Promy." <me>')
-			tickdelay = os.clock() + 1.1
-		return
-	end
+    local winds_spell = get_spell_table_by_name('Winds of Promy.')
+    local winds_id    = winds_spell and winds_spell.id
+
+    if (buffactive['slow'] or buffactive['Rasp'] 
+        or buffactive['Dia'] or buffactive['Defense Down'] or buffactive['Magic Def. Down'] or buffactive['Max HP Down']
+        or buffactive['Evasion Down'] or buffactive['Magic Evasion Down'] or buffactive['Bio'] or buffactive['Bind']
+        or buffactive['weight'] or buffactive['Attack Down'] or buffactive['Accuracy Down'] or buffactive['VIT Down']
+        or buffactive['INT Down'] or buffactive['MND Down'] or buffactive['STR Down'] or buffactive['AGI Down'])
+        and winds_id
+        and spell_recasts[winds_id]
+        and spell_recasts[winds_id] < spell_latency
+        and actual_cost(winds_spell) < (player.mp or 0)  
+    then
+        windower.send_command('input /ma "Winds of Promy." <me>')
+        tickdelay = os.clock() + 1.1
+        return
+    end
+
+
+
 	if state.NeverDieMode.value or state.AutoCureMode.value then 
 
 		if player.sub_job == 'NIN' and not state.Buff['SJ Restriction'] and (player.in_combat or being_attacked) and player.hpp < 25 then
@@ -817,19 +831,19 @@ function job_status_change(newStatus, oldStatus, eventArgs)
 		if spell_recasts then
 			local hpp = player.hpp or 100 
 			if hpp < 40 then
-				send_command('gs c heal')
+				-- send_command('gs c heal')
 
-				-- if spell_recasts[593] and spell_recasts[593] < spell_latency and silent_can_use(593) then
-				-- 	windower.chat.input('/ma "Magic Fruit" <me>')
-				-- elseif spell_recasts[690] and spell_recasts[690] < spell_latency and silent_can_use(690) then
-				-- 	windower.chat.input('/ma "White Wind" <me>')
-				-- elseif spell_recasts[658] and spell_recasts[658] < spell_latency and silent_can_use(658) then
-				-- 	windower.chat.input('/ma "Plenilune Embrace" <me>')
-				-- elseif spell_recasts[711] and spell_recasts[711] < spell_latency and silent_can_use(711) then
-				-- 	windower.chat.input('/ma "Restoral" <me>')
-				-- -- else
-				-- -- 	windower.add_to_chat(207, "No spells available to cast!")
-				-- end
+				if spell_recasts[593] and spell_recasts[593] < spell_latency and silent_can_use(593) then
+					windower.chat.input('/ma "Magic Fruit" <me>')
+				elseif spell_recasts[690] and spell_recasts[690] < spell_latency and silent_can_use(690) then
+					windower.chat.input('/ma "White Wind" <me>')
+				elseif spell_recasts[658] and spell_recasts[658] < spell_latency and silent_can_use(658) then
+					windower.chat.input('/ma "Plenilune Embrace" <me>')
+				elseif spell_recasts[711] and spell_recasts[711] < spell_latency and silent_can_use(711) then
+					windower.chat.input('/ma "Restoral" <me>')
+				else
+					windower.add_to_chat(207, "No spells available to cast!")
+				end
 				tickdelay = os.clock() + 1.1
 
 			end
@@ -902,24 +916,26 @@ function job_self_command(commandArgs, eventArgs)
 	local abil_recasts = windower.ffxi.get_ability_recasts()
 	local spell_recasts = windower.ffxi.get_spell_recasts()
 	local player = windower.ffxi.get_player()
+	local player_spells = windower.ffxi.get_player().spells
     if commandArgs[1]:lower() == 'heal' then
 		if spell_recasts and spell_latency then
 			local hpp = player.hpp or 100 
-				if spell_recasts[593] and spell_recasts[593] < spell_latency and silent_can_use(593) then
-					windower.chat.input('/ma "Magic Fruit" <me>')
-				elseif spell_recasts[690] and spell_recasts[690] < spell_latency and silent_can_use(690) then
-					windower.chat.input('/ma "White Wind" <me>')
-				elseif spell_recasts[658] and spell_recasts[658] < spell_latency and silent_can_use(658) then
-					windower.chat.input('/ma "Plenilune Embrace" <me>')
-				elseif spell_recasts[711] and spell_recasts[711] < spell_latency and silent_can_use(711) then
-					windower.chat.input('/ma "Restoral" <me>')
-				-- else
-				-- 	windower.add_to_chat(207, "No spells available to cast!")
-				end
-				tickdelay = os.clock() + 1.1
-
+			if spell_recasts[593] and spell_recasts[593] < spell_latency and silent_can_use(593) then
+				windower.chat.input('/ma "Magic Fruit" <me>')
+			elseif spell_recasts[690] and spell_recasts[690] < spell_latency and silent_can_use(690) then
+				windower.chat.input('/ma "White Wind" <me>')
+			elseif spell_recasts[658] and spell_recasts[658] < spell_latency and silent_can_use(658) then
+				windower.chat.input('/ma "Plenilune Embrace" <me>')
+			elseif spell_recasts[711] and spell_recasts[711] < spell_latency and silent_can_use(711) then
+				windower.chat.input('/ma "Restoral" <me>')
+			-- else
+			-- 	windower.add_to_chat(207, "No spells available to cast!")
+			end
+			tickdelay = os.clock() + 1.1
+		else
+			add_to_chat(123,"You don't have a MP ")
 		end
-
+		eventArgs.handled = true
     end
     if commandArgs[1]:lower() == 'curecheat' then
 		if sets.HPDown then

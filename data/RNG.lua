@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
 	-- Load and initialize the include file.
-	include('Sel-Include.lua')
+	include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -94,6 +94,7 @@ function job_setup()
 
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(true,'Use Default Ammo')
+	state.TrueShotMode = M(true,'True Shot Mode')
 	state.Buff.Barrage = buffactive.Barrage or false
 	state.Buff.Camouflage = buffactive.Camouflage or false
 	state.Buff['Double Shot'] = buffactive['Double Shot'] or false
@@ -101,8 +102,8 @@ function job_setup()
 	state.Buff['Velocity Shot'] = buffactive['Velocity Shot'] or false
 	state.HippoMode = M(false, "hippoMode")
 
-	--autows = "Last Stand"
-	--rangedautows = "Last Stand"
+	autows = "Last Stand"
+	rangedautows = "Last Stand"
 	autofood = 'Soy Ramen'
 	statusammo = nil
 	ammostock = 0
@@ -152,7 +153,7 @@ function job_setup()
 						['MagicAccUnlimited'] ="Hauksbok Bolt"}
 	}
 	
-	init_job_states({"Capacity","AutoRuneMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","HippoMode","AutoMedicineMode",},{"AutoTrustMode","AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","RangedMode","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoWSMode","AutoShadowMode","AutoFoodMode","RngHelper","AutoStunMode","AutoDefenseMode","HippoMode","AutoMedicineMode",},{"AutoTrustMode","AutoBuffMode","AutoSambaMode","Weapons","OffenseMode","RangedMode","Weapongun","WeaponskillMode","IdleMode","Passive","RuneElement","TreasureMode",})
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -301,6 +302,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
 				end
             end
         end
+		if state.TrueShotMode.value and sets.TrueShot then
+			equip(sets.TrueShot)
+  		end
         if state.Buff.Barrage and sets.buff.Barrage then
             equip(sets.buff.Barrage)
         end
@@ -497,7 +501,7 @@ function check_ammo_precast(spell, action, spellMap, eventArgs)
 		if sets.weapons[state.Weapons.value].ammo and item_available(sets.weapons[state.Weapons.value].ammo) then
 			equip({ammo=sets.weapons[state.Weapons.value].ammo})
 			disable('ammo')
-		elseif item_available(DefaultAmmo[WeaponType[player.equipment.range]].Default) then
+		elseif WeaponType[player.equipment.range] and DefaultAmmo[WeaponType[player.equipment.range]] and item_available(DefaultAmmo[WeaponType[player.equipment.range]].Default) then
 			equip({ammo=DefaultAmmo[WeaponType[player.equipment.range]].Default})
 		else
 			equip({ammo=empty})
@@ -552,7 +556,7 @@ function job_filter_aftercast(spell, spellMap, eventArgs)
     end
 end
 function job_aftercast(spell, spellMap, eventArgs)
-	if state.UseDefaultAmmo.value and player.equipment.range and DefaultAmmo[WeaponType[player.equipment.range]].Default then
+	if state.UseDefaultAmmo.value and player.equipment.range and WeaponType[player.equipment.range] and DefaultAmmo[WeaponType[player.equipment.range]] and DefaultAmmo[WeaponType[player.equipment.range]].Default then
 		equip({ammo=DefaultAmmo[WeaponType[player.equipment.range]].Default})
 	end
 	if spell.english == "Shadowbind" then

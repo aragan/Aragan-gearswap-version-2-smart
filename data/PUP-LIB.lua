@@ -276,7 +276,7 @@ function setupTextWindow(pos_x, pos_y)
     default_settings.flags.italic = false
     default_settings.padding = 10
     default_settings.text = {}
-    default_settings.text.size = 12
+    default_settings.text.size = 10
     default_settings.text.font = 'Arial'
     default_settings.text.fonts = {}
     default_settings.text.alpha = 255
@@ -454,7 +454,7 @@ function TotalSCalc()
             Hybrid_State = const_stateIdle
         elseif state.PetStyleCycle.value ~= "DD" and state.PetStyleCycle.value ~= "SPAM" then --TANK and auto sets to hybrid to DD since we are not using style DD or SPAM
             Hybrid_State = const_tank
-            handle_set({"IdleMode", "Idle"})
+            handle_set({"IdleMode", "Normal"})
             handle_set({"HybridMode", "DT"})
         end
     --Figures out state when Pet Mode is MAGE
@@ -463,7 +463,9 @@ function TotalSCalc()
             Hybrid_State = const_stateIdle
         else
             Hybrid_State = const_masterOnly --Master Only Offense Mode
-            handle_set({"OffenseMode", "Master"})
+            if state.OffenseMode and state.OffenseMode:contains("Master") then
+                handle_set({"OffenseMode", "Master"})
+            end
         end
     end
 
@@ -474,7 +476,7 @@ end
 --Attempts to determine the Puppet Mode and Style
 function determinePuppetType()
     if not pet or not pet.isvalid then
-        add_to_chat(122, '[PUP-LIB] Pet not active yet, skipping determinePuppetType.')
+        -- add_to_chat(122, '[PUP-LIB] Pet not active yet, skipping determinePuppetType.')
         return
     end
 
@@ -971,9 +973,7 @@ function updatePetStats()
 
 end
 
-windower.register_event(
-    "prerender",
-    function()
+windower.register_event("prerender",function()
 
         updatePetStats()
 

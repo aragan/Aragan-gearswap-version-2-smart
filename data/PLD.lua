@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -98,9 +98,12 @@ end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
+	if player.sub_job == "BLU" then
+		-- send_command('wait 2;aset set tanking')
+        send_command('wait 2;blupldsets set pld') --addon work with sub
+	end
     send_command('lua l PLD-HUD')
     set_dual_wield()
-
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
     state.Buff.Sentinel = buffactive.Sentinel or false
     state.Buff.Rampart = buffactive.Rampart or false
@@ -138,7 +141,7 @@ function job_setup()
 	update_combat_form()  
 
 	update_melee_groups()
-	init_job_states({"Capacity","AutoRuneMode","AutoTankMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","HippoMode","AutoMedicineMode","AutoReraiseMode"},{"AutoTrustMode","AutoBuffMode","AutoSambaMode","Weapons","ShieldMode","OffenseMode","ElementalMode","CastingMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode","TreasureMode",})
+	init_job_states({"Capacity","AutoRuneMode","AutoTankMode","AutoWSMode","AutoShadowMode","AutoFoodMode","AutoNukeMode","AutoStunMode","AutoDefenseMode","HippoMode","AutoMedicineMode","AutoReraiseMode"},{"AutoTrustMode","AutoBuffMode","AutoSambaMode","Weapons","ShieldMode","OffenseMode","ElementalMode","CastingMode","WeaponskillMode","Stance","IdleMode","Passive","RuneElement","TreasureMode",}) --,"PhysicalDefenseMode","MagicalDefenseMode","ResistDefenseMode"
 end
 
 -------------------------------------------------------------------------------------------------------------------
@@ -494,7 +497,6 @@ function handle_elemental(cmdParams)
 
 	if command == 'nuke' or command == 'smallnuke' then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
-	
 		if command == 'nuke' then
 			local tiers = {'Holy II','Holy','Banish II','Banish'}
 			for k in ipairs(tiers) do
@@ -503,16 +505,16 @@ function handle_elemental(cmdParams)
 					return
 				end
 			end
-		else
-			local tiers = {' II',''}
+		elseif command == 'smallnuke' then
+			local tiers = {'Banish II','Banish'}
 			for k in ipairs(tiers) do
-				if spell_recasts[get_spell_table_by_name(data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'').id] < spell_latency and actual_cost(get_spell_table_by_name(data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'')) < player.mp then
-					windower.chat.input('/ma "'..data.elements.nuke_of[state.ElementalMode.value]..''..tiers[k]..'" '..target..'')
+				if spell_recasts[get_spell_table_by_name(tiers[k]).id] < spell_latency and actual_cost(get_spell_table_by_name(tiers[k])) < player.mp then
+					windower.chat.input('/ma "'..tiers[k]..'" '..target..'')
 					return
 				end
 			end
 		end
-		add_to_chat(123,'Abort: All '..data.elements.nuke_of[state.ElementalMode.value]..' nukes on cooldown or or not enough MP.')
+		add_to_chat(123,'Abort: All nukes on cooldown or not enough MP.')
 		
 	elseif command:contains('tier') then
 		local spell_recasts = windower.ffxi.get_spell_recasts()
@@ -591,7 +593,7 @@ function job_status_change(newStatus, oldStatus, eventArgs)
 	end
 	if state.NeverDieMode.value or state.AutoCureMode.value then 
 	    local spell_recasts = windower.ffxi.get_spell_recasts()
-		if being_attacked and player.hpp < 75 and spell_recasts[4] < spell_latency then 
+		if being_attacked and player.hpp < 35 and spell_recasts[4] < spell_latency then 
 			windower.chat.input('/ma "Cure IV" <me>')
 			tickdelay = os.clock() + 1.1
 		end
@@ -855,7 +857,9 @@ end
 
 -- Modify the default melee set after it was constructed.
 function job_customize_melee_set(meleeSet)
-
+	if state.TreasureMode.value == 'Fulltime' then
+		meleeSet = set_combine(meleeSet, sets.TreasureHunter)
+	end
     if state.ExtraDefenseMode.value ~= 'None' then
         meleeSet = set_combine(meleeSet, sets[state.ExtraDefenseMode.value])
 	end
@@ -1214,6 +1218,16 @@ function check_buff()
 		end
 	else
 		return false
+	end
+end
+
+function job_zone_change(new_id,old_id)
+    if data.areas.Abyssea:contains(world.area) or state.Stylenotwingsemode.value then
+		send_command('input /lockstyleset 1;gs c set SkipProcWeapons false;lua u fastcs') --Turns addon on.
+		set_macro_page(6, 5)
+		windower.chat.input('/lockstyleset 1')
+        send_command('gs c update') 
+        style_lock = true
 	end
 end
 

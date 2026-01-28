@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -878,6 +878,23 @@ function check_geo()
 	end
 	return false
 end
+
+
+function user_job_target_change(target)  
+	
+	local target = windower.ffxi.get_mob_by_target('t')
+	local sub= windower.ffxi.get_mob_by_target('st')
+	if not target then return end
+	if target.name == "Leshonn" or target.name == "Gartell" then --test Ironshell Ghast
+		windower.send_command('gs c set ElementalMode Ice')
+		windower.send_command('input /echo ['..target.name..']  Wind hand: 70% Ice, Thunder hand: 70% EarthWind and Thunder hands:  only Ice damage will be effective.')  -- code add by (Aragan)
+	elseif target.name == "Ghatjot" or target.name == "Dhartok" then
+		windower.send_command('gs c set ElementalMode Earth')
+	elseif target.name == "Skomora" or target.name == "Triboulex" then
+		windower.send_command('gs c set ElementalMode Fire')
+	end
+end
+
 
 --[[
 

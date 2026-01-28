@@ -48,7 +48,7 @@
 function get_sets()
 
 	-- Load and initialize the include file.
-	include('Sel-Include.lua')
+	include('Ara-Include.lua')
 
 		--------------------------------------
 	-- Gear for organizer to get
@@ -1168,6 +1168,7 @@ attack staggers the fiend!
 	
 	
 		end
+		-- sortie nms D H Degei Aita
 		if string.find(org, "Flashflood") or string.find(org, "Torrential Pain") then
 			windower.send_command('gs c set ElementalMode Lightning')
 			windower.send_command('input /ma thunder <bt>')

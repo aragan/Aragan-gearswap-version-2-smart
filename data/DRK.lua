@@ -46,8 +46,8 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
-	include('Kate-DefenseDown')
+    include('Ara-Include.lua')
+	include('Ara-DefenseDown')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -1333,12 +1333,12 @@ end
 
 -- windower.register_event('prerender', function()
 --     local now = os.clock()
---     if now - zombie_last_check > 1 then -- كل 1 ثانية
+--     if now - zombie_last_check > 1 then -- Ã™Æ’Ã™â€ž 1 Ã˜Â«Ã˜Â§Ã™â€ Ã™Å Ã˜Â©
 --         zombie_last_check = now
 
 -- 		if state.AutoReraiseMode.value and not buffactive['Reraise'] and (player.hpp < 5 or buffactive['doom']) then
 -- 			equip(sets.Reraise)
--- 			send_command('gs c update') -- يجبر GearSwap يعيد فحص الشروط وتطبيق Zombie gear
+-- 			send_command('gs c update') -- Ã™Å Ã˜Â¬Ã˜Â¨Ã˜Â± GearSwap Ã™Å Ã˜Â¹Ã™Å Ã˜Â¯ Ã™ÂÃ˜Â­Ã˜Âµ Ã˜Â§Ã™â€žÃ˜Â´Ã˜Â±Ã™Ë†Ã˜Â· Ã™Ë†Ã˜ÂªÃ˜Â·Ã˜Â¨Ã™Å Ã™â€š Zombie gear
 --         end
 --     end
 -- end)

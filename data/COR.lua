@@ -56,9 +56,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
-
-
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -82,7 +80,7 @@ function get_sets()
         "Chrono Bullet",
         "Trump Card Case",
         "Trump Card",
-        "Chr. Bul. Pouch", 
+        -- "Chr. Bul. Pouch", 
         "Liv. Bul. Pouch", 
         "Dec. Bul. Pouch",
         "Gyudon",
@@ -132,11 +130,20 @@ function job_setup()
     attack2 = 4000 -- This LUA will equip PDL "high buff" WS sets if the attack value of your TP set (or idle set if WSing from idle) is higher than this value.
     set_dual_wield()
 	-- Whether to use Compensator under a certain threshhold even when weapons are locked.
-	state.CompensatorMode = M{'Never','300','1000','Always'}
+    state.CompensatorMode = M{'Never','300','1000','Always'}
+    -- AutoRA mode (مستقل)
+    --gs c autora -- Toggles AutoRA on and off
+    state.AutoRA = M(false, 'AutoRA')
+    -- gs c haltontp -- Whether to halt AutoRA upon reaching 1000 TP
+    state.HaltOnTp = M(false, 'HaltOnTp')
+    state.AutoRADelay = 1.5
+    autoRA_next = 0
+
 	-- Whether to automatically generate bullets.
 	state.AutoAmmoMode = M(true,'Auto Ammo Mode')
 	state.UseDefaultAmmo = M(false,'Use Default Ammo')
 	state.Buff['Triple Shot'] = buffactive['Triple Shot'] or false
+    state.TrueShotMode = M(true,'True Shot Mode')
 	state.RP = M(false, "Reinforcement Points Mode")  
 	state.WeaponLock = M(false, 'Weapon Lock')
     state.QDMode = M{['description']='Quick Mode','Enhance', 'STP',  'TH'}
@@ -316,7 +323,9 @@ function job_post_midcast(spell, spellMap, eventArgs)
             end
         end
 	end
-
+	if state.TrueShotMode.value and sets.TrueShot then
+		equip(sets.TrueShot)
+  	end
 end
 
 
@@ -410,6 +419,18 @@ windower.register_event('login', function()
 end)
 
 function job_self_command(commandArgs, eventArgs)
+        -- أوامر تحكم AutoRA
+        if commandArgs[1]:lower() == 'autora' then
+            state.AutoRA:toggle()
+            add_to_chat(122, 'AutoRA mode: '..(state.AutoRA.value and 'ON' or 'OFF'))
+            eventArgs.handled = true
+            return
+        elseif commandArgs[1]:lower() == 'haltontp' then
+            state.HaltOnTp:toggle()
+            add_to_chat(122, 'AutoRA HaltOnTp: '..(state.HaltOnTp.value and 'ON' or 'OFF'))
+            eventArgs.handled = true
+            return
+        end
     gearinfo(commandArgs, eventArgs)
 
 	if commandArgs[1]:lower() == 'elemental' and commandArgs[2]:lower() == 'quickdraw' then
@@ -1060,22 +1081,6 @@ function do_bullet_checks(spell, spellMap, eventArgs)
     end
 end
 
-function job_tick()
-	if check_ammo() then return true end
-    if check_buff() then return true end
-    if check_stance() then return true end
-
-    -- if job_buff_change() then return true end
-
-    
-    if state.AutoAbsorttpaspirSpam.value and player.in_combat and player.target.type == "MONSTER" and not moving then
-		if check_tp_mp_lower() then return true end
-			tickdelay = os.clock() + 1.5
-		return true
-	end
-	return false
-end
-
 
 function check_stance()
 	if state.Stance.value ~= 'None' and player.in_combat then
@@ -1127,6 +1132,43 @@ function check_buff()
 	end
 end
 
+--  AutoRA 
+function autoRA_tick()
+    if not state.AutoRA.value then return end
+    local now = os.clock()
+    if now < (autoRA_next or 0) then return end
+    local player = windower.ffxi.get_player()
+    if not player or not player.target_index then return end
+    if state.HaltOnTp.value and player.vitals.tp >= 1000 then
+        add_to_chat(17, 'AutoRA: HALTING AT 1000 TP')
+        state.AutoRA:set(false)
+        return
+    end
+    if player.status == 1 or player.status == 0 then -- Engaged or Idle
+        windower.send_command('input /shoot <t>')
+        autoRA_next = now + state.AutoRADelay
+    end
+end
+
+
+-- job_tick
+local old_job_tick = job_tick
+function job_tick()
+	if check_ammo() then return true end
+    if check_buff() then return true end
+    if check_stance() then return true end
+    if autoRA_tick() then return true end
+    if old_job_tick then return old_job_tick() end
+    -- if job_buff_change() then return true end
+
+    
+    if state.AutoAbsorttpaspirSpam.value and player.in_combat and player.target.type == "MONSTER" and not moving then
+		if check_tp_mp_lower() then return true end
+			tickdelay = os.clock() + 1.5
+		return true
+	end
+	return false
+end
 
 
 buff_spell_lists = {

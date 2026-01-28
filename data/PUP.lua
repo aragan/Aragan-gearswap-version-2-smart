@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 
 	--------------------------------------
 	-- Gear for organizer to get
@@ -65,6 +65,9 @@ function get_sets()
 		"Miso Ramen",
 		"Carbonara",
 		"Silent Oil",
+		"Automat. Oil +1",
+		"Automat. Oil +2",
+		"Automat. Oil +3",
 		"Bean Daifuku",
 		"Panacea",
 		"Sublime Sushi",
@@ -93,6 +96,7 @@ end
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
     include("PUP-LIB.lua")
+
     -- Alt-F10 - Toggles Kiting Mode.
 
     --[[
@@ -246,11 +250,13 @@ function job_setup()
 
 	state.AutoManeuvers = M{['description']='Auto Maneuver List', 'Default','Melee','Ranged','HybridRanged','Tank','LightTank','Magic','Heal','Nuke'}
 	state.AutoPuppetMode = M(false, 'Auto Puppet Mode')
-	state.AutoRepairMode = M(true, 'Auto Repair Mode')
+	state.AutoRepairMode = M(false, 'Auto Repair Mode')
 	state.AutoDeployMode = M(true, 'Auto Deploy Mode')
 	state.AutoPetMode 	 = M(true, 'Auto Pet Mode')
 	state.PetWSGear		 = M(true, 'Pet WS Gear')
 	state.PetEnmityGear	 = M(true, 'Pet Enmity Gear')
+	state.InfoPet	     = M(false, 'InfoPet')
+
     --state.Animators= M{['description']='Animators', 'None','AnimatorP1'}
 
 	state.RP = M(false, "Reinforcement Points Mode")
@@ -258,8 +264,8 @@ function job_setup()
 	state.NoSchereEarringMode = M(false, 'NoSchereEarringMode') 
 
     -- Adjust the X (horizontal) and Y (vertical) position here to adjust the window
-    pos_x = 0
-    pos_y = 0
+    pos_x = 900
+    pos_y = 100
     setupTextWindow(pos_x, pos_y)
     autows = "Victory Smite"
 	autofood = 'Akamochi'
@@ -861,3 +867,188 @@ function job_aftercast(spell, spellMap, eventArgs)
 		end
 	end
 end
+-------------------------------------------------------------------------------------------------------------------
+-- معلومات رأس/فريم الأوتوماتون (تظهر محلياً في الشات فقط عندما يكون المود فعال)
+-------------------------------------------------------------------------------------------------------------------
+
+-- نستخدم متغير عالمي صغير فقط لتفادي تكرار تسجيل الحدث عند إعادة تحميل GearSwap.
+local __pup_auto_info = _G.__pup_auto_info or { job_evt = nil }
+_G.__pup_auto_info = __pup_auto_info
+
+-- ربط الـ Heads بالـ SP Ability التي تشابهها
+local automaton_heads = {
+	["Harlequin Head"]   = "Mighty Strikes",
+	["Sharpshot Head"]   = "Eagle Eye Shot",
+	["Valoredge Head"]   = "Invincible",
+	["Soulsoother Head"] = "Benediction",
+	["Spiritreaver Head"]= "Manafont",
+	["Stormwaker Head"]  = "Chainspell",
+}
+
+-- معلومات الفريم: تأثير المناورة + أسلحة/WS المتاحة
+local automaton_frames = {
+	["Harlequin Frame"] = {
+		influence = "Thunder Maneuver",
+		weaponskills = {
+			{name = "Slapstick",    modifiers = "Thunder Maneuver / 30% STR / 30% DEX"},
+			{name = "Knockout",     modifiers = "Wind Maneuver / 100% AGI"},
+			{name = "Magic Mortar", modifiers = "Light Maneuver"},
+		},
+	},
+	["Sharpshot Frame"] = {
+		influence = "Fire Maneuver",
+		weaponskills = {
+			{name = "Arcuballista",     modifiers = "Fire Maneuver / 50% DEX"},
+			{name = "Daze",            modifiers = "Thunder Maneuver / 100% DEX"},
+			{name = "Armor Piercer",   modifiers = "Dark Maneuver / 60% DEX"},
+			{name = "Armor Shatterer", modifiers = "Wind Maneuver / 50% DEX"},
+		},
+	},
+	["Valoredge Frame"] = {
+		influence = "Fire Maneuver",
+		weaponskills = {
+			{name = "Chimera Ripper",  modifiers = "Fire Maneuver / 50% STR"},
+			{name = "String Clipper",  modifiers = "Thunder Maneuver / 30% STR / 30% DEX"},
+			{name = "Cannibal Blade",  modifiers = "Dark Maneuver / 100% MND"},
+			{name = "Bone Crusher",    modifiers = "Light Maneuver / 60% VIT"},
+			{name = "String Shredder", modifiers = "Thunder Maneuver / 50% VIT"},
+		},
+	},
+	["Soulsoother Frame"] = {
+		influence = "Light Maneuver",
+		weaponskills = {},
+	},
+	["Spiritreaver Frame"] = {
+		influence = "Dark Maneuver",
+		weaponskills = {},
+	},
+	["Stormwaker Frame"] = {
+		influence = "Thunder Maneuver",
+		weaponskills = {
+			{name = "Slapstick",    modifiers = "Thunder Maneuver / 30% STR / 30% DEX"},
+			{name = "Knockout",     modifiers = "Wind Maneuver / 100% AGI"},
+			{name = "Magic Mortar", modifiers = "Light Maneuver"},
+		},
+	},
+}
+
+local function print_automaton_head_frame()
+	if not player or player.main_job ~= 'PUP' then return end
+	if not pet or not pet.isvalid then return end
+	if not state.InfoPet.value then return end
+
+	local head  = pet.head
+	local frame = pet.frame
+	if not head or not frame then return end
+
+	local sp = automaton_heads[head]
+	if sp then
+		windower.chat.input(('/echo [PUP] Head: %s | SP: %s'):format(head, sp))
+	else
+		windower.chat.input(('/echo [PUP] Head: %s'):format(head))
+	end
+
+	local f = automaton_frames[frame]
+	if f then
+		windower.chat.input(('/echo [PUP] Frame: %s | Maneuver Influence: %s'):format(frame, f.influence or 'N/A'))
+
+		if f.weaponskills and #f.weaponskills > 0 then
+			local list = {}
+			for _, ws in ipairs(f.weaponskills) do
+				list[#list+1] = ('%s (%s)'):format(ws.name, ws.modifiers)
+			end
+			windower.chat.input(('/echo [PUP] Automaton WS: %s'):format(table.concat(list, ', ')))
+		else
+			windower.chat.input('/echo [PUP] Automaton WS: (none)')
+		end
+	else
+		windower.chat.input(('/echo [PUP] Frame: %s'):format(frame))
+	end
+end
+
+
+-- ربط الطباعة بـ Activate وبـ تغيّر الـ Pet (Summon/Change)
+-- ملاحظة: هذا يظهر محلياً لك فقط عبر add_to_chat.
+
+-- نخلي الـ trigger "متجدد" بعد كل Reload بدون تكديس Wrappers
+__pup_auto_info.last_print_clock = __pup_auto_info.last_print_clock or 0
+__pup_auto_info.print_fn = print_automaton_head_frame
+
+__pup_auto_info.trigger_print = function(delay)
+	local now = os.clock()
+	if (now - (__pup_auto_info.last_print_clock or 0)) < 0.5 then
+		return
+	end
+	__pup_auto_info.last_print_clock = now
+
+	if coroutine and coroutine.schedule then
+		coroutine.schedule(function()
+			if __pup_auto_info.print_fn then
+				__pup_auto_info.print_fn()
+			end
+		end, delay or 0.3)
+	else
+		if __pup_auto_info.print_fn then
+			__pup_auto_info.print_fn()
+		end
+	end
+end
+
+local function wrap_once(func_name, key_prefix, trigger_delay)
+	local current = _G[func_name]
+	if type(current) ~= 'function' then return end
+
+	local wrapper_key = key_prefix .. "_wrapper"
+	local base_key    = key_prefix .. "_base"
+
+	-- إذا لم يكن Wrapper مثبت الآن (أو تم استبداله بعد Reload)، ثبته من جديد
+	if current ~= __pup_auto_info[wrapper_key] then
+		__pup_auto_info[base_key] = current
+
+		__pup_auto_info[wrapper_key] = function(...)
+			local base = __pup_auto_info[base_key]
+			if base and base ~= __pup_auto_info[wrapper_key] then
+				base(...)
+			end
+
+			-- pet-change wrappers تستخدم trigger_delay مباشرة
+			if trigger_delay then
+				local args = {...}
+				local gain = args[2]
+				if gain then
+					__pup_auto_info.trigger_print(trigger_delay)
+				end
+			end
+		end
+
+		_G[func_name] = __pup_auto_info[wrapper_key]
+	end
+end
+
+-- (1) Activate: نلف job_aftercast ونفحص اسم الـ JA
+do
+	local current = _G.job_aftercast
+	if current ~= __pup_auto_info.aftercast_wrapper then
+		__pup_auto_info.aftercast_base = current
+
+		__pup_auto_info.aftercast_wrapper = function(spell, action, spellMap, eventArgs)
+			local base = __pup_auto_info.aftercast_base
+			if type(base) == 'function' and base ~= __pup_auto_info.aftercast_wrapper then
+				base(spell, action, spellMap, eventArgs)
+			end
+
+			if spell and spell.english == 'Activate' and not spell.interrupted then
+				-- نعطي وقت بسيط حتى يتم تحديث pet/head/frame داخل GearSwap
+				__pup_auto_info.trigger_print(0.6)
+			end
+		end
+
+		_G.job_aftercast = __pup_auto_info.aftercast_wrapper
+	end
+end
+
+-- (2) تغيّر الـ Pet: غطِّ كل الاحتمالات (Sel/Mote) بدون تكرار مزعج (فيه throttle فوق)
+wrap_once('job_pet_change',  'job_pet', 0.3)
+wrap_once('pet_change',      'pet',     0.3)
+wrap_once('user_pet_change', 'user_pet',0.3)
+

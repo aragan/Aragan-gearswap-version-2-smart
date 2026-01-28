@@ -69,7 +69,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	send_command('lua l sch-hud')
 -- script for auto sc
 	include('SCH_soloSC.lua')
@@ -111,7 +111,7 @@ end
 function job_setup()
 	set_dual_wield()
 
-	--include('Sel-TreasureHunte.lua')
+	--include('Ara-TreasureHunte.lua')
     LowTierNukes = S{'Stone', 'Water', 'Aero', 'Fire', 'Blizzard', 'Thunder',
         'Stone II', 'Water II', 'Aero II', 'Fire II', 'Blizzard II', 'Thunder II',
         'Stonega', 'Waterga', 'Aeroga', 'Firaga', 'Blizzaga', 'Thundaga'}
@@ -173,6 +173,19 @@ function job_filter_pretarget(spell, spellMap, eventArgs)
 	local party = windower.ffxi.get_party()
 	local in_party = (party.count or 0) > 1
 
+	if spell.english == 'Kaustra'
+	and state.TabulaRasaMode.value              
+	and spell.skill == 'Elemental Magic'         
+	and buffactive['Tabula Rasa']                
+	and not buffactive['Ebullience']             
+	and abil_recasts[233]                        
+	and abil_recasts[233] < spell_latency        
+	and not silent_check_amnesia()              
+    then
+	cast_delay(1.1)
+	windower.chat.input('/ja "Ebullience" <me>')
+	tickdelay = os.clock() + 1.1
+    end
 	if (spell.english == 'Regen V' or spell.english == 'Phalanx' or spell.english == 'Stoneskin' or spell.english == 'Embrava') and state.AutoBuffAOEMode.value and in_party and not buffactive["Dark Arts"] and (data.areas.cities:contains(world.area) or data.areas.adoulin:contains(world.area)) and get_current_stratagem_count() > 1 then --(data.areas.cities:contains(world.area) or data.areas.adoulin:contains(world.area)) and
 		cast_delay(2.1)
 		windower.chat.input('/ja "Accession" <me>')
@@ -1924,9 +1937,10 @@ AEBurst = false
 
 if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
 
-    windower.raw_register_event('action', function(act)
-        for _, target in pairs(act.targets) do
-            local battle_target = windower.ffxi.get_mob_by_target("t")
+	windower.raw_register_event('action', function(act)
+		if not act or not act.targets then return end
+		for _, target in pairs(act.targets) do
+			local battle_target = windower.ffxi.get_mob_by_target("t")
             if battle_target ~= nil and target.id == battle_target.id then
                 for _, action in pairs(target.actions) do
                     if action.add_effect_message > 287 and action.add_effect_message < 302 then
@@ -2029,6 +2043,7 @@ end
 windower.register_event('incoming text',function(org)     
 
 	--Sortie 	--Vagary
+	-- sortie nms D H Degei Aita
 	if string.find(org, "Flaming Kick") or string.find(org, "Demonfire") then
 		windower.send_command('gs c set ElementalMode water')
 	end
@@ -2048,6 +2063,59 @@ windower.register_event('incoming text',function(org)
 		windower.send_command('gs c set ElementalMode Ice')
 	end
 end)
+
+local already_announced_by_name = already_announced_by_name or {}
+
+function user_job_target_change(target)  
+	
+	local target = windower.ffxi.get_mob_by_target('t')
+	local sub= windower.ffxi.get_mob_by_target('st')
+	if not target then return end
+	if target.name == "Leshonn" or target.name == "Gartell" then --test Ironshell Ghast
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Ice')
+		windower.send_command('input /echo ['..target.name..']  Wind hand: 70% Ice, Thunder hand: 70% EarthWind and Thunder hands:  only Ice damage will be effective.')  -- code add by (Aragan)
+	elseif target.name == "Ghatjot" or target.name == "Dhartok" then
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Earth')
+	elseif target.name == "Skomora" or target.name == "Triboulex" then
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Fire')
+	end
+	-- windower.send_command('@input /echo NAKUULAS WEAK ELEMENT:  Bztavian=Ice  Rockfin=Thunder  Gabbrath=Water  Yggdreant=Wind  Waktza=Earth  Cehuetzi=Fire')
+
+	if target.name == "Bztavian"  then --test Ironshell Ghast
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Ice')
+		windower.send_command('@input /echo Bztavian = WEAK ELEMENT Ice')
+	elseif target.name == "Waktza" then
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Earth')
+		windower.send_command('@input /echo Waktza = WEAK ELEMENT Earth')
+	elseif target.name == "Cehuetzi" then
+	already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Fire')
+		windower.send_command('@input /echo Cehuetzi = WEAK ELEMENT Fire')
+	elseif target.name == "Rockfin" then
+		already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Lightning')
+		windower.send_command('@input /echo Rockfin = WEAK ELEMENT Thunder')
+
+	elseif target.name == "Gabbrath" then
+	already_announced_by_name[target.name] = true
+		windower.send_command('gs c set ElementalMode Water')
+		windower.send_command('@input /echo Gabbrath = WEAK ELEMENT Water')
+	elseif target.name == "Yggdreant" then
+		already_announced_by_name[target.name] = true
+	windower.send_command('gs c set ElementalMode Wind')
+	windower.send_command('@input /echo Gabbrath = WEAK ELEMENT Wind')
+	
+	-- windower.send_command('@input /echo NAKUULAS WEAK ELEMENT:  Bztavian=Ice  Rockfin=Thunder  Gabbrath=Water  Yggdreant=Wind  Waktza=Earth  Cehuetzi=Fire')
+	-- already_announced_by_name = true
+
+	end
+end
+
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat

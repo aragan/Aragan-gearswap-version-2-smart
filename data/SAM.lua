@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -703,7 +703,7 @@ function check_hasso()
 		
 		local abil_recasts = windower.ffxi.get_ability_recasts()
 		
-		if state.Stance.value == 'Hasso' and not buffactive['Hasso'] and abil_recasts[138] < latency then
+		if (player.status == 'Engaged' or player.in_combat or being_attacked) and state.Stance.value == 'Hasso' and not buffactive['Hasso'] and abil_recasts[138] < latency then
             windower.chat.input('/ja "Hasso" <me>')
             tickdelay = os.clock() + 1.1
             return true

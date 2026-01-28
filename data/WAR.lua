@@ -46,8 +46,8 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
-	include('Kate-DefenseDown')
+    include('Ara-Include.lua')
+	include('Ara-DefenseDown')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------

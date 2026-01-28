@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -147,6 +147,50 @@ end
 
 function job_filtered_action(spell, eventArgs)
 
+	if spell.type == 'WeaponSkill' then
+		local available_ws = S(windower.ffxi.get_abilities().weapon_skills)
+		if available_ws:contains(160) then
+			if spell.english == "Savage Blade" then
+				windower.chat.input('/ws "Black Halo" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Shining Blade" then
+				windower.chat.input('/ws "Shining Strike" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Flat Blade" then
+				windower.chat.input('/ws "Brainshaker" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Chant Du Cygne" then
+				windower.chat.input('/ws "True Strike" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Sanguine Blade" then
+				windower.chat.input('/ws "Starlight" <me>')
+				cancel_spell()
+				eventArgs.cancel = true
+			end
+		elseif available_ws:contains(16) then
+			if spell.english == "Savage Blade" then
+				windower.chat.input('/ws "Exenterator" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Circle Blade" then
+				windower.chat.input('/ws "Aeolian Edge" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Chant Du Cygne" then
+				windower.chat.input('/ws "Evisceration" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			elseif spell.english == "Sanguine Blade" then
+				windower.chat.input('/ws "Energy Drain" '..spell.target.raw)
+				cancel_spell()
+				eventArgs.cancel = true
+			end		
+		end
+	end
 end
 
 function job_pretarget(spell, spellMap, eventArgs)
@@ -310,7 +354,22 @@ function job_post_midcast(spell, spellMap, eventArgs)
 		end
     end
 	if spell.skill == 'Enfeebling Magic' and buffactive['Saboteur'] then
-		equip(sets.Saboteur)
+		equip(sets.buff.Saboteur)
+	elseif sets.buff.Stymie then
+		equip(sets.buff.Stymie)
+
+		-- if spell.skill == 'Enfeebling Magic' then
+		-- if state.Buff.Stymie then
+		-- 	if sets.midcast[spell.english] and sets.midcast[spell.english].Stymie then
+		-- 		equip(sets.midcast[spell.english].Stymie)
+		-- 	elseif sets.Buff.Stymie then
+		-- 		equip(sets.Buff.Stymie)
+		-- 	end
+		-- end
+
+		-- if state.Buff.Saboteur then
+		-- 	equip(sets.buff.Saboteur)
+		-- end
 	elseif spell.skill == 'Enfeebling Magic' and state.Enfeeb.Value == 'None' then
 		equip(sets.midcast['Enfeebling Magic'])
 	elseif spell.skill == 'Enfeebling Magic' and state.Enfeeb.Value == 'Potency' then
@@ -1325,7 +1384,16 @@ function user_job_target_change(target)
 		windower.send_command('input /macro book 22; input /macro set 1;gs c set ElementalMode Lightning;gs c set AutoWSRestore true;gs c set AutoWSMode true;gs c set OffenseMode STP;gs c set Passive Enspellhand;gs c Weapons DualRedLotus;gs c set TreasureMode Tag;gs c set BarStatus Barpetrify;gs c set GainSpell Gain-INT;exec trustshinryu.txt;')
 		-- set_macro_page(22, 1)
 	    end
+		if target.name == "Leshonn" or target.name == "Gartell" then --test Ironshell Ghast
+			windower.send_command('gs c set ElementalMode Ice')
+			windower.send_command('input /echo ['..target.name..']  Wind hand: 70% Ice, Thunder hand: 70% EarthWind and Thunder hands:  only Ice damage will be effective.')  -- code add by (Aragan)
+        elseif target.name == "Ghatjot" or target.name == "Dhartok" then
+			windower.send_command('gs c set ElementalMode Earth')
+		elseif target.name == "Skomora" or target.name == "Triboulex" then
+			windower.send_command('gs c set ElementalMode Fire')
+		end
 	end
+
 end
 
 	
@@ -1346,7 +1414,7 @@ windower.register_event('prerender', function()
 			if target and target.is_npc and target.hpp <= 1 and not low_hp_nm_triggered then
 				low_hp_nm_triggered = true
 				state.TreasureMode:set('Fulltime')
-				add_to_chat(123, 'NM HP ≤ 1% - Equipped low HP set.')
+				add_to_chat(123, 'NM HP Ã¢â€°Â¤ 1% - Equipped low HP set.')
 			end
 		end
     end

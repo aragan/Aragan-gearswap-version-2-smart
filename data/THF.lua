@@ -60,7 +60,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
     --------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -106,7 +106,7 @@ function job_setup()
     state.Buff['Feint'] = buffactive['Feint'] or false
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
 
-	autows = "Rudra's Storm"
+	autows = "Seraph Blade"
 	rangedautows = "Last Stand"
 	autofood = 'Soy Ramen'
 	
@@ -418,11 +418,11 @@ end
 function job_customize_idle_set(idleSet)
     local abil_recasts = windower.ffxi.get_ability_recasts()
 
-    if not data.areas.cities:contains(world.area) and not (buffactive['Sneak'] or buffactive['Invisible'] or buffactive['Flee']) and moving and not player.in_combat and abil_recasts[62] < latency then 
-        windower.chat.input('/ja "Flee" <me>')
-        tickdelay = os.clock() + 10.1
+    -- if not data.areas.cities:contains(world.area) and not (buffactive['Sneak'] or buffactive['Invisible'] or buffactive['Flee']) and moving and not player.in_combat and abil_recasts[62] < latency then 
+    --     windower.chat.input:schedule(10,'/ja "Flee" <me>')
+    --     tickdelay = os.clock() + 10.1
         
-    end
+    -- end
     -- if (player.in_combat or being_attacked) and (state.IdleMode.current:contains('Normal') or state.IdleMode.current:contains('Refresh')) then
     --     idleSet = set_combine(idleSet, sets.idle.PDT)
     -- end
@@ -518,7 +518,7 @@ end
 
 -- Called by the 'update' self-command.
 function job_update(cmdParams, eventArgs)
-     th_update(cmdParams, eventArgs)
+    --  th_update(cmdParams, eventArgs)
 	update_melee_groups()
 end
 

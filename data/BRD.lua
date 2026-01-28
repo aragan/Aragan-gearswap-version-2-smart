@@ -67,7 +67,8 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
+	include('autosongset.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -131,6 +132,9 @@ function job_setup()
 	state.Buff['Aftermath: Lv.3'] = buffactive['Aftermath: Lv.3'] or false
     state.Buff['Pianissimo'] = buffactive['Pianissimo'] or false
 	state.Buff['Nightingale'] = buffactive['Nightingale'] or false
+	state.Buff['Soul Voice'] =  buffactive['Soul Voice'] or false
+	state.Buff['Clarion Call'] = buffactive['Clarion Call'] or false
+	
 	state.RecoverMode = M('35%', '60%', 'Always', 'Never')
     state.HippoMode = M(false, "Hippo")
 
@@ -165,11 +169,12 @@ function job_setup()
 	state.Songset = M{['description']='Songset','None','seg','seg4','shinryu','shinryu4','mboze','mboze2', 'xevioso', 'kalunga', 'ngai','arebati', 'ongo', 'bumba',
 		'haste','haste4', 'magic',  'ph','sortie4', 'ody4', 'ody','sortie','Aminon',} -- 'aria',
 	--It is from the highest secrets.
-	state.Singer = M{['description']='Singer','Cuijatender','seg','seg4','seg2','shinryu','shinryu4','mboze','mboze2', 'xevioso', 'kalunga', 'ngai','arebati', 'ongo', 'bumba',
+	state.Singer = M{['description']='Singer','Dealan-dhe4','seg','seg4','seg2','shinryu','shinryu4','mboze','mboze2', 'xevioso', 'kalunga', 'ngai','arebati', 'ongo', 'bumba',
 		'haste','haste4', 'magic','peach','ambuscade','ambuscade4','meleeacc', 'ph', 'ody4', 'ody','sortie4','sortie','Aminon',} --'aria',
 		
+	state.autosongset = M{['description']='autosongset','Cuijatender','seg','seg4','seg2','shinryu','shinryu4','mboze','mboze2', 'xevioso', 'kalunga', 'ngai','arebati', 'ongo', 'bumba',
+		'haste','haste4', 'magic','peach','ambuscade','ambuscade4','meleeacc', 'ph', 'ody4', 'ody','sortie4','sortie','Aminon',} --'aria',
 		
-
 
 	Haste = 0
 	DW_needed = 0
@@ -1324,6 +1329,45 @@ function check_buffup()
 		return false
 	end
 end
+
+-- ✅ الإعداد
+local cheer_slot = 3      -- رقم الأغنية التي تريدها بـ Miracle Cheer
+local song_slot  = 0      -- عدّاد للأغاني الصديقة فقط
+
+-- أغنية “صديقة” = لا تستهدف العدو (نتجاهل ديبافات العدو)
+local function is_friendly_song(spell)
+    return spell and spell.type == 'BardSong' and not (spell.targets and spell.targets.Enemy)
+end
+
+-- ⚡ يشتغل فقط لو ExtraSongsMode == 'Cheer'
+function job_precast(spell, spellMap, eventArgs)
+    -- منطقك الأصلي هنا...
+
+    if spell.action_type == 'Magic' and spell.type == 'BardSong' then
+        -- نفعّل منطق الأغنية الثالثة فقط لو المستخدم اختار وضع Cheer يدويًا
+        if state.ExtraSongsMode and state.ExtraSongsMode.value == 'Cheer' and is_friendly_song(spell) then
+            -- عدّاد 1..8 (غيّر 8 إذا تحب سقفًا آخر)
+            song_slot = (song_slot % 8) + 1
+
+            if song_slot == cheer_slot then
+                -- البس ستّ الـ Cheer (تتضمن range="Miracle Cheer")
+                if sets.precast and sets.precast.FC and sets.precast.FC.Cheer then
+                    equip(sets.precast.FC.Cheer)
+                else
+                    -- بديل آمن لو ما عندك ستّ معرفة:
+                    -- equip({range="Miracle Cheer"})
+                end
+            end
+        end
+        -- إذا ExtraSongsMode ليست Cheer: لا نفعل شيء خاص، تمشي أغانيك كالمعتاد
+    end
+end
+
+-- (اختياري) صفّر العدّاد عند تغيير الزون حتى يبدأ العدّ من جديد
+function job_zone_change(new_id, old_id)
+    song_slot = 0
+end
+
 
 buff_spell_lists = {
 	Auto = {--Options for When are: Always, Engaged, Idle, OutOfCombat, Combat

@@ -46,7 +46,7 @@
 -- Initialization function for this job file.
 function get_sets()
     -- Load and initialize the include file.
-    include('Sel-Include.lua')
+    include('Ara-Include.lua')
 	--------------------------------------
 	-- Gear for organizer to get
 	--------------------------------------
@@ -1485,7 +1485,7 @@ end)
 
 function job_zone_change(new_id,old_id)
     if data.areas.Abyssea:contains(world.area) or state.Stylenotwingsemode.value then
-		send_command('input /lockstyleset 1;ept show;gs c set SkipProcWeapons false;lua u fastcs') --Turns addon on.
+		send_command('input /lockstyleset 1;gs c set SkipProcWeapons false;lua u fastcs') --Turns addon on.
 		set_macro_page(6, 5)
 		windower.chat.input('/lockstyleset 1')
         send_command('gs c update') 
