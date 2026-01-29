@@ -1784,25 +1784,36 @@ function select_default_macro_book()
         set_macro_page(1, 20)
     end
 end
-
 function user_job_lockstyle()
-	if state.Stylenotwingsemode.value  then
-        windower.chat.input:schedule(6,'/lockstyleset 1')
-        return
-    end
+	if state.Stylenotwingsemode.value then
+		windower.chat.input:schedule(6, '/lockstyleset 1')
+		return
+	end
 
+	local main_id = player.equipment.main and item_name_to_id(player.equipment.main)
+	local sub_id  = player.equipment.sub and item_name_to_id(player.equipment.sub)
+	local sub_item = sub_id and res.items[sub_id]
 	local sub_is_shield = (sub_item and (sub_item.shield_size ~= nil or sub_item.skill == 0))
-    
-	if data.areas.Abyssea:contains(world.area) or state.Stylenotwingsemode.value or world.area:contains('Beaucedine') or world.area:contains('Dynamis - Xarcabard') then 
+
+	if data.areas.Abyssea:contains(world.area)
+		or state.Stylenotwingsemode.value
+		or world.area:contains('Beaucedine')
+		or world.area:contains('Dynamis - Xarcabard') then
 		windower.chat.input('/lockstyleset 1')
-		send_command('gs c update') 
+		send_command('gs c update')
 		style_lock = true
-	elseif res.items[item_name_to_id(player.equipment.main)].skill == 3 then --Sword in main hand.
-		if res.items[item_name_to_id(player.equipment.sub)].skill == 3 then --Sword/Sword.
+	elseif main_id and res.items[main_id].skill == 3 then
+		if sub_id and res.items[sub_id].skill == 3 then
 			windower.chat.input('/lockstyleset 152')
-		end 
+		elseif sub_is_shield then
+			windower.chat.input('/lockstyleset 177')
+		else
+			windower.chat.input('/lockstyleset 1')
+		end
 	elseif sub_is_shield then
-		windower.chat.input('/lockstyleset 177') --shield style
+		windower.chat.input('/lockstyleset 177')
+	else
+		windower.chat.input('/lockstyleset 1')
 	end
 end
 

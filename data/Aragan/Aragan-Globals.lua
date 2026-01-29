@@ -370,6 +370,8 @@ lua r gearswap
 AutoCleanupMode add more items
 handle_killstatue
 //get *crystal all
+//get *Alexandrite all
+
 //put *crystal satchel all
 //tradenpc 80 "earth crystal"
 //tradenpc 80 "Wind crystal"
@@ -884,7 +886,7 @@ send_command('alias ambupup repeater command input /yell Ambuscade (VDV1 with SP
 send_command('alias ambualx repeater command ambu buy hallmarks 99 Alex;repeater repeat; repeater delay 5')
 send_command('alias ambualx2 repeater command ambu buy gallantry 99 Alex;repeater repeat; repeater delay 5')
 -- auto tradenpc Alexandrite 
-send_command('alias tradealx repeater command tradenpc 792 alexandrite;repeater repeat; repeater delay 5')
+send_command('alias tradealx get *Alexandrite all;repeater command tradenpc 792 alexandrite;repeater repeat; repeater delay 5')
 -- auto tradenpc Beitetsu 
 send_command('alias tradeBeitetsu repeater command tradenpc 792 Beitetsu;repeater repeat; repeater delay 5')
 -- auto tradenpc Riftborn Boulder 
@@ -2420,7 +2422,7 @@ function user_zone_change(new_id,old_id)
 		send_command('wait 2;gs c reset DefenseMode;gs c reset IdleMode;') --Turns addon off on show hide. stats=craftstats addon
 	end
 
-	if (data.areas.assault:contains(world.area) or data.areas.old_Dynamis:contains(world.area)) or world.area:contains('Dynamis - Valkurm') or world.area:contains('Dynamis - Qufim') or world.area:contains('Nashmau') or world.area:contains('Hazhalm Testing Grounds') or world.area:contains('Caedarva Mire') or world.area:contains('Alzadaal Undersea Ruins') then
+	if data.areas.assault:contains(world.area) or data.areas.old_Dynamis:contains(world.area) or world.area:contains('Dynamis - Valkurm') or world.area:contains('Dynamis - Qufim') or world.area:contains('Nashmau') or world.area:contains('Hazhalm Testing Grounds') or world.area:contains('Caedarva Mire') or world.area:contains('Alzadaal Undersea Ruins') then
 		send_command('gs c reset DefenseMode;gs c reset IdleMode;gs c set Stylenotwingsemode on;gs c update') 
 		send_command('gs c update') 
         style_lock = true
@@ -2508,7 +2510,23 @@ local stylelock_zones = S{
 	'Bhaflau Remnants',          -- Salvage
 	'Silver Sea Remnants',       -- Salvage
 	'Zhayolm Remnants',          -- Salvage
-	'Aht Urhgan Whitegate'
+	'Aht Urhgan Whitegate',
+	'Dynamis - Valkurm',          -- Dynamis (keeps style lock on)
+"Dynamis - San d'Oria",
+"Dynamis - Bastok",
+"Dynamis - Windurst",
+"Dynamis - Jeuno",
+"Dynamis - Beaucedine",
+"Dynamis - Xarcabard",
+"Dynamis - Buburimu",
+"Dynamis - Qufim",
+"Dynamis - Valkurm",
+"Dynamis - Tavnazia",
+"Beaucedine Glacier", 
+"Beaucedine Glacier (S)", 
+"Xarcabard (S)",
+"Xarcabard",
+"Buburimu",
 }
 
 -- Function to check the zone name and enable/disable Stylenotwingsemode as needed
